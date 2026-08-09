@@ -11,6 +11,16 @@ export interface IntervalRow {
   relativeFrequency: number;
 }
 
+export interface SampleSummary {
+  /** Объём выборки. */
+  count: number;
+  minimum: number;
+  maximum: number;
+  mean: number;
+  median: number;
+  range: number;
+}
+
 /** Внутреннее точное представление конечной десятичной дроби: value = units / scale. */
 interface ScaledDecimal {
   units: bigint;
@@ -108,6 +118,61 @@ export function range(values: readonly number[]): number {
   const maximum = units.reduce((best, item) => (item > best ? item : best), units[0]!);
   const minimum = units.reduce((best, item) => (item < best ? item : best), units[0]!);
   return scaledToNumber(maximum - minimum, scale, 'Размах');
+}
+
+/** Все характеристики одной выборки сразу: объём, границы, центр и разброс. */
+export function sampleSummary(values: readonly number[]): SampleSummary {
+  assertNonEmptySample(values, 'Сводка по данным');
+  const { units, scale } = toCommonScale(values, 'Сводка по данным');
+  const largest = units.reduce((best, item) => (item > best ? item : best), units[0]!);
+  const smallest = units.reduce((best, item) => (item < best ? item : best), units[0]!);
+  return {
+    count: values.length,
+    minimum: scaledToNumber(smallest, scale, 'Наименьшее значение'),
+    maximum: scaledToNumber(largest, scale, 'Наибольшее значение'),
+    mean: mean(values),
+    median: median(values),
+    range: range(values),
+  };
+}
+
+/**
+ * Верхняя граница шкалы диаграммы: ближайшее «круглое» число вида
+ * 1, 2, 2{,}5 или 5, умноженное на степень десяти, не меньшее максимума данных.
+ */
+export function chartAxisMaximum(maximum: number): number {
+  assertFiniteNumber(maximum, 'Максимум данных');
+  if (maximum <= 0) return 1;
+  const power = 10 ** Math.floor(Math.log10(maximum));
+  for (const factor of [1, 2, 2.5, 5]) {
+    const candidate = roundTo(factor * power, 9);
+    if (candidate >= maximum) return candidate;
+  }
+  return roundTo(10 * power, 9);
+}
+
+/**
+ * Частоты исходов опыта с номерами от 1 до outcomeCount.
+ * В отличие от таблицы частот, ни один исход не пропадает: не выпавший
+ * исход остаётся в таблице с частотой 0 — иначе диаграмма обманывает.
+ */
+export function countOutcomes(outcomes: readonly number[], outcomeCount: number): FrequencyRow[] {
+  if (!Array.isArray(outcomes)) throw new TypeError('Нужен массив исходов серии');
+  if (!Number.isInteger(outcomeCount) || outcomeCount < 2 || outcomeCount > 1_000) {
+    throw new RangeError('Число исходов должно быть целым от 2 до 1000');
+  }
+  const counts = new Array<number>(outcomeCount).fill(0);
+  outcomes.forEach((outcome, index) => {
+    if (!Number.isInteger(outcome) || outcome < 1 || outcome > outcomeCount) {
+      throw new RangeError(`Исход №${index + 1} должен быть целым числом от 1 до ${outcomeCount}`);
+    }
+    counts[outcome - 1] = (counts[outcome - 1] ?? 0) + 1;
+  });
+  return counts.map((count, index) => ({
+    value: index + 1,
+    count,
+    relativeFrequency: outcomes.length === 0 ? 0 : count / outcomes.length,
+  }));
 }
 
 /** Таблица частот: различные значения по возрастанию, абсолютная и относительная частота. */

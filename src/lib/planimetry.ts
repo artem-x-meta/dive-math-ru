@@ -29,6 +29,20 @@ export interface TriangleSides {
   readonly ca: number;
 }
 
+/**
+ * Полный набор данных треугольника: положение вершин, все три угла и все три
+ * стороны. Вычисляется из основания и двух прилежащих углов — набора, который
+ * по признаку УСУ задаёт треугольник однозначно.
+ */
+export interface TriangleLayout {
+  readonly a: PlanimetryPoint;
+  readonly b: PlanimetryPoint;
+  readonly c: PlanimetryPoint;
+  /** Углы при вершинах A, B и C в градусах. */
+  readonly angles: readonly [number, number, number];
+  readonly sides: TriangleSides;
+}
+
 const ZERO = parseExact(0);
 const NINETY = parseExact(90);
 const STRAIGHT = parseExact(180);
@@ -82,6 +96,27 @@ export function transversalPairAngle(kind: TransversalPairKind, degrees: number)
   if (kind === 'corresponding' || kind === 'alternate') return verticalAngle(degrees);
   if (kind === 'co-interior') return adjacentAngle(degrees);
   throw new RangeError(`Неизвестный вид пары углов: ${String(kind)}`);
+}
+
+/**
+ * Признак параллельности: согласована ли измеренная пара углов при секущей
+ * с параллельностью прямых. Соответственные и накрест лежащие должны быть
+ * равны, односторонние — давать в сумме 180°.
+ */
+export function anglesImplyParallel(kind: TransversalPairKind, first: number, second: number): boolean {
+  const left = assertBetweenZeroAndStraight(first, 'Первый угол');
+  const right = assertBetweenZeroAndStraight(second, 'Второй угол');
+  if (kind === 'corresponding' || kind === 'alternate') return compareExact(left, right) === 0;
+  if (kind === 'co-interior') return compareExact(addExact(left, right), STRAIGHT) === 0;
+  throw new RangeError(`Неизвестный вид пары углов: ${String(kind)}`);
+}
+
+/** Сумма углов выпуклого n-угольника: 180°·(n − 2). */
+export function convexPolygonAngleSum(vertices: number): number {
+  if (!Number.isInteger(vertices) || vertices < 3) {
+    throw new RangeError('У многоугольника должно быть не меньше трёх вершин');
+  }
+  return 180 * (vertices - 2);
 }
 
 /** Сумма двух углов треугольника обязана быть меньше 180°. */
@@ -168,4 +203,78 @@ export function triangleSidesFromBase(baseLength: number, angleA: number, angleB
     bc: (length * Math.sin(toRadians(first))) / sinC,
     ca: (length * Math.sin(toRadians(second))) / sinC,
   };
+}
+
+/**
+ * Треугольник, восстановленный по стороне AB и двум прилежащим углам:
+ * вершины, все углы и все стороны. Ровно те данные, которые нужны чертежу.
+ */
+export function triangleLayout(baseLength: number, angleA: number, angleB: number): TriangleLayout {
+  return {
+    a: { x: 0, y: 0 },
+    b: { x: assertPositiveLength(baseLength, 'Длина основания'), y: 0 },
+    c: triangleApexPoint(baseLength, angleA, angleB),
+    angles: [angleA, angleB, thirdTriangleAngle(angleA, angleB)],
+    sides: triangleSidesFromBase(baseLength, angleA, angleB),
+  };
+}
+
+/**
+ * Равнобедренный треугольник с основанием AB и заданным углом при вершине C.
+ * Углы при основании вычисляются, а не подбираются на глаз.
+ */
+export function isoscelesLayout(baseLength: number, apexDegrees: number): TriangleLayout {
+  const base = isoscelesBaseAngle(apexDegrees);
+  return triangleLayout(baseLength, base, base);
+}
+
+function assertPoint(point: PlanimetryPoint, label: string): PlanimetryPoint {
+  if (
+    typeof point !== 'object' || point === null ||
+    !Number.isFinite(point.x) || !Number.isFinite(point.y)
+  ) {
+    throw new TypeError(`${label} должна задаваться двумя конечными координатами`);
+  }
+  return point;
+}
+
+/** Середина отрезка — точка, равноудалённая от концов и лежащая на отрезке. */
+export function segmentMidpoint(first: PlanimetryPoint, second: PlanimetryPoint): PlanimetryPoint {
+  const start = assertPoint(first, 'Первая точка');
+  const end = assertPoint(second, 'Вторая точка');
+  return { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 };
+}
+
+/**
+ * Поворот точки вокруг центра на заданный угол против часовой стрелки.
+ * Поворот сохраняет все расстояния, поэтому копия фигуры остаётся равной ей.
+ */
+export function rotatePoint(
+  point: PlanimetryPoint,
+  degrees: number,
+  center: PlanimetryPoint = { x: 0, y: 0 },
+): PlanimetryPoint {
+  const source = assertPoint(point, 'Точка');
+  const pivot = assertPoint(center, 'Центр поворота');
+  const radians = toRadians(parseDegrees(degrees, 'Угол поворота'));
+  const dx = source.x - pivot.x;
+  const dy = source.y - pivot.y;
+  const cos = Math.cos(radians);
+  const sin = Math.sin(radians);
+  return { x: pivot.x + dx * cos - dy * sin, y: pivot.y + dx * sin + dy * cos };
+}
+
+/**
+ * Продолжение отрезка за вторую точку на заданное расстояние.
+ * Нужно, чтобы честно построить внешний угол треугольника.
+ */
+export function extendSegment(from: PlanimetryPoint, through: PlanimetryPoint, extra: number): PlanimetryPoint {
+  const start = assertPoint(from, 'Начальная точка');
+  const end = assertPoint(through, 'Вторая точка');
+  const length = assertPositiveLength(extra, 'Длина продолжения');
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance === 0) throw new RangeError('Точки отрезка не должны совпадать');
+  return { x: end.x + (dx / distance) * length, y: end.y + (dy / distance) * length };
 }

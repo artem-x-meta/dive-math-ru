@@ -1,3 +1,5 @@
+import { divideExact, formatExactRussian } from './exactRational';
+
 export interface Rational {
   numerator: number;
   denominator: number;
@@ -28,6 +30,26 @@ export interface AxisScale {
 export interface TallyRow {
   value: string;
   count: number;
+}
+
+/** Точка на плоскости рисунка: x вправо, y вниз (как в SVG). */
+export interface Point {
+  x: number;
+  y: number;
+}
+
+/** Узел дерева вариантов, размещённый по колонкам (глубина) и строкам. */
+export interface TreeNodeLayout {
+  /** Подпись узла: выбранный на этом шаге вариант; у корня — переданная подпись старта. */
+  label: string;
+  /** Номер шага: 0 — корень, 1 — после первого выбора и так далее. */
+  depth: number;
+  /** Строка узла; у листа — целая, у ветви — середина строк её листьев. */
+  row: number;
+  /** Строка родителя; у корня — null. */
+  parentRow: number | null;
+  /** Полная цепочка выборов от корня до этого узла. */
+  path: string[];
 }
 
 function assertFiniteNumber(value: number, label: string): void {
@@ -205,7 +227,115 @@ export function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
 export function pairCount(n: number): number {
   assertSafeInteger(n, 'Число объектов');
   if (n < 0) throw new RangeError('Число объектов не может быть отрицательным');
-  return (n * (n - 1)) / 2;
+  return n < 2 ? 0 : (n * (n - 1)) / 2;
+}
+
+/** Все неупорядоченные пары различных элементов; порядок — систематический перебор. */
+export function unorderedPairs<T>(items: readonly T[]): [T, T][] {
+  const pairs: [T, T][] = [];
+  for (let first = 0; first < items.length; first += 1) {
+    for (let second = first + 1; second < items.length; second += 1) {
+      pairs.push([items[first] as T, items[second] as T]);
+    }
+  }
+  return pairs;
+}
+
+/**
+ * Раскладывает дерево вариантов по колонкам и строкам. Лист номер i стоит в
+ * строке i, а каждая ветвь — ровно посередине строк своих листьев.
+ */
+export function variantTreeLayout(
+  groups: readonly (readonly string[])[],
+  rootLabel = 'Старт',
+): TreeNodeLayout[] {
+  groups.forEach((group, index) => {
+    if (group.length === 0) {
+      throw new RangeError(`На шаге №${index + 1} нет ни одного варианта`);
+    }
+  });
+  countVariants(groups.length === 0 ? [1] : groups.map((group) => group.length));
+
+  const leavesBelow: number[] = new Array(groups.length + 1).fill(1);
+  for (let depth = groups.length - 1; depth >= 0; depth -= 1) {
+    leavesBelow[depth] = (leavesBelow[depth + 1] as number) * (groups[depth] as readonly string[]).length;
+  }
+
+  const nodes: TreeNodeLayout[] = [];
+  const walk = (depth: number, firstLeaf: number, path: string[], parentRow: number | null): void => {
+    const span = leavesBelow[depth] as number;
+    const row = firstLeaf + (span - 1) / 2;
+    nodes.push({
+      label: depth === 0 ? rootLabel : (path[depth - 1] as string),
+      depth,
+      row,
+      parentRow,
+      path: [...path],
+    });
+    if (depth === groups.length) return;
+    const childSpan = leavesBelow[depth + 1] as number;
+    (groups[depth] as readonly string[]).forEach((option, index) => {
+      walk(depth + 1, firstLeaf + index * childSpan, [...path, option], row);
+    });
+  };
+  walk(0, 0, [], null);
+  return nodes;
+}
+
+function roundCoordinate(value: number): number {
+  const rounded = Math.round(value * 1000) / 1000;
+  return rounded === 0 ? 0 : rounded;
+}
+
+/**
+ * Точка окружности радиуса radius: угол отсчитывается от «двенадцати часов»
+ * по часовой стрелке, центр окружности находится в начале координат.
+ */
+export function polarPoint(radius: number, angleDegrees: number): Point {
+  assertFiniteNumber(radius, 'Радиус');
+  assertFiniteNumber(angleDegrees, 'Угол');
+  if (radius < 0) throw new RangeError('Радиус не может быть отрицательным');
+  const radians = (angleDegrees * Math.PI) / 180;
+  return {
+    x: roundCoordinate(radius * Math.sin(radians)),
+    y: roundCoordinate(-radius * Math.cos(radians)),
+  };
+}
+
+/**
+ * Контур сектора круговой диаграммы для атрибута d элемента path.
+ * Центр круга — начало координат, углы задаются в градусах от «двенадцати часов».
+ */
+export function sectorPath(radius: number, startAngle: number, endAngle: number): string {
+  assertFiniteNumber(radius, 'Радиус');
+  assertFiniteNumber(startAngle, 'Начальный угол');
+  assertFiniteNumber(endAngle, 'Конечный угол');
+  if (radius <= 0) throw new RangeError('Радиус должен быть положительным');
+
+  const sweep = endAngle - startAngle;
+  if (sweep < 0) throw new RangeError('Конечный угол не может быть меньше начального');
+  if (sweep > 360) throw new RangeError('Сектор не может быть больше полного круга');
+  if (sweep === 0) return '';
+
+  if (sweep === 360) {
+    const top = polarPoint(radius, startAngle);
+    const opposite = polarPoint(radius, startAngle + 180);
+    return `M ${top.x} ${top.y} A ${radius} ${radius} 0 1 1 ${opposite.x} ${opposite.y} A ${radius} ${radius} 0 1 1 ${top.x} ${top.y} Z`;
+  }
+
+  const from = polarPoint(radius, startAngle);
+  const to = polarPoint(radius, endAngle);
+  const largeArc = sweep > 180 ? 1 : 0;
+  return `M 0 0 L ${from.x} ${from.y} A ${radius} ${radius} 0 ${largeArc} 1 ${to.x} ${to.y} Z`;
+}
+
+/**
+ * Среднее арифметическое в русской записи: конечная десятичная дробь,
+ * если она существует, иначе несократимая обыкновенная дробь.
+ */
+export function formatMean(values: readonly number[]): string {
+  const mean = meanAsRational(values);
+  return formatExactRussian(divideExact(mean.numerator, mean.denominator));
 }
 
 /** Частотная таблица: значения в порядке первого появления. */

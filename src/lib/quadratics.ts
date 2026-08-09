@@ -219,7 +219,7 @@ export function monicFromRoots(firstRoot: number, secondRoot: number): { p: numb
 export function factorPairs(q: number): FactorPair[] {
   assertSafeInteger(q, 'Свободный член q');
   if (q === 0) {
-    throw new RangeeError_placeholder(q);
+    throw new RangeError('Свободный член q не может быть равен нулю: у нуля бесконечно много пар делителей');
   }
   const pairs: FactorPair[] = [];
   const limit = Math.floor(Math.sqrt(Math.abs(q)));
