@@ -1,0 +1,179 @@
+---
+title: '2.4 Формулы сложения'
+description: Синус и косинус суммы и разности, тангенс суммы, формулы двойного угла и понижения степени с проверкой на табличных углах.
+---
+
+import LessonMeta from '../../../../components/LessonMeta.astro';
+import LearningGoals from '../../../../components/LearningGoals.astro';
+import Concept from '../../../../components/Concept.astro';
+import WorkedExample from '../../../../components/WorkedExample.astro';
+import TrigCircleLab from '../../../../components/TrigCircleLab';
+import QuickCheck from '../../../../components/QuickCheck';
+import LessonComplete from '../../../../components/LessonComplete';
+
+<LessonMeta grade="10 класс · Алгебра" time="55–65 минут" level="База" prerequisites="таблица значений, основное тождество, формулы приведения" />
+
+В таблице есть $30°$ и $45°$, но нет $75°$. Между тем $75°=45°+30°$ — и напрашивается вопрос: нельзя ли собрать $\sin 75°$ из уже известного?
+
+Соблазн велик: написать $\sin(\alpha+\beta)=\sin\alpha+\sin\beta$ и закрыть тему. Проверим соблазн на числах.
+
+<LearningGoals items={[
+  'опровергать «линейное» правило для синуса суммы контрпримером',
+  'применять формулы синуса и косинуса суммы и разности',
+  'выводить формулы двойного угла как частный случай',
+  'вычислять значения нетабличных углов и упрощать выражения',
+]} />
+
+## Прогноз до вычислений
+
+Возьмём $\alpha=\beta=30°$. Тогда
+
+$$\sin\alpha+\sin\beta=\frac{1}{2}+\frac{1}{2}=1, \qquad \sin(\alpha+\beta)=\sin 60°=\frac{\sqrt{3}}{2}\approx 0{,}866.$$
+
+Числа разные, значит правило «синус суммы равен сумме синусов» неверно. Но какое правило верно? Прикинь до чтения: будут ли в формуле участвовать косинусы?
+
+## Управляемый эксперимент
+
+Поставь в лаборатории угол $75°$ и запиши координаты точки поворота с точностью до тысячных. Затем поставь $45°$ и $30°$ и запиши их координаты тоже. Попробуй собрать первое число из четырёх остальных.
+
+<TrigCircleLab client:load mode="point" initialDegrees={75} />
+
+Для $75°$ ордината получается около $0{,}966$. Заметь: $\sin 45°\cos 30°+\cos 45°\sin 30°\approx 0{,}707\cdot 0{,}866+0{,}707\cdot 0{,}5\approx 0{,}612+0{,}354=0{,}966$. Совпало не случайно.
+
+## Четыре формулы
+
+<Concept type="rule" title="Синус и косинус суммы и разности">
+  $$\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta,$$
+
+  $$\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta,$$
+
+  $$\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta,$$
+
+  $$\sin(\alpha-\beta)=\sin\alpha\cos\beta-\cos\alpha\sin\beta.$$
+
+  Мнемоника знаков: **у косинуса знак переворачивается**, у синуса — сохраняется. В формуле для $\cos(\alpha+\beta)$ стоит минус, в формуле для $\cos(\alpha-\beta)$ — плюс.
+</Concept>
+
+Обрати внимание на структуру: у косинуса перемножаются одноимённые функции ($\cos\cos$ и $\sin\sin$), у синуса — разноимённые ($\sin\cos$ и $\cos\sin$).
+
+Формулы легко проверить на знакомых случаях. Подставь $\beta=\dfrac{\pi}{2}$ в третью формулу:
+
+$$\sin\left(\alpha+\frac{\pi}{2}\right)=\sin\alpha\cos\frac{\pi}{2}+\cos\alpha\sin\frac{\pi}{2}=\cos\alpha.$$
+
+Получилась формула приведения из прошлого урока — значит, ничего нового мы не сломали.
+
+<Concept type="rule" title="Тангенс суммы и разности">
+  $$\operatorname{tg}(\alpha+\beta)=\frac{\operatorname{tg}\alpha+\operatorname{tg}\beta}{1-\operatorname{tg}\alpha\operatorname{tg}\beta}, \qquad \operatorname{tg}(\alpha-\beta)=\frac{\operatorname{tg}\alpha-\operatorname{tg}\beta}{1+\operatorname{tg}\alpha\operatorname{tg}\beta}.$$
+
+  Формулы работают, когда все три тангенса существуют, а знаменатель не равен нулю.
+</Concept>
+
+<WorkedExample title="Синус 75 градусов">
+  Разложим $75°=45°+30°$ и подставим табличные значения:
+
+  $$\sin 75°=\sin 45°\cos 30°+\cos 45°\sin 30°=\frac{\sqrt{2}}{2}\cdot\frac{\sqrt{3}}{2}+\frac{\sqrt{2}}{2}\cdot\frac{1}{2}=\frac{\sqrt{6}}{4}+\frac{\sqrt{2}}{4}=\frac{\sqrt{6}+\sqrt{2}}{4}.$$
+
+  Оценим: $\sqrt{6}\approx 2{,}449$, $\sqrt{2}\approx 1{,}414$, поэтому $\sin 75°\approx\dfrac{3{,}863}{4}\approx 0{,}966$ — ровно то, что показала лаборатория.
+
+  Разложение можно выбрать и другое: $75°=30°+45°$ даст те же слагаемые, переставленные местами.
+</WorkedExample>
+
+<WorkedExample title="Косинус 15 градусов">
+  $$\cos 15°=\cos(45°-30°)=\cos 45°\cos 30°+\sin 45°\sin 30°=\frac{\sqrt{6}}{4}+\frac{\sqrt{2}}{4}=\frac{\sqrt{6}+\sqrt{2}}{4}.$$
+
+  Ответ совпал с $\sin 75°$ — и это не совпадение: $\cos 15°=\sin(90°-15°)=\sin 75°$.
+</WorkedExample>
+
+## Двойной угол
+
+Положим $\beta=\alpha$ — и четыре формулы превращаются в формулы двойного угла.
+
+<Concept type="rule" title="Формулы двойного угла">
+  $$\sin 2\alpha=2\sin\alpha\cos\alpha,$$
+
+  $$\cos 2\alpha=\cos^2\alpha-\sin^2\alpha=1-2\sin^2\alpha=2\cos^2\alpha-1,$$
+
+  $$\operatorname{tg} 2\alpha=\frac{2\operatorname{tg}\alpha}{1-\operatorname{tg}^2\alpha}.$$
+
+  Три записи косинуса равносильны: переход между ними — замена $1$ на $\sin^2\alpha+\cos^2\alpha$. Выбирай ту, где остаётся известная тебе функция.
+</Concept>
+
+Из второй и третьей записи получаются формулы понижения степени:
+
+$$\sin^2\alpha=\frac{1-\cos 2\alpha}{2}, \qquad \cos^2\alpha=\frac{1+\cos 2\alpha}{2}.$$
+
+<WorkedExample title="Двойной угол по известному синусу">
+  Пусть $\sin\alpha=\dfrac{3}{5}$ и $\alpha$ — угол I четверти. Тогда $\cos\alpha=\dfrac{4}{5}$ (положительный, потому что четверть первая).
+
+  $$\sin 2\alpha=2\cdot\frac{3}{5}\cdot\frac{4}{5}=\frac{24}{25}=0{,}96.$$
+
+  Для косинуса удобна запись через синус — он известен точнее всего:
+
+  $$\cos 2\alpha=1-2\sin^2\alpha=1-2\cdot\frac{9}{25}=1-\frac{18}{25}=\frac{7}{25}=0{,}28.$$
+
+  Проверка основным тождеством: $0{,}96^2+0{,}28^2=0{,}9216+0{,}0784=1$. Сходится.
+</WorkedExample>
+
+<Concept type="mistake" title="Где обычно теряют задачу">
+  **Раскрывают скобки «как в алгебре»:** $\sin(\alpha+\beta)\ne\sin\alpha+\sin\beta$ и $\cos 2\alpha\ne 2\cos\alpha$. Синус — не множитель, а имя функции; вынести его за скобку нельзя.
+
+  **Путают знак у косинуса.** В $\cos(\alpha+\beta)$ стоит **минус**, хотя в аргументе плюс. Быстрая проверка на $\alpha=\beta=60°$: слева $\cos 120°=-\dfrac{1}{2}$, а справа $\dfrac{1}{4}-\dfrac{3}{4}=-\dfrac{1}{2}$. С плюсом получилось бы $\dfrac{1}{4}+\dfrac{3}{4}=1$ — сразу видно, что знак не тот.
+
+  **Забывают проверить знак результата по четверти.** Формулы дают точное число, но если по условию $2\alpha$ лежит во II четверти, а получился положительный косинус — где-то потерян знак у $\cos\alpha$.
+
+  **Пользуются формулой тангенса при $\operatorname{tg}\alpha\operatorname{tg}\beta=1$.** Тогда знаменатель равен нулю: сумма углов даёт $90°+180°k$, и тангенса суммы просто нет.
+</Concept>
+
+<QuickCheck
+  client:load
+  id="trig10-addition"
+  question="Чему равен cos(α + β)?"
+  correctIndex={1}
+  options={[
+    { label: 'cos α · cos β + sin α · sin β', explanation: 'Это формула для косинуса разности. У косинуса знак переворачивается, поэтому для суммы нужен минус.' },
+    { label: 'cos α · cos β − sin α · sin β', explanation: 'Верно: перемножаются одноимённые функции, а знак противоположен знаку в аргументе.' },
+    { label: 'cos α + cos β', explanation: 'Так «раскрывать скобки» нельзя. Контрпример: при α = β = 60° слева cos 120° = −0,5, а справа 0,5 + 0,5 = 1.' },
+  ]}
+/>
+
+## Практика
+
+1. Вычисли $\cos 75°$.
+2. Вычисли $\sin 15°$.
+3. Вычисли $\sin 105°$.
+4. Упрости выражение $\sin 20°\cos 10°+\cos 20°\sin 10°$.
+5. Упрости выражение $\cos 40°\cos 10°+\sin 40°\sin 10°$.
+6. Известно, что $\sin\alpha=0{,}6$ и $\alpha$ — угол I четверти. Найди $\sin 2\alpha$ и $\cos 2\alpha$.
+7. Известно, что $\cos\alpha=-0{,}8$ и $\alpha$ — угол II четверти. Найди $\cos 2\alpha$.
+8. Вычисли $\operatorname{tg} 75°$.
+9. Упрости выражение $2\sin 15°\cos 15°$.
+10. Вычисли $\cos^2\dfrac{\pi}{8}-\sin^2\dfrac{\pi}{8}$.
+
+<details>
+  <summary>Ответы и пояснения</summary>
+
+  1. $\cos 75°=\cos 45°\cos 30°-\sin 45°\sin 30°=\dfrac{\sqrt{6}}{4}-\dfrac{\sqrt{2}}{4}=\dfrac{\sqrt{6}-\sqrt{2}}{4}\approx 0{,}259$.
+  2. $\sin 15°=\sin 45°\cos 30°-\cos 45°\sin 30°=\dfrac{\sqrt{6}-\sqrt{2}}{4}\approx 0{,}259$. Тот же ответ, что и в задаче 1, ведь $\sin 15°=\cos 75°$.
+  3. $\sin 105°=\sin(60°+45°)=\dfrac{\sqrt{3}}{2}\cdot\dfrac{\sqrt{2}}{2}+\dfrac{1}{2}\cdot\dfrac{\sqrt{2}}{2}=\dfrac{\sqrt{6}+\sqrt{2}}{4}\approx 0{,}966$.
+  4. Это синус суммы: $\sin(20°+10°)=\sin 30°=\dfrac{1}{2}$.
+  5. Это косинус разности: $\cos(40°-10°)=\cos 30°=\dfrac{\sqrt{3}}{2}$.
+  6. $\cos\alpha=0{,}8$; $\sin 2\alpha=2\cdot 0{,}6\cdot 0{,}8=0{,}96$; $\cos 2\alpha=1-2\cdot 0{,}36=0{,}28$.
+  7. Удобна запись через косинус: $\cos 2\alpha=2\cos^2\alpha-1=2\cdot 0{,}64-1=0{,}28$. Четверть здесь не нужна: косинус уже задан со знаком.
+  8. $\operatorname{tg} 75°=\dfrac{\operatorname{tg} 45°+\operatorname{tg} 30°}{1-\operatorname{tg} 45°\operatorname{tg} 30°}=\dfrac{1+\frac{\sqrt{3}}{3}}{1-\frac{\sqrt{3}}{3}}=\dfrac{3+\sqrt{3}}{3-\sqrt{3}}=\dfrac{(3+\sqrt{3})^2}{9-3}=\dfrac{12+6\sqrt{3}}{6}=2+\sqrt{3}\approx 3{,}732$.
+  9. Это $\sin(2\cdot 15°)=\sin 30°=\dfrac{1}{2}$.
+  10. Это $\cos\left(2\cdot\dfrac{\pi}{8}\right)=\cos\dfrac{\pi}{4}=\dfrac{\sqrt{2}}{2}$.
+
+</details>
+
+## Итог
+
+- Синус и косинус суммы выражаются через функции слагаемых, но не складываются: $\sin(\alpha+\beta)\ne\sin\alpha+\sin\beta$.
+- У косинуса перемножаются одноимённые функции и знак переворачивается; у синуса — разноимённые, и знак сохраняется.
+- Формулы двойного угла — это те же формулы при $\beta=\alpha$; у косинуса три равносильные записи, и выбирают удобную.
+- Любую формулу полезно проверять подстановкой табличных углов: одна проверка ловит почти все ошибки в знаках.
+
+Теперь у нас есть всё, чтобы решать уравнения: таблица, тождества и умение узнавать свёрнутые выражения.
+
+[← Тождества](/10-klass/trigonometriya/tozhdestva/) · [Дальше: тригонометрические уравнения →](/10-klass/trigonometriya/trigonometricheskie-uravneniya/)
+
+<LessonComplete client:load lessonId="10-trig-addition" />

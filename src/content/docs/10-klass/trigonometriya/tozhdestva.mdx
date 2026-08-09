@@ -1,0 +1,192 @@
+---
+title: '2.3 Тождества'
+description: Основное тригонометрическое тождество, связь тангенса с синусом и косинусом, формулы приведения и упрощение выражений.
+---
+
+import LessonMeta from '../../../../components/LessonMeta.astro';
+import LearningGoals from '../../../../components/LearningGoals.astro';
+import Concept from '../../../../components/Concept.astro';
+import WorkedExample from '../../../../components/WorkedExample.astro';
+import TrigCircleLab from '../../../../components/TrigCircleLab';
+import QuickCheck from '../../../../components/QuickCheck';
+import LessonComplete from '../../../../components/LessonComplete';
+
+<LessonMeta grade="10 класс · Алгебра" time="55–65 минут" level="База" prerequisites="единичная окружность, четверти и знаки, квадратный корень" />
+
+Датчик наклона сообщает: $\sin\alpha=0{,}6$. Программе нужен косинус. Лезть в таблицу не придётся — косинус уже полностью определён этим числом. Почти.
+
+Слово «почти» тут ключевое: чисел получится два, и выбрать одно поможет четверть.
+
+<LearningGoals items={[
+  'выводить основное тригонометрическое тождество из уравнения окружности',
+  'находить косинус по синусу и тангенс по ним обоим с учётом четверти',
+  'применять формулы приведения, объясняя выбор функции и знака',
+  'упрощать и доказывать тригонометрические тождества',
+]} />
+
+## Прогноз до вычислений
+
+Известно, что $\sin\alpha=0{,}6$. Сколько разных значений может принимать $\cos\alpha$: одно, два или бесконечно много?
+
+А если добавить условие «$\alpha$ — угол II четверти»?
+
+## Управляемый эксперимент
+
+Поставь угол во вторую четверть и посмотри на пару чисел под чертежом. Потом переведи ту же точку в третью и четвёртую четверти: модули координат будут повторяться, а знаки — меняться.
+
+<TrigCircleLab client:load mode="point" initialDegrees={120} challenge={true} />
+
+Модуль координаты определяется опорным острым углом, знак — четвертью. Это ровно то, чего не хватало прогнозу.
+
+## Основное тождество
+
+Точка $P_\alpha(\cos\alpha;\sin\alpha)$ лежит на окружности $x^2+y^2=1$. Подставим координаты — и тождество готово.
+
+<Concept type="rule" title="Три рабочих тождества">
+  Для всех допустимых $\alpha$:
+
+  $$\sin^2\alpha+\cos^2\alpha=1, \qquad \operatorname{tg}\alpha=\frac{\sin\alpha}{\cos\alpha}\;(\cos\alpha\ne 0), \qquad \operatorname{ctg}\alpha=\frac{\cos\alpha}{\sin\alpha}\;(\sin\alpha\ne 0).$$
+
+  Из них выводятся ещё два, удобных при работе с тангенсом:
+
+  $$1+\operatorname{tg}^2\alpha=\frac{1}{\cos^2\alpha}, \qquad 1+\operatorname{ctg}^2\alpha=\frac{1}{\sin^2\alpha}.$$
+
+  Запись $\sin^2\alpha$ означает $(\sin\alpha)^2$, а не $\sin(\alpha^2)$.
+</Concept>
+
+Первую производную формулу легко получить самому: раздели основное тождество на $\cos^2\alpha$.
+
+$$\frac{\sin^2\alpha}{\cos^2\alpha}+\frac{\cos^2\alpha}{\cos^2\alpha}=\frac{1}{\cos^2\alpha} \;\Longrightarrow\; \operatorname{tg}^2\alpha+1=\frac{1}{\cos^2\alpha}.$$
+
+<WorkedExample title="Синус известен, четверть известна">
+  Пусть $\sin\alpha=\dfrac{3}{5}$ и $\alpha$ — угол II четверти. Найдём $\cos\alpha$ и $\operatorname{tg}\alpha$.
+
+  Из основного тождества:
+
+  $$\cos^2\alpha=1-\sin^2\alpha=1-\frac{9}{25}=\frac{16}{25}.$$
+
+  Отсюда $\cos\alpha=\pm\dfrac{4}{5}$. Во II четверти абсцисса отрицательна, поэтому
+
+  $$\cos\alpha=-\frac{4}{5}, \qquad \operatorname{tg}\alpha=\frac{3/5}{-4/5}=-\frac{3}{4}.$$
+
+  Проверка знаком: во II четверти тангенс обязан быть отрицательным. Сходится.
+</WorkedExample>
+
+<WorkedExample title="Известен тангенс">
+  Пусть $\operatorname{tg}\alpha=\dfrac{3}{4}$ и $\alpha$ — угол III четверти.
+
+  $$\frac{1}{\cos^2\alpha}=1+\operatorname{tg}^2\alpha=1+\frac{9}{16}=\frac{25}{16} \;\Longrightarrow\; \cos^2\alpha=\frac{16}{25}.$$
+
+  В III четверти косинус отрицателен: $\cos\alpha=-\dfrac{4}{5}$. Тогда
+
+  $$\sin\alpha=\operatorname{tg}\alpha\cdot\cos\alpha=\frac{3}{4}\cdot\left(-\frac{4}{5}\right)=-\frac{3}{5}.$$
+
+  Проверка: $\left(-\dfrac{3}{5}\right)^2+\left(-\dfrac{4}{5}\right)^2=\dfrac{9+16}{25}=1$. Сходится.
+</WorkedExample>
+
+## Формулы приведения
+
+Углы $\dfrac{\pi}{2}\pm\alpha$, $\pi\pm\alpha$, $2\pi-\alpha$ сводятся к острому углу $\alpha$. Все формулы читаются с окружности, но запоминать их по одной не нужно — работает правило.
+
+<Concept type="rule" title="Правило приведения">
+  1. Если угол записан через $\pi$ или $2\pi$ (то есть «горизонтальные» точки окружности), название функции **не меняется**.
+  2. Если угол записан через $\dfrac{\pi}{2}$ или $\dfrac{3\pi}{2}$ («вертикальные» точки), функция меняется на кофункцию: синус на косинус, тангенс на котангенс.
+  3. Знак перед результатом — это знак **исходного** выражения в той четверти, куда попадает угол, если считать $\alpha$ острым.
+</Concept>
+
+| Аргумент | $-\alpha$ | $\dfrac{\pi}{2}-\alpha$ | $\dfrac{\pi}{2}+\alpha$ | $\pi-\alpha$ | $\pi+\alpha$ | $2\pi-\alpha$ |
+| --- | --- | --- | --- | --- | --- | --- |
+| синус | $-\sin\alpha$ | $\cos\alpha$ | $\cos\alpha$ | $\sin\alpha$ | $-\sin\alpha$ | $-\sin\alpha$ |
+| косинус | $\cos\alpha$ | $\sin\alpha$ | $-\sin\alpha$ | $-\cos\alpha$ | $-\cos\alpha$ | $\cos\alpha$ |
+
+<WorkedExample title="Откуда берётся знак">
+  Упростим $\cos\left(\dfrac{\pi}{2}+\alpha\right)$ при остром $\alpha$.
+
+  Аргумент записан через $\dfrac{\pi}{2}$ — значит, косинус меняется на синус.
+
+  Угол $\dfrac{\pi}{2}+\alpha$ при остром $\alpha$ попадает во II четверть, а там косинус отрицателен. Ставим минус:
+
+  $$\cos\left(\frac{\pi}{2}+\alpha\right)=-\sin\alpha.$$
+
+  Проверка числами: $\alpha=30°$ даёт $\cos 120°=-\dfrac{1}{2}$ и $-\sin 30°=-\dfrac{1}{2}$. Сходится.
+</WorkedExample>
+
+## Упрощение выражений
+
+Главные приёмы всего три: заменить $1$ на $\sin^2\alpha+\cos^2\alpha$ (или наоборот), разложить на множители и разделить числитель и знаменатель на $\cos\alpha$, чтобы всё стало тангенсом.
+
+<WorkedExample title="Три упрощения подряд">
+  **1.** $\dfrac{1-\cos^2\alpha}{\sin\alpha}$ при $\sin\alpha\ne 0$. Числитель равен $\sin^2\alpha$, поэтому дробь равна $\sin\alpha$.
+
+  **2.** $\sin^2\alpha+\cos^2\alpha+\operatorname{tg}^2\alpha\cdot\cos^2\alpha$. Последнее слагаемое равно $\dfrac{\sin^2\alpha}{\cos^2\alpha}\cdot\cos^2\alpha=\sin^2\alpha$, значит всё выражение равно $1+\sin^2\alpha$.
+
+  **3.** Пусть $\operatorname{tg}\alpha=2$; найдём $\dfrac{\sin\alpha+\cos\alpha}{\sin\alpha-\cos\alpha}$. Тангенс существует, поэтому $\cos\alpha\ne 0$ — можно поделить на него числитель и знаменатель:
+
+  $$\frac{\operatorname{tg}\alpha+1}{\operatorname{tg}\alpha-1}=\frac{2+1}{2-1}=3.$$
+
+  Заметь: конкретные $\sin\alpha$ и $\cos\alpha$ так и остались неизвестными, а ответ определился однозначно.
+</WorkedExample>
+
+<Concept type="mistake" title="Где обычно теряют задачу">
+  **Пишут $\cos\alpha=\sqrt{1-\sin^2\alpha}$ и забывают про знак.** Квадратный корень неотрицателен, а косинус — не всегда. Правильный ход: сначала $\cos^2\alpha$, потом знак по четверти.
+
+  **Читают $\sin^2\alpha$ как $\sin(\alpha^2)$.** Это разные вещи: $\sin^2 30°=0{,}25$, а $\sin(30^2)°=\sin 900°=\sin 180°=0$, ведь $900=360\cdot 2+180$.
+
+  **Делят на $\cos\alpha$ без оговорки.** Приём законный, только когда $\cos\alpha\ne 0$; если в условии есть $\operatorname{tg}\alpha$, это уже гарантировано.
+
+  **Ставят знак по четверти, в которой лежит $\alpha$, а не сам приведённый угол.** В правиле приведения знак определяет четверть всего аргумента, например $\pi+\alpha$, при остром $\alpha$.
+</Concept>
+
+<QuickCheck
+  client:load
+  id="trig10-identity"
+  question="Известно, что sin α = 0,8 и α — угол II четверти. Чему равен cos α?"
+  correctIndex={2}
+  options={[
+    { label: '0,6', explanation: 'Модуль верный, но во II четверти абсцисса точки отрицательна, поэтому косинус не может быть положительным.' },
+    { label: '±0,6', explanation: 'Два знака остаются, только пока четверть неизвестна. Условие про II четверть как раз и отсекает лишний вариант.' },
+    { label: '−0,6', explanation: 'Верно: cos²α = 1 − 0,64 = 0,36, значит |cos α| = 0,6, а во II четверти косинус отрицателен.' },
+  ]}
+/>
+
+## Практика
+
+1. $\sin\alpha=0{,}6$, угол $\alpha$ лежит в I четверти. Найди $\cos\alpha$ и $\operatorname{tg}\alpha$.
+2. $\cos\alpha=-\dfrac{12}{13}$, угол $\alpha$ лежит во II четверти. Найди $\sin\alpha$.
+3. $\operatorname{tg}\alpha=\dfrac{3}{4}$, угол $\alpha$ лежит в III четверти. Найди $\sin\alpha$ и $\cos\alpha$.
+4. Упрости выражение $\sin^2\alpha+\cos^2\alpha+\operatorname{tg}^2\alpha\cdot\cos^2\alpha$.
+5. Упрости выражение $\dfrac{1-\sin^2\alpha}{\cos\alpha}$ при $\cos\alpha\ne 0$.
+6. Вычисли $\sin\left(-\dfrac{\pi}{3}\right)$.
+7. Вычисли $\cos\left(\pi-\dfrac{\pi}{6}\right)$.
+8. Упрости выражение $\sin\left(\dfrac{\pi}{2}-\alpha\right)+\cos(\pi-\alpha)$.
+9. Известно, что $\operatorname{tg}\alpha=2$. Найди значение дроби $\dfrac{\sin\alpha+\cos\alpha}{\sin\alpha-\cos\alpha}$.
+10. Докажи тождество $\sin^4\alpha-\cos^4\alpha=\sin^2\alpha-\cos^2\alpha$.
+
+<details>
+  <summary>Ответы и пояснения</summary>
+
+  1. $\cos^2\alpha=1-0{,}36=0{,}64$; в I четверти косинус положителен, поэтому $\cos\alpha=0{,}8$ и $\operatorname{tg}\alpha=\dfrac{0{,}6}{0{,}8}=0{,}75$.
+  2. $\sin^2\alpha=1-\dfrac{144}{169}=\dfrac{25}{169}$; во II четверти синус положителен, поэтому $\sin\alpha=\dfrac{5}{13}$.
+  3. $\dfrac{1}{\cos^2\alpha}=1+\dfrac{9}{16}=\dfrac{25}{16}$, значит $\cos^2\alpha=\dfrac{16}{25}$ и в III четверти $\cos\alpha=-\dfrac{4}{5}$. Тогда $\sin\alpha=\operatorname{tg}\alpha\cdot\cos\alpha=-\dfrac{3}{5}$.
+  4. $\operatorname{tg}^2\alpha\cdot\cos^2\alpha=\sin^2\alpha$, поэтому выражение равно $1+\sin^2\alpha$.
+  5. Числитель равен $\cos^2\alpha$, поэтому дробь равна $\cos\alpha$.
+  6. Синус нечётен: $\sin\left(-\dfrac{\pi}{3}\right)=-\sin\dfrac{\pi}{3}=-\dfrac{\sqrt{3}}{2}$.
+  7. $\pi-\dfrac{\pi}{6}=\dfrac{5\pi}{6}$, что равно $150°$; по формуле приведения $\cos\left(\pi-\dfrac{\pi}{6}\right)=-\cos\dfrac{\pi}{6}=-\dfrac{\sqrt{3}}{2}$.
+  8. $\sin\left(\dfrac{\pi}{2}-\alpha\right)=\cos\alpha$, а $\cos(\pi-\alpha)=-\cos\alpha$. Сумма равна нулю.
+  9. Разделим числитель и знаменатель на $\cos\alpha\ne 0$: $\dfrac{\operatorname{tg}\alpha+1}{\operatorname{tg}\alpha-1}=\dfrac{3}{1}=3$.
+  10. Разложим разность квадратов: $\sin^4\alpha-\cos^4\alpha=(\sin^2\alpha-\cos^2\alpha)(\sin^2\alpha+\cos^2\alpha)$. Вторая скобка равна единице, что и требовалось.
+
+</details>
+
+## Итог
+
+- Основное тождество $\sin^2\alpha+\cos^2\alpha=1$ — это уравнение единичной окружности, записанное новыми буквами.
+- По одной функции вторая находится с точностью до знака; знак выбирает четверть.
+- Формулы приведения не заучивают по одной: название функции меняется только у «вертикальных» аргументов, а знак берётся по четверти всего аргумента.
+- Деление числителя и знаменателя на $\cos\alpha$ переводит выражение на язык тангенса и часто решает задачу целиком.
+
+Пока мы связывали функции **одного** угла. Дальше научимся считать функции суммы двух углов — и получим доступ к $\sin 75°$ и $\cos 15°$.
+
+[← Графики и периодичность](/10-klass/trigonometriya/grafiki-i-periodichnost/) · [Дальше: формулы сложения →](/10-klass/trigonometriya/formuly-slozheniya/)
+
+<LessonComplete client:load lessonId="10-trig-identities" />
