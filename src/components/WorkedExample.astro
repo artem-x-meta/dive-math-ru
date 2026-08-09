@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  label?: string;
+}
+
+const { title, label = 'Разбираем вместе' } = Astro.props;
+---
+
+<section class="dm-example">
+  <header class="dm-example__head">
+    <strong>{title}</strong>
+    <span class="dm-example__label">{label}</span>
+  </header>
+  <div class="dm-example__body">
+    <slot />
+  </div>
+</section>

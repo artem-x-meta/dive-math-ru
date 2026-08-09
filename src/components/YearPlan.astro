@@ -1,0 +1,41 @@
+---
+interface Props {
+  grade: string;
+  thesis: string;
+  modules: Array<{ title: string; topics: string; status?: 'ready' | 'planned'; href?: string }>;
+  bridge: string;
+}
+
+const { grade, thesis, modules, bridge } = Astro.props;
+---
+
+<p class="dm-year-thesis">{thesis}</p>
+
+<div class="dm-course-grid not-content" aria-label={`Разделы курса: ${grade}`}>
+  {modules.map((module, index) => (
+    module.href ? (
+      <a class="dm-course-card" href={module.href}>
+        <span class="dm-course-card__grade">{String(index + 1).padStart(2, '0')}</span>
+        <h3>{module.title}</h3>
+        <p>{module.topics}</p>
+        <span class:list={['dm-course-card__status', module.status === 'ready' && 'dm-course-card__status--ready']}>
+          {module.status === 'ready' ? 'открыто' : 'в плане'}
+        </span>
+      </a>
+    ) : (
+      <article class="dm-course-card">
+        <span class="dm-course-card__grade">{String(index + 1).padStart(2, '0')}</span>
+        <h3>{module.title}</h3>
+        <p>{module.topics}</p>
+        <span class:list={['dm-course-card__status', module.status === 'ready' && 'dm-course-card__status--ready']}>
+          {module.status === 'ready' ? 'открыто' : 'в плане'}
+        </span>
+      </article>
+    )
+  ))}
+</div>
+
+<aside class="dm-concept dm-concept--idea">
+  <h3 class="dm-panel-title"><span aria-hidden="true">↗</span> Мост в следующий класс</h3>
+  <p>{bridge}</p>
+</aside>

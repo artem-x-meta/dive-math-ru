@@ -1,0 +1,36 @@
+<svg width="720" height="510" viewBox="0 0 720 510" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Математический ландшафт: дроби, график и геометрия</title>
+  <rect x="22" y="22" width="676" height="466" rx="36" fill="#F7F5FF" stroke="#D9D3FF" stroke-width="2"/>
+  <g opacity=".55" stroke="#D6D1EE">
+    <path d="M92 82V429M152 82V429M212 82V429M272 82V429M332 82V429M392 82V429M452 82V429M512 82V429M572 82V429M632 82V429"/>
+    <path d="M72 112H652M72 172H652M72 232H652M72 292H652M72 352H652M72 412H652"/>
+  </g>
+  <path d="M77 371C131 362 175 334 221 293C267 252 316 245 358 269C403 295 433 351 484 341C532 331 558 264 641 173" stroke="#5947D6" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="221" cy="293" r="11" fill="#5947D6" stroke="white" stroke-width="5"/>
+  <circle cx="484" cy="341" r="11" fill="#E9664C" stroke="white" stroke-width="5"/>
+  <g transform="translate(103 108)">
+    <rect width="191" height="88" rx="18" fill="white" stroke="#D9D3FF" stroke-width="2"/>
+    <text x="25" y="37" fill="#5947D6" font-family="Arial, sans-serif" font-size="25" font-weight="700">3</text>
+    <path d="M22 47H43" stroke="#5947D6" stroke-width="2.5"/>
+    <text x="25" y="72" fill="#5947D6" font-family="Arial, sans-serif" font-size="25" font-weight="700">4</text>
+    <text x="60" y="58" fill="#172033" font-family="Arial, sans-serif" font-size="34" font-weight="700">+</text>
+    <text x="105" y="37" fill="#E9664C" font-family="Arial, sans-serif" font-size="25" font-weight="700">1</text>
+    <path d="M102 47H123" stroke="#E9664C" stroke-width="2.5"/>
+    <text x="105" y="72" fill="#E9664C" font-family="Arial, sans-serif" font-size="25" font-weight="700">8</text>
+    <text x="143" y="58" fill="#172033" font-family="Arial, sans-serif" font-size="31" font-weight="700">=?</text>
+  </g>
+  <g transform="translate(485 84)">
+    <path d="M0 106L62 0L124 106H0Z" fill="#E4F6F0" stroke="#17806D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M62 0V106" stroke="#17806D" stroke-width="3" stroke-dasharray="7 7"/>
+    <path d="M53 96H63V106" stroke="#17806D" stroke-width="3"/>
+    <circle cx="62" cy="0" r="6" fill="#E7A83E"/>
+    <circle cx="0" cy="106" r="6" fill="#E9664C"/>
+    <circle cx="124" cy="106" r="6" fill="#5947D6"/>
+  </g>
+  <g transform="translate(317 377)">
+    <rect width="210" height="62" rx="18" fill="white" stroke="#D9D3FF" stroke-width="2"/>
+    <circle cx="32" cy="31" r="13" fill="#BDEFD7"/>
+    <path d="M25 31L30 36L40 25" stroke="#17806D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="57" y="37" fill="#172033" font-family="Arial, sans-serif" font-size="17" font-weight="700">понял идею</text>
+  </g>
+</svg>

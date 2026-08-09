@@ -1,0 +1,17 @@
+---
+interface Props {
+  grade: string;
+  time: string;
+  level?: 'База' | 'Углубление';
+  prerequisites?: string;
+}
+
+const { grade, time, level = 'База', prerequisites } = Astro.props;
+---
+
+<div class="dm-lesson-meta" aria-label="Информация об уроке">
+  <span class="dm-chip dm-chip--accent">{grade}</span>
+  <span class="dm-chip">◷ {time}</span>
+  <span class="dm-chip">◇ {level}</span>
+  {prerequisites && <span class="dm-chip">Нужно знать: {prerequisites}</span>}
+</div>

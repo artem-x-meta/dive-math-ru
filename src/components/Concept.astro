@@ -1,0 +1,14 @@
+---
+interface Props {
+  type?: 'rule' | 'idea' | 'mistake' | 'remember';
+  title: string;
+}
+
+const { type = 'rule', title } = Astro.props;
+const icons = { rule: '∴', idea: '✦', mistake: '!', remember: '◆' };
+---
+
+<aside class:list={['dm-concept', `dm-concept--${type}`]}>
+  <h3 class="dm-panel-title"><span aria-hidden="true">{icons[type]}</span> {title}</h3>
+  <slot />
+</aside>

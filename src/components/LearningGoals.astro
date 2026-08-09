@@ -1,0 +1,14 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<aside class="dm-goals" aria-labelledby="goals-title">
+  <h2 id="goals-title" class="dm-goals__title"><span aria-hidden="true">◎</span> После урока ты сможешь</h2>
+  <ul>
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+</aside>
