@@ -319,3 +319,313 @@ export function populationVariance(values: readonly number[]): Fraction {
   const big = toBig(sum, 'сумма квадратов отклонений');
   return normalizeBig(big.numerator, big.denominator * BigInt(values.length));
 }
+
+/* ─────────────────────────  События как множества исходов  ───────────────────────── */
+
+function assertOutcomeList(values: readonly number[], label: string): void {
+  if (!Array.isArray(values)) {
+    throw new TypeError(`${label}: нужен массив исходов`);
+  }
+  values.forEach((value, index) => {
+    if (!Number.isSafeInteger(value)) {
+      throw new TypeError(`${label}: исход №${index + 1} должен быть целым числом`);
+    }
+  });
+}
+
+/** Приводит перечень исходов к множеству: без повторов и по возрастанию. */
+export function outcomeSet(values: readonly number[]): number[] {
+  assertOutcomeList(values, 'Множество исходов');
+  return [...new Set(values)].sort((left, right) => left - right);
+}
+
+/** Объединение $A\cup B$: исход попадает в него, если принадлежит хотя бы одному событию. */
+export function unionOfSets(left: readonly number[], right: readonly number[]): number[] {
+  return outcomeSet([...outcomeSet(left), ...outcomeSet(right)]);
+}
+
+/** Пересечение $A\cap B$: исходы, принадлежащие обоим событиям сразу. */
+export function intersectionOfSets(left: readonly number[], right: readonly number[]): number[] {
+  const rightSet = new Set(outcomeSet(right));
+  return outcomeSet(left).filter((value) => rightSet.has(value));
+}
+
+/** Разность $A\setminus B$: исходы события $A$, которых нет в $B$. */
+export function differenceOfSets(left: readonly number[], right: readonly number[]): number[] {
+  const rightSet = new Set(outcomeSet(right));
+  return outcomeSet(left).filter((value) => !rightSet.has(value));
+}
+
+function assertSubset(universe: readonly number[], part: readonly number[]): number[] {
+  const all = outcomeSet(universe);
+  const allSet = new Set(all);
+  const subset = outcomeSet(part);
+  for (const value of subset) {
+    if (!allSet.has(value)) {
+      throw new RangeError(`Исход ${value} не входит в список исходов опыта`);
+    }
+  }
+  return subset;
+}
+
+/** Противоположное событие $\bar{A}$: все исходы опыта, которые не входят в $A$. */
+export function complementOfSet(universe: readonly number[], part: readonly number[]): number[] {
+  assertSubset(universe, part);
+  return differenceOfSets(universe, part);
+}
+
+/** Два события несовместны, если их пересечение пусто. */
+export function areDisjointSets(left: readonly number[], right: readonly number[]): boolean {
+  return intersectionOfSets(left, right).length === 0;
+}
+
+/** Классическая вероятность события, заданного списком благоприятных исходов. */
+export function probabilityOfSet(favorable: readonly number[], universe: readonly number[]): Fraction {
+  const all = outcomeSet(universe);
+  if (all.length === 0) {
+    throw new RangeError('В опыте должен быть хотя бы один исход');
+  }
+  const subset = assertSubset(all, favorable);
+  return classicalProbability(subset.length, all.length);
+}
+
+export interface EventPartition {
+  /** Исходы события $A$, не попавшие в $B$. */
+  onlyLeft: number[];
+  /** Исходы пересечения $A\cap B$. */
+  both: number[];
+  /** Исходы события $B$, не попавшие в $A$. */
+  onlyRight: number[];
+  /** Исходы опыта вне обоих событий. */
+  neither: number[];
+}
+
+/** Разбивает все исходы опыта на четыре области диаграммы Эйлера. */
+export function partitionByEvents(
+  universe: readonly number[],
+  left: readonly number[],
+  right: readonly number[],
+): EventPartition {
+  const all = outcomeSet(universe);
+  const a = assertSubset(all, left);
+  const b = assertSubset(all, right);
+  return {
+    onlyLeft: differenceOfSets(a, b),
+    both: intersectionOfSets(a, b),
+    onlyRight: differenceOfSets(b, a),
+    neither: differenceOfSets(all, unionOfSets(a, b)),
+  };
+}
+
+/** Простое ли число: делится только на 1 и на себя, единица простой не считается. */
+export function isPrimeNumber(value: number): boolean {
+  if (!Number.isSafeInteger(value) || value < 2) return false;
+  for (let divisor = 2; divisor * divisor <= value; divisor += 1) {
+    if (value % divisor === 0) return false;
+  }
+  return true;
+}
+
+export type NumberEventKind = 'even' | 'odd' | 'multipleOfThree' | 'prime' | 'greaterThanSix';
+
+const NUMBER_EVENT_TESTS: Readonly<Record<NumberEventKind, (value: number) => boolean>> = {
+  even: (value) => value % 2 === 0,
+  odd: (value) => Math.abs(value % 2) === 1,
+  multipleOfThree: (value) => value % 3 === 0,
+  prime: (value) => isPrimeNumber(value),
+  greaterThanSix: (value) => value > 6,
+};
+
+/** Отбирает из исходов опыта те, что благоприятствуют событию заданного вида. */
+export function selectOutcomes(universe: readonly number[], kind: NumberEventKind): number[] {
+  const test = NUMBER_EVENT_TESTS[kind];
+  if (test === undefined) {
+    throw new RangeError('Неизвестный вид события');
+  }
+  return outcomeSet(universe).filter(test);
+}
+
+/* ─────────────────────────  Построение деревьев испытаний  ───────────────────────── */
+
+export interface UrnColor {
+  /** Подпись исхода: «красный», «синий». */
+  label: string;
+  /** Сколько таких шаров лежит в мешке в начале опыта. */
+  count: number;
+}
+
+function assertUrn(colors: readonly UrnColor[], draws: number, withReplacement: boolean): number {
+  if (!Array.isArray(colors) || colors.length < 2 || colors.length > 4) {
+    throw new RangeError('В мешке должно быть от 2 до 4 разных цветов');
+  }
+  const labels = new Set<string>();
+  let total = 0;
+  colors.forEach((color, index) => {
+    if (typeof color.label !== 'string' || color.label.trim() === '') {
+      throw new TypeError(`У цвета №${index + 1} должна быть подпись`);
+    }
+    if (!Number.isSafeInteger(color.count) || color.count < 0 || color.count > 50) {
+      throw new RangeError(`Число шаров цвета «${color.label}» должно быть целым от 0 до 50`);
+    }
+    if (labels.has(color.label)) {
+      throw new RangeError(`Подпись «${color.label}» встречается дважды`);
+    }
+    labels.add(color.label);
+    total += color.count;
+  });
+  if (total === 0) throw new RangeError('В мешке должен быть хотя бы один шар');
+  if (!Number.isSafeInteger(draws) || draws < 1 || draws > 4) {
+    throw new RangeError('Число извлечений должно быть целым от 1 до 4');
+  }
+  if (!withReplacement && draws > total) {
+    throw new RangeError('Без возвращения нельзя вынуть больше шаров, чем лежит в мешке');
+  }
+  return total;
+}
+
+/**
+ * Дерево извлечений из мешка. При возвращении состав мешка не меняется и шаги
+ * независимы; без возвращения на каждом шаге пересчитываются и числитель, и знаменатель.
+ */
+export function buildUrnTree(
+  colors: readonly UrnColor[],
+  draws: number,
+  withReplacement: boolean,
+): TreeNode {
+  assertUrn(colors, draws, withReplacement);
+
+  const grow = (counts: readonly number[], depth: number): TreeNode => {
+    if (depth === draws) return {};
+    const total = counts.reduce((sum, count) => sum + count, 0);
+    const edges: TreeEdge[] = [];
+    counts.forEach((count, index) => {
+      if (count === 0) return;
+      const nextCounts = withReplacement
+        ? counts
+        : counts.map((value, position) => (position === index ? value - 1 : value));
+      edges.push({
+        label: colors[index]!.label,
+        probability: fraction(count, total),
+        child: grow(nextCounts, depth + 1),
+      });
+    });
+    return { edges };
+  };
+
+  return grow(colors.map((color) => color.count), 0);
+}
+
+export interface StepOutcome {
+  label: string;
+  probability: Fraction;
+}
+
+/**
+ * Дерево опыта из независимых шагов: на каждом шаге набор исходов и их
+ * вероятности одинаковы во всех узлах этого уровня.
+ */
+export function buildIndependentTree(steps: readonly (readonly StepOutcome[])[]): TreeNode {
+  if (!Array.isArray(steps) || steps.length < 1 || steps.length > 4) {
+    throw new RangeError('Опыт должен содержать от 1 до 4 шагов');
+  }
+  steps.forEach((step, index) => {
+    if (!Array.isArray(step) || step.length < 2) {
+      throw new RangeError(`На шаге №${index + 1} должно быть не меньше двух исходов`);
+    }
+  });
+
+  const grow = (depth: number): TreeNode => {
+    if (depth === steps.length) return {};
+    return {
+      edges: steps[depth]!.map((outcome: StepOutcome) => ({
+        label: outcome.label,
+        probability: outcome.probability,
+        child: grow(depth + 1),
+      })),
+    };
+  };
+
+  return grow(0);
+}
+
+/** Сколько раз подпись встретилась в пути исхода: «ровно один красный» — это 1. */
+export function countLabel(outcome: TreeOutcome, label: string): number {
+  return outcome.steps.filter((step) => step === label).length;
+}
+
+export interface TreeLayoutNode {
+  /** Номер узла в порядке обхода дерева сверху вниз. */
+  index: number;
+  /** Номер узла-родителя; у корня — null. */
+  parent: number | null;
+  /** Номер шага испытания: корень стоит на глубине 0. */
+  depth: number;
+  /** Положение по вертикали, измеренное в «строках листьев». */
+  row: number;
+  /** Подпись ребра, ведущего в узел; у корня — пустая строка. */
+  label: string;
+  /** Вероятность этого ребра; у корня — null. */
+  edgeProbability: Fraction | null;
+  /** Произведение вероятностей вдоль пути от корня; у корня — 1. */
+  pathProbability: Fraction;
+  /** Подписи всех рёбер пути от корня к узлу. */
+  steps: readonly string[];
+  isLeaf: boolean;
+}
+
+/**
+ * Раскладка дерева для рисунка: листья занимают последовательные строки,
+ * а каждый внутренний узел встаёт ровно посередине между своими потомками.
+ */
+export function layoutTree(root: TreeNode): TreeLayoutNode[] {
+  const nodes: TreeLayoutNode[] = [];
+  let leafRow = 0;
+
+  const place = (
+    node: TreeNode,
+    parent: number | null,
+    depth: number,
+    label: string,
+    edgeProbability: Fraction | null,
+    pathProbability: Fraction,
+    steps: readonly string[],
+  ): number => {
+    const index = nodes.length;
+    const edges = node.edges ?? [];
+    nodes.push({
+      index,
+      parent,
+      depth,
+      row: 0,
+      label,
+      edgeProbability,
+      pathProbability,
+      steps,
+      isLeaf: edges.length === 0,
+    });
+
+    if (edges.length === 0) {
+      nodes[index]!.row = leafRow;
+      leafRow += 1;
+      return nodes[index]!.row;
+    }
+
+    const childRows = edges.map((edge) =>
+      place(
+        edge.child,
+        index,
+        depth + 1,
+        edge.label,
+        edge.probability,
+        multiplyFractions(pathProbability, edge.probability),
+        [...steps, edge.label],
+      ),
+    );
+    const row = (Math.min(...childRows) + Math.max(...childRows)) / 2;
+    nodes[index]!.row = row;
+    return row;
+  };
+
+  place(root, null, 0, '', null, { numerator: 1, denominator: 1 }, []);
+  return nodes;
+}

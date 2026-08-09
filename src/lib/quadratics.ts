@@ -7,6 +7,8 @@
  * «точная форма + десятичное приближение».
  */
 
+import { divideExact, formatExactRussian } from './exactRational';
+
 export interface Rational {
   numerator: number;
   denominator: number;
@@ -37,6 +39,28 @@ export interface FactorPair {
   first: number;
   second: number;
   sum: number;
+}
+
+/** Вид квадратного уравнения по «пустым» коэффициентам. */
+export type QuadraticKind = 'pure' | 'no-linear' | 'no-constant' | 'full';
+
+/** Запись a(x + shift)² + constant, полученная выделением полного квадрата. */
+export interface CompletedSquare {
+  leading: number;
+  shift: Rational;
+  constant: Rational;
+}
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
+export interface PlotBox {
+  xMin: number;
+  xMax: number;
+  yMin: number;
+  yMax: number;
 }
 
 function assertSafeInteger(value: number, label: string): void {
@@ -254,4 +278,114 @@ export function integerRootPair(p: number, q: number): readonly [number, number]
   if (values.some((value) => value === null)) return null;
   const [first, second] = values as number[];
   return solution.rootCount === 1 ? [first!, first!] : [first!, second!];
+}
+
+/** Вид уравнения: полное или одно из трёх неполных. */
+export function quadraticKind(a: number, b: number, c: number): QuadraticKind {
+  assertQuadratic(a, b, c);
+  if (b === 0 && c === 0) return 'pure';
+  if (b === 0) return 'no-linear';
+  if (c === 0) return 'no-constant';
+  return 'full';
+}
+
+/**
+ * Выделение полного квадрата: ax² + bx + c = a(x + b/(2a))² − D/(4a).
+ * Обе дроби возвращаются точно, в несократимом виде.
+ */
+export function completeSquare(a: number, b: number, c: number): CompletedSquare {
+  const d = discriminant(a, b, c);
+  return {
+    leading: a,
+    shift: normalizeRational(b, 2 * a),
+    constant: normalizeRational(-d, 4 * a),
+  };
+}
+
+/** Русская запись дроби: целое, конечная десятичная или несократимая дробь. */
+export function formatRational(value: Rational): string {
+  if (!Number.isSafeInteger(value.numerator) || !Number.isSafeInteger(value.denominator)) {
+    throw new TypeError('Дробь должна состоять из безопасных целых чисел');
+  }
+  if (value.denominator === 0) {
+    throw new RangeError('Знаменатель дроби не может быть равен нулю');
+  }
+  return formatExactRussian(divideExact(value.numerator, value.denominator));
+}
+
+/** Русская запись приближённого значения: минус — типографский, разделитель — запятая. */
+export function formatApproximate(value: number, digits = 2): string {
+  if (!Number.isFinite(value)) {
+    throw new TypeError('Приближаемое значение должно быть конечным числом');
+  }
+  if (!Number.isInteger(digits) || digits < 0 || digits > 10) {
+    throw new RangeError('Число знаков после запятой должно быть целым от 0 до 10');
+  }
+  const fixed = value.toFixed(digits);
+  if (Number(fixed) === 0) return '0';
+  const trimmed = fixed.includes('.') ? fixed.replace(/0+$/, '').replace(/\.$/, '') : fixed;
+  return trimmed.replace('.', ',').replace('-', '−');
+}
+
+/** Текст корня: точная дробь, если она есть, иначе приближение со знаком ≈. */
+export function describeRoot(root: QuadraticRoot, digits = 2): string {
+  return root.exact === null
+    ? `≈ ${formatApproximate(root.approx, digits)}`
+    : formatRational(root.exact);
+}
+
+/**
+ * Куски параболы y = ax² + bx + c, попадающие в прямоугольное окно.
+ * Точки на границе окна добавляются линейной интерполяцией между соседними
+ * узлами сетки, поэтому при большом sampleCount обрезка визуально точна.
+ */
+export function parabolaSegments(
+  a: number,
+  b: number,
+  c: number,
+  box: PlotBox,
+  sampleCount = 241,
+): Point[][] {
+  assertQuadratic(a, b, c);
+  if (!Number.isInteger(sampleCount) || sampleCount < 2 || sampleCount > 4001) {
+    throw new RangeError('Число узлов должно быть целым от 2 до 4001');
+  }
+  if (!(box.xMin < box.xMax) || !(box.yMin < box.yMax)) {
+    throw new RangeError('Окно графика должно иметь положительные ширину и высоту');
+  }
+
+  const inside = (y: number) => y >= box.yMin && y <= box.yMax;
+  const clampY = (y: number) => Math.min(box.yMax, Math.max(box.yMin, y));
+  const crossing = (from: Point, to: Point): Point => {
+    const bound = to.y > box.yMax ? box.yMax : box.yMin;
+    const span = to.y - from.y;
+    if (span === 0) return { x: to.x, y: clampY(to.y) };
+    const share = (bound - from.y) / span;
+    return { x: from.x + share * (to.x - from.x), y: bound };
+  };
+
+  const samples: Point[] = Array.from({ length: sampleCount }, (_, index) => {
+    const x = box.xMin + ((box.xMax - box.xMin) * index) / (sampleCount - 1);
+    return { x, y: evaluateQuadratic(a, b, c, x) };
+  });
+
+  const segments: Point[][] = [];
+  let current: Point[] = [];
+  samples.forEach((point, index) => {
+    const previous = index > 0 ? samples[index - 1]! : null;
+    if (inside(point.y)) {
+      if (current.length === 0 && previous !== null && !inside(previous.y)) {
+        current.push(crossing(point, previous));
+      }
+      current.push(point);
+      return;
+    }
+    if (current.length > 0) {
+      current.push(crossing(current[current.length - 1]!, point));
+      segments.push(current);
+      current = [];
+    }
+  });
+  if (current.length > 0) segments.push(current);
+  return segments.filter((segment) => segment.length > 1);
 }
