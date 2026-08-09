@@ -1084,6 +1084,72 @@ export function formatPolynomialEquation(polynomial: Polynomial, variable = 'x')
   return `${formatPolynomial(polynomial, variable)} = 0`;
 }
 
+/**
+ * Уравнение, к которому свелась система, обычной строкой: «x² − x − 2 = 0».
+ * Коэффициенты точные, поэтому дробные значения печатаются дробью.
+ */
+export function formatReducedEquation(
+  reduced: CurveSystemSolution['reduced'],
+  variable = 'x',
+): string {
+  if (reduced === null) return 'уравнение не составлено';
+
+  const parts: { power: number; value: ExactRational }[] = [
+    { power: 2, value: reduced.a },
+    { power: 1, value: reduced.b },
+    { power: 0, value: reduced.c },
+  ];
+
+  const pieces: string[] = [];
+  for (const { power, value } of parts) {
+    if (isExactZero(value)) continue;
+    const negative = compareExact(value, ZERO) < 0;
+    const magnitude = negative ? negateExact(value) : value;
+    const body = power === 0
+      ? formatExactRussian(magnitude)
+      : `${compareExact(magnitude, ONE) === 0 ? '' : formatExactRussian(magnitude)}${variable}${power === 2 ? '²' : ''}`;
+    if (pieces.length === 0) pieces.push(negative ? `−${body}` : body);
+    else pieces.push(`${negative ? '−' : '+'} ${body}`);
+  }
+
+  return `${pieces.length === 0 ? '0' : pieces.join(' ')} = 0`;
+}
+
+/** Короткая фраза о том, сколько общих точек у двух линий и почему. */
+export function describeCurveSystem(solution: CurveSystemSolution): string {
+  if (solution.kind === 'unsupported') return 'Такую пару линий ядро главы не разбирает.';
+  if (solution.kind === 'infinite') return 'Линии совпадают: общих точек бесконечно много.';
+  if (solution.points.length === 0) return 'Общих точек нет: система решений не имеет.';
+  if (solution.points.length === 1) return 'Общая точка ровно одна — линии касаются или пересекаются один раз.';
+  return `Общих точек ${solution.points.length}: столько же решений и у системы.`;
+}
+
+/**
+ * Совпадает ли набор корней с ответом ученика. Сравнение точное, поэтому
+ * уравнения с иррациональными корнями честно возвращают false: такой ответ
+ * записывается не списком дробей.
+ */
+export function matchesRootList(
+  roots: readonly RealRoot[],
+  answer: readonly ExactRational[],
+): boolean {
+  if (roots.some((root) => root.exact === null)) return false;
+  const expected = roots.map((root) => root.exact as ExactRational);
+  if (expected.length !== answer.length) return false;
+  const sorted = [...answer].sort((left, right) => compareExact(left, right));
+  return expected.every((value, index) => compareExact(value, sorted[index]!) === 0);
+}
+
+/** Проверяет пару (x; y) сразу в обоих уравнениях системы. */
+export function satisfiesSystem(
+  first: CurveSpec,
+  second: CurveSpec,
+  x: ExactInput,
+  y: ExactInput,
+): boolean {
+  return satisfiesCurve(first, x, y) && satisfiesCurve(second, x, y);
+}
+
 // ───────────────────────── Наборы примеров для лабораторий ──────────────────
 
 export type EquationPresetKind = 'polynomial' | 'rational';

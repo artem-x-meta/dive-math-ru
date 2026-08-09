@@ -346,7 +346,13 @@ export default function CombLab({
                     : `P${n} = ${n}! = ${formatCount(ordered)}.`}
             </strong>
             <small>
-              {mode === 'combinations'
+              {!reveal
+                ? mode === 'combinations'
+                  ? `Подсказка: посчитай ${safeK} убывающих множителей от ${n} и раздели произведение на ${safeK}!.`
+                  : mode === 'arrangements'
+                    ? `Подсказка: перемножь ${safeK} убывающих множителей, начиная с ${n}.`
+                    : `Подсказка: перемножь все натуральные числа от 1 до ${n}.`
+                : mode === 'combinations'
                 ? `Симметрия: C(${n}, ${safeK}) = C(${n}, ${n - safeK}) — выбрать ${safeK} значит отложить ${n - safeK}. ` +
                   `Правило треугольника: ${formatCount(parents.left)} + ${formatCount(parents.right)} = ${formatCount(parents.sum)}. ` +
                   `Сумма всей строки равна ${formatCount(rowSum)} — столько у множества из ${n} элементов подмножеств.`

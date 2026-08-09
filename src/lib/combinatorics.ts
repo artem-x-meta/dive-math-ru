@@ -280,6 +280,62 @@ export function distributionOfEqualOutcomes(values: readonly number[]): Distribu
     .map(([value, count]) => ({ value, probability: fraction(count, values.length) }));
 }
 
+/**
+ * Конечные опыты с равновозможными исходами, на которых удобно смотреть
+ * распределение случайной величины: список значений здесь строится перебором,
+ * без единого обращения к генератору случайных чисел.
+ */
+export type FiniteExperimentKind = 'twoDiceSum' | 'twoDiceMax' | 'twoDiceGap' | 'threeCoinsHeads';
+
+const FINITE_EXPERIMENT_KINDS: readonly FiniteExperimentKind[] = [
+  'twoDiceSum',
+  'twoDiceMax',
+  'twoDiceGap',
+  'threeCoinsHeads',
+];
+
+function twoDiceValues(combine: (first: number, second: number) => number): number[] {
+  const values: number[] = [];
+  for (let first = 1; first <= 6; first += 1) {
+    for (let second = 1; second <= 6; second += 1) {
+      values.push(combine(first, second));
+    }
+  }
+  return values;
+}
+
+/**
+ * Значение случайной величины в каждом равновозможном исходе опыта.
+ * Длина списка — это число всех исходов: 36 для двух кубиков, 8 для трёх монет.
+ */
+export function finiteExperimentValues(kind: FiniteExperimentKind): number[] {
+  switch (kind) {
+    case 'twoDiceSum':
+      return twoDiceValues((first, second) => first + second);
+    case 'twoDiceMax':
+      return twoDiceValues((first, second) => Math.max(first, second));
+    case 'twoDiceGap':
+      return twoDiceValues((first, second) => Math.abs(first - second));
+    case 'threeCoinsHeads': {
+      const values: number[] = [];
+      for (let mask = 0; mask < 8; mask += 1) {
+        values.push(((mask >> 2) & 1) + ((mask >> 1) & 1) + (mask & 1));
+      }
+      return values;
+    }
+    default:
+      throw new RangeError('Неизвестный опыт с равновозможными исходами');
+  }
+}
+
+/** Распределение случайной величины конечного опыта — сразу таблицей. */
+export function finiteExperimentDistribution(kind: FiniteExperimentKind): DistributionEntry[] {
+  if (!FINITE_EXPERIMENT_KINDS.includes(kind)) {
+    throw new RangeError('Неизвестный опыт с равновозможными исходами');
+  }
+  return distributionOfEqualOutcomes(finiteExperimentValues(kind));
+}
+
 /** Математическое ожидание: $M(X)=\sum x_i p_i$ — точной дробью. */
 export function expectedValue(entries: readonly DistributionEntry[]): Fraction {
   assertCompleteDistribution(entries);

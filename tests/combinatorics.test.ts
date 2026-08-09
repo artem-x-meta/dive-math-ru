@@ -12,6 +12,8 @@ import {
   distributionTotal,
   expectedValue,
   factorial,
+  finiteExperimentDistribution,
+  finiteExperimentValues,
   formatCount,
   mostLikelyValues,
   pascalParents,
@@ -336,6 +338,59 @@ describe('random variable from equally likely outcomes', () => {
 
   it('refuses to average an incomplete distribution', () => {
     expect(() => expectedValue([{ value: 1, probability: fraction(1, 3) }])).toThrow('должна равняться 1');
+  });
+});
+
+describe('finite experiments with equally likely outcomes', () => {
+  it('enumerates every outcome exactly once', () => {
+    expect(finiteExperimentValues('twoDiceSum')).toHaveLength(36);
+    expect(finiteExperimentValues('twoDiceMax')).toHaveLength(36);
+    expect(finiteExperimentValues('twoDiceGap')).toHaveLength(36);
+    expect(finiteExperimentValues('threeCoinsHeads')).toHaveLength(8);
+    expect(finiteExperimentValues('threeCoinsHeads').slice().sort()).toEqual([0, 1, 1, 1, 2, 2, 2, 3]);
+  });
+
+  it('gives complete distributions', () => {
+    for (const kind of ['twoDiceSum', 'twoDiceMax', 'twoDiceGap', 'threeCoinsHeads'] as const) {
+      expect(distributionTotal(finiteExperimentDistribution(kind))).toEqual({ numerator: 1, denominator: 1 });
+    }
+  });
+
+  it('reproduces the known table for the sum of two dice', () => {
+    const distribution = finiteExperimentDistribution('twoDiceSum');
+    expect(distribution.map((entry) => entry.value)).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    // Числа пар 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1 — восстанавливаем их из вероятностей.
+    expect(distribution.map((entry) => (entry.probability.numerator * 36) / entry.probability.denominator))
+      .toEqual([1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]);
+    expect(expectedValue(distribution)).toEqual({ numerator: 7, denominator: 1 });
+    expect(mostLikelyValues(distribution)).toEqual([7]);
+  });
+
+  it('counts pairs correctly for the maximum and the gap of two dice', () => {
+    const maximum = finiteExperimentDistribution('twoDiceMax');
+    // Наибольшее равно k ровно в 2k − 1 паре: 1, 3, 5, 7, 9, 11.
+    expect(maximum.map((entry) => (entry.probability.numerator * 36) / entry.probability.denominator))
+      .toEqual([1, 3, 5, 7, 9, 11]);
+    expect(expectedValue(maximum)).toEqual({ numerator: 161, denominator: 36 });
+
+    const gap = finiteExperimentDistribution('twoDiceGap');
+    expect(gap.map((entry) => (entry.probability.numerator * 36) / entry.probability.denominator))
+      .toEqual([6, 10, 8, 6, 4, 2]);
+    expect(expectedValue(gap)).toEqual({ numerator: 35, denominator: 18 });
+    expect(mostLikelyValues(gap)).toEqual([1]);
+  });
+
+  it('agrees with the Bernoulli scheme for three fair coins', () => {
+    const coins = finiteExperimentDistribution('threeCoinsHeads');
+    expect(coins).toEqual(bernoulliDistribution(3, fraction(1, 2)));
+    expect(expectedValue(coins)).toEqual({ numerator: 3, denominator: 2 });
+  });
+
+  it('rejects an unknown experiment', () => {
+    // @ts-expect-error — проверяем защиту от значения, которого нет в типе.
+    expect(() => finiteExperimentValues('lottery')).toThrow('Неизвестный опыт');
+    // @ts-expect-error — то же самое для таблицы распределения.
+    expect(() => finiteExperimentDistribution('lottery')).toThrow('Неизвестный опыт');
   });
 });
 

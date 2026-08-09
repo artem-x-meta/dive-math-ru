@@ -507,3 +507,18 @@ export function axisBound(value: ExactInput): ExactRational {
 
   return parseExact((10 * base).toExponential(12));
 }
+
+/**
+ * Равномерная шкала `0, bound/count, …, bound`. Деления вычисляются точно,
+ * поэтому подписи оси не «плывут» и расстояния между ними действительно равны.
+ */
+export function axisTicks(bound: ExactInput, count: number): ExactRational[] {
+  assertInteger(count, 'Число делений');
+  if (count < 1 || count > 20) {
+    throw new RangeError('Число делений должно быть от 1 до 20');
+  }
+
+  const upper = parseExact(bound);
+  return Array.from({ length: count + 1 }, (_unused, slot) =>
+    divideExact(multiplyExact(upper, slot), count));
+}

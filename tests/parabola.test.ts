@@ -9,6 +9,7 @@ import {
   formatSolutionSet,
   fromVertexForm,
   inequalityText,
+  integerShift,
   mirrorPoint,
   monotonicity,
   pieceBounds,
@@ -26,6 +27,8 @@ import {
   solveQuadraticInequality,
   standardFormText,
   toVertexForm,
+  toVertexFormText,
+  transformChain,
   transformSteps,
   valueTable,
   vertexFormText,
@@ -211,6 +214,43 @@ describe('вершинная форма и преобразования', () => 
       { kind: 'start', action: 'Берём эталонную параболу', formula: 'y = x²' },
     ]);
     expect(() => transformSteps(integer(0), 1, 1)).toThrow('не может быть равен нулю');
+  });
+});
+
+describe('вершинная форма по стандартному виду', () => {
+  it('печатает вершинную форму прямо по коэффициентам a, b, c', () => {
+    expect(toVertexFormText(1, -6, 5)).toBe('y = (x − 3)² − 4');
+    expect(toVertexFormText(1, 4, 1)).toBe('y = (x + 2)² − 3');
+    expect(toVertexFormText(-1, 2, 3)).toBe('y = −(x − 1)² + 4');
+    expect(toVertexFormText(2, -4, -1)).toBe('y = 2(x − 1)² − 3');
+    expect(toVertexFormText(-2, -8, -5)).toBe('y = −2(x + 2)² + 3');
+    expect(toVertexFormText(1, 0, 0)).toBe('y = x²');
+  });
+
+  it('возвращает целые сдвиги только для вершины в узле сетки', () => {
+    expect(integerShift(1, -6, 5)).toEqual({ m: 3, n: -4 });
+    expect(integerShift(1, 2, 0)).toEqual({ m: -1, n: -1 });
+    expect(integerShift(-2, -8, -5)).toEqual({ m: -2, n: 3 });
+    expect(integerShift(2, 3, -1)).toBeNull();
+    expect(integerShift(1, -1, 0)).toBeNull();
+  });
+
+  it('строит цепочку преобразований по стандартному виду', () => {
+    const chain = transformChain(-2, -8, -5);
+    expect(chain.map((step) => step.kind)).toEqual(['start', 'scale', 'reflect', 'shift-x', 'shift-y']);
+    expect(chain[chain.length - 1]!.formula).toBe('y = −2(x + 2)² + 3');
+    expect(transformChain(1, 0, 0)).toHaveLength(1);
+    expect(() => transformChain(2, 3, -1)).toThrow('не попадает в узел сетки');
+  });
+
+  it('согласует вершинную форму со значениями исходной функции', () => {
+    for (const [a, b, c] of [[1, -6, 5], [1, 4, 1], [-1, 2, 3], [2, -4, -1], [-2, -8, -5]] as const) {
+      const shift = integerShift(a, b, c)!;
+      expect(shift).not.toBeNull();
+      for (const x of [-3, -1, 0, 1.5, 4]) {
+        expect(evaluateQuadratic(a, b, c, x)).toBeCloseTo(a * (x - shift.m) ** 2 + shift.n, 12);
+      }
+    }
   });
 });
 

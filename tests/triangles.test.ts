@@ -291,6 +291,138 @@ describe('правильные многоугольники', () => {
   });
 });
 
+describe('числа из главы «Геометрический синтез» (9 класс)', () => {
+  it('урок 4.1: третья сторона и вид треугольника', () => {
+    expect(lawOfCosinesSide(5, 8, 60)).toBe(7);
+    expect(lawOfCosinesSide(6, 10, 60)).toBeCloseTo(Math.sqrt(76), 8);
+    expect(lawOfCosinesSide(3, 8, 120)).toBeCloseTo(Math.sqrt(97), 8);
+    expect(lawOfCosinesSide(4, 6, 120)).toBeCloseTo(Math.sqrt(76), 8);
+    expect(lawOfCosinesSide(5, 5, 90)).toBeCloseTo(5 * Math.SQRT2, 8);
+    // Диагонали параллелограмма со сторонами 5 и 8 и углом 60°.
+    expect(lawOfCosinesSide(5, 8, 60)).toBe(7);
+    expect(lawOfCosinesSide(5, 8, 120)).toBeCloseTo(Math.sqrt(129), 8);
+    expect(cosineFromSides(9, 7, 8)).toBeCloseTo(2 / 7, 12);
+    expect(lawOfCosinesAngle(9, 7, 8)).toBeCloseTo(73.398, 3);
+    expect(triangleShapeFromSides(5, 6, 10)).toBe('obtuse');
+    expect(lawOfCosinesAngle(10, 5, 6)).toBeCloseTo(130.542, 3);
+    expect(triangleShapeFromSides(6, 8, 10)).toBe('right');
+  });
+
+  it('урок 4.2: теорема синусов, радиус и площадь', () => {
+    // Базис 50 м, углы 60° и 45°, третий угол 75°.
+    expect(lawOfSinesSide(50, 75, 45)).toBeCloseTo(50 * (Math.sqrt(3) - 1), 8);
+    expect(lawOfSinesSide(50, 75, 60)).toBeCloseTo(44.8288, 4);
+    expect(lawOfSinesSide(8, 30, 45)).toBeCloseTo(8 * Math.SQRT2, 8);
+    expect(circumradius(10, 30)).toBe(10);
+    expect(circumradius(13, 90)).toBe(6.5);
+    expect(circumradius(6, 60)).toBeCloseTo(2 * Math.sqrt(3), 8);
+    expect(lawOfSinesSide(7, 60, 45)).toBeCloseTo((7 * Math.sqrt(6)) / 3, 8);
+    expect(triangleAreaBySas(6, 10, 30)).toBe(15);
+    expect(triangleAreaBySas(4, 9, 150)).toBe(9);
+    expect(sineOfAngleFromSides(14, 120, 6)).toBeCloseTo((3 * Math.sqrt(3)) / 14, 8);
+    expect(anglesWithSine(sineOfAngleFromSides(14, 120, 6))[0]).toBeCloseTo(21.787, 3);
+  });
+
+  it('урок 4.3: разобранные примеры и неоднозначный случай', () => {
+    const sas = solveBySas(5, 60, 8);
+    expect(sas.sides[0]).toBe(7);
+    expect(sas.angles[1]).toBeCloseTo(38.213, 3);
+    expect(sas.angles[2]).toBeCloseTo(81.787, 3);
+    expect(sas.area).toBeCloseTo(10 * Math.sqrt(3), 8);
+
+    const sss = solveBySss(6, 7, 9);
+    expect(sss.angles[0]).toBeCloseTo(41.752, 3);
+    expect(sss.angles[1]).toBeCloseTo(50.977, 3);
+    expect(sss.angles[2]).toBeCloseTo(87.271, 3);
+    expect(sss.area).toBeCloseTo(Math.sqrt(440), 8);
+
+    const ambiguous = solveBySsa(5, 8, 30);
+    expect(ambiguous).toHaveLength(2);
+    expect(ambiguous[0]?.sides[2]).toBeCloseTo(9.9282, 4);
+    expect(ambiguous[1]?.sides[2]).toBeCloseTo(3.9282, 4);
+    expect(solveBySsa(4, 9, 40)).toHaveLength(0);
+    expect(solveBySsa(10, 6, 30)[0]?.angles[1]).toBeCloseTo(17.458, 3);
+
+    const asa = solveByAsa(45, 12, 75);
+    expect(asa.angles[2]).toBe(60);
+    expect(asa.sides[0]).toBeCloseTo(4 * Math.sqrt(6), 8);
+    expect(asa.sides[1]).toBeCloseTo(13.3843, 4);
+
+    expect(solveBySss(5, 6, 7).angles.map((angle) => Math.round(angle * 10) / 10)).toEqual([44.4, 57.1, 78.5]);
+    expect(solveBySss(8, 15, 17).area).toBe(60);
+    expect(solveBySss(8, 15, 17).circumradius).toBeCloseTo(8.5, 8);
+    expect(lawOfCosinesSide(24, 32, 45)).toBeCloseTo(22.669, 3);
+    expect(lawOfCosinesSide(10, 10, 120)).toBeCloseTo(10 * Math.sqrt(3), 8);
+    expect(triangleAreaBySas(10, 10, 120)).toBeCloseTo(25 * Math.sqrt(3), 8);
+  });
+
+  it('урок 4.4: правильные многоугольники, дуга и сектор', () => {
+    const hexagon = regularPolygonMetrics(6, 4);
+    expect(hexagon.circumradius).toBe(4);
+    expect(hexagon.inradius).toBeCloseTo(2 * Math.sqrt(3), 8);
+    expect(hexagon.perimeter).toBe(24);
+    expect(hexagon.area).toBeCloseTo(24 * Math.sqrt(3), 8);
+
+    const octagon = regularPolygonMetrics(8, 2);
+    expect(octagon.interiorAngle).toBe(135);
+    expect(octagon.centralAngle).toBe(45);
+    expect(octagon.circumradius).toBeCloseTo(2.6131, 4);
+    expect(octagon.inradius).toBeCloseTo(2.4142, 4);
+    expect(octagon.area).toBeCloseTo(19.3137, 4);
+
+    expect(regularPolygonMetrics(6, 5).area).toBeCloseTo(37.5 * Math.sqrt(3), 8);
+    expect(regularPolygonInteriorAngle(12)).toBe(150);
+    expect(regularPolygonInteriorAngle(9)).toBe(140);
+    expect(regularPolygonCentralAngle(9)).toBe(40);
+    expect(regularPolygonCircumradius(4, 6)).toBeCloseTo(3 * Math.SQRT2, 8);
+    expect(regularPolygonInradius(4, 6)).toBe(3);
+    expect(regularPolygonCircumradius(3, 6)).toBeCloseTo(2 * Math.sqrt(3), 8);
+    expect(regularPolygonInradius(3, 6)).toBeCloseTo(Math.sqrt(3), 8);
+    expect(regularPolygonArea(3, 6)).toBeCloseTo(9 * Math.sqrt(3), 8);
+
+    // Периметры вписанных многоугольников подбираются к 2π.
+    expect(6 * regularPolygonSideFromCircumradius(6, 1)).toBeCloseTo(6, 8);
+    expect(12 * regularPolygonSideFromCircumradius(12, 1)).toBeCloseTo(6.2117, 4);
+    expect(24 * regularPolygonSideFromCircumradius(24, 1)).toBeCloseTo(6.2653, 4);
+    expect(60 * regularPolygonSideFromCircumradius(60, 1)).toBeCloseTo(6.2803, 4);
+    expect(360 * regularPolygonSideFromCircumradius(360, 1)).toBeCloseTo(6.28311, 5);
+
+    expect(arcLengthPiCoefficient(9, 40)).toBe(2);
+    expect(sectorAreaPiCoefficient(9, 40)).toBe(9);
+    expect(arcLengthPiCoefficient(6, 120)).toBe(4);
+    expect(sectorAreaPiCoefficient(6, 120)).toBe(12);
+    expect(segmentArea(4, 90)).toBeCloseTo(4 * Math.PI - 8, 8);
+    expect(circumference(8)).toBeCloseTo(16 * Math.PI, 8);
+    expect(circleArea(8)).toBeCloseTo(64 * Math.PI, 8);
+  });
+
+  it('практикум: река, ферма и участок', () => {
+    const river = solveByAsa(60, 40, 75);
+    expect(river.angles[2]).toBe(45);
+    expect(river.sides[1]).toBeCloseTo(54.641, 3);
+    expect(river.sides[0]).toBeCloseTo(48.99, 2);
+    // Ширина реки — высота из вершины C, посчитанная от двух разных вершин.
+    expect(river.sides[1] * sineDegrees(60)).toBeCloseTo(47.32, 2);
+    expect(river.sides[0] * sineDegrees(75)).toBeCloseTo(47.32, 2);
+
+    expect(lawOfCosinesSide(5, 7, 100)).toBeCloseTo(9.282, 3);
+    expect(triangleAreaBySas(5, 7, 100)).toBeCloseTo(17.234, 3);
+
+    expect(lawOfCosinesSide(9, 12, 60)).toBeCloseTo(Math.sqrt(117), 8);
+    expect(triangleShapeFromSides(7, 9, 14)).toBe('obtuse');
+    expect(lawOfCosinesAngle(14, 7, 9)).toBeCloseTo(121.588, 3);
+    expect(lawOfSinesSide(12, 30, 105)).toBeCloseTo(23.1822, 4);
+    expect(lawOfSinesSide(12, 30, 45)).toBeCloseTo(12 * Math.SQRT2, 8);
+    expect(triangleAreaBySas(10, 14, 150)).toBe(35);
+    expect(anglesWithSine(0.5)).toEqual([30, 150]);
+    expect(lawOfCosinesSide(15, 20, 140)).toBeCloseTo(32.934, 3);
+
+    const plot = solveBySss(40, 50, 60);
+    expect(plot.area).toBeCloseTo(375 * Math.sqrt(7), 6);
+    expect(plot.angles[2]).toBeCloseTo(82.819, 3);
+  });
+});
+
 describe('окружность, дуга и сектор', () => {
   it('хранит ответ в виде коэффициента при π', () => {
     expect(circumferencePiCoefficient(5)).toBe(10);

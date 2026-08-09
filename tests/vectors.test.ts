@@ -300,3 +300,191 @@ describe('russian formatting', () => {
     expect(formatCircle(circle({ x: 0, y: 0 }, 3))).toBe('x² + y² = 9');
   });
 });
+
+/**
+ * Ниже машинно проверяются числа, напечатанные в главе 5 девятого класса
+ * «Векторы и движения»: разобранные примеры, ответы к практике и практикум.
+ * Если формулировка задачи изменится, тест обязан измениться вместе с ней.
+ */
+describe('numbers printed in the chapter «Векторы и движения»', () => {
+  it('checks the worked examples and answers of lesson 5.1', () => {
+    // Лодка и течение: (0;4) + (3;0) = (3;4), длина 5.
+    expect(addVectors(vec(0, 4), vec(3, 0))).toEqual({ x: 3, y: 4 });
+    expect(vectorLength(addVectors(vec(0, 4), vec(3, 0)))).toBe(5);
+    // Практика 1.
+    expect(addVectors(vec(3, -4), vec(-1, 6))).toEqual({ x: 2, y: 2 });
+    expect(subtractVectors(vec(3, -4), vec(-1, 6))).toEqual({ x: 4, y: -10 });
+    expect(scaleVector(3, vec(3, -4))).toEqual({ x: 9, y: -12 });
+    expect(scaleVector(-0.5, vec(-1, 6))).toEqual({ x: 0.5, y: -3 });
+    // Практика 2, 3, 4.
+    expect(vectorBetween({ x: -2, y: 5 }, { x: 4, y: -3 })).toEqual({ x: 6, y: -8 });
+    expect(vectorBetween({ x: 4, y: -3 }, { x: -2, y: 5 })).toEqual({ x: -6, y: 8 });
+    expect(scaleVector(-2, vec(2, -3))).toEqual({ x: -4, y: 6 });
+    expect(areCollinear(vec(3, -2), vec(-6, 4))).toBe(true);
+    // Практика 7, 8, 9.
+    expect(scaleVector(0.5, subtractVectors(vec(-2, 6), vec(4, -2)))).toEqual({ x: -3, y: 4 });
+    expect(addVectors(vec(5, 1), vec(-1, 3))).toEqual({ x: 4, y: 4 });
+    expect(subtractVectors(vec(5, 1), vec(-1, 3))).toEqual({ x: 6, y: -2 });
+    expect(subtractVectors(scaleVector(2, vec(1, -2)), scaleVector(3, vec(-2, 1)))).toEqual({ x: 8, y: -7 });
+    // Три длины суммы для |a| = 3 и |b| = 4: 7, 1 и 5.
+    expect(vectorLength(addVectors(vec(3, 0), vec(4, 0)))).toBe(7);
+    expect(vectorLength(addVectors(vec(3, 0), vec(-4, 0)))).toBe(1);
+    expect(vectorLength(addVectors(vec(3, 0), vec(0, 4)))).toBe(5);
+  });
+
+  it('checks the coordinate method of lesson 5.2', () => {
+    // Разобранный пример: A(−2;1), B(4;9).
+    expect(vectorBetween({ x: -2, y: 1 }, { x: 4, y: 9 })).toEqual({ x: 6, y: 8 });
+    expect(distance({ x: -2, y: 1 }, { x: 4, y: 9 })).toBe(10);
+    expect(midpoint({ x: -2, y: 1 }, { x: 4, y: 9 })).toEqual({ x: 1, y: 5 });
+    expect(formatCircle(circleFromDiameter({ x: -2, y: 1 }, { x: 4, y: 9 }))).toBe('(x − 1)² + (y − 5)² = 25');
+    expect(isPointOnCircle(circle({ x: 1, y: 5 }, 5), { x: 4, y: 9 })).toBe(true);
+    expect(isPointOnCircle(circle({ x: 1, y: 5 }, 5), { x: 0, y: 0 })).toBe(false);
+    // Прямая через A(1;2) и B(3;6) — это y = 2x.
+    expect(formatLine(lineThroughPoints({ x: 1, y: 2 }, { x: 3, y: 6 }))).toBe('2x − y = 0');
+    // Практика 1–4.
+    expect(vectorBetween({ x: 1, y: -3 }, { x: 7, y: 5 })).toEqual({ x: 6, y: 8 });
+    expect(distance({ x: 1, y: -3 }, { x: 7, y: 5 })).toBe(10);
+    expect(midpoint({ x: 1, y: -3 }, { x: 7, y: 5 })).toEqual({ x: 4, y: 1 });
+    expect(vectorLength(vec(-5, 12))).toBe(13);
+    expect(distance({ x: -2, y: -1 }, { x: 3, y: 11 })).toBe(13);
+    expect(reflectOverPoint({ x: -3, y: 4 }, { x: 2, y: -1 })).toEqual({ x: 7, y: -6 });
+    // Практика 5–8.
+    expect(formatCircle(circle({ x: 2, y: -5 }, 3))).toBe('(x − 2)² + (y + 5)² = 9');
+    expect(formatCircle(circle({ x: 3, y: -2 }, 5))).toBe('(x − 3)² + (y + 2)² = 25');
+    expect(isPointOnCircle(circle({ x: 3, y: -2 }, 5), { x: 6, y: 2 })).toBe(true);
+    expect(isPointOnCircle(circle({ x: 3, y: -2 }, 5), { x: 0, y: 0 })).toBe(false);
+    expect(formatCircle(circleFromDiameter({ x: -1, y: 2 }, { x: 5, y: 10 }))).toBe('(x − 2)² + (y − 6)² = 25');
+    // Практика 9–12.
+    expect(formatLine(lineThroughPoints({ x: 0, y: 0 }, { x: 2, y: 3 }))).toBe('3x − 2y = 0');
+    expect(formatLine(lineThroughPoints({ x: -2, y: 1 }, { x: -2, y: 7 }))).toBe('x + 2 = 0');
+    expect(formatLine(lineThroughPoints({ x: 0, y: 5 }, { x: 4, y: 5 }))).toBe('y − 5 = 0');
+    expect(formatLine(perpendicularBisector({ x: 1, y: 1 }, { x: 5, y: 3 }))).toBe('2x + y − 8 = 0');
+    expect(isPointOnLine(perpendicularBisector({ x: 1, y: 1 }, { x: 5, y: 3 }), { x: 4, y: 0 })).toBe(true);
+    expect(distance({ x: 0, y: 0 }, { x: 3, y: 3 })).toBeCloseTo(distance({ x: 6, y: 0 }, { x: 3, y: 3 }), 12);
+    expect(distance({ x: 3, y: 3 }, midpoint({ x: 0, y: 0 }, { x: 6, y: 0 }))).toBe(3);
+  });
+
+  it('checks the dot products and angles of lesson 5.3', () => {
+    // Прогноз урока: (4;3) и (3;−4) перпендикулярны.
+    expect(dotProduct(vec(4, 3), vec(3, -4))).toBe(0);
+    expect(angleBetweenDegrees(vec(4, 3), vec(3, -4))).toBeCloseTo(90, 10);
+    // Разобранный пример: 45°.
+    expect(dotProduct(vec(1, 2), vec(3, 1))).toBe(5);
+    expect(angleBetweenDegrees(vec(1, 2), vec(3, 1))).toBeCloseTo(45, 10);
+    // Треугольник A(1;2), B(5;2), C(1;5): 90°, ≈36,9° и ≈53,1°, в сумме 180°.
+    const a = { x: 1, y: 2 };
+    const b = { x: 5, y: 2 };
+    const c = { x: 1, y: 5 };
+    const angleA = angleBetweenDegrees(vectorBetween(a, b), vectorBetween(a, c));
+    const angleB = angleBetweenDegrees(vectorBetween(b, a), vectorBetween(b, c));
+    const angleC = angleBetweenDegrees(vectorBetween(c, a), vectorBetween(c, b));
+    expect(angleA).toBeCloseTo(90, 10);
+    expect(roundTo(angleB, 1)).toBe(36.9);
+    expect(roundTo(angleC, 1)).toBe(53.1);
+    expect(angleA + angleB + angleC).toBeCloseTo(180, 10);
+    expect(cosineBetween(vectorBetween(b, a), vectorBetween(b, c))).toBeCloseTo(0.8, 12);
+    expect(cosineBetween(vectorBetween(c, a), vectorBetween(c, b))).toBeCloseTo(0.6, 12);
+    // Подбор координаты: t = 1,5.
+    expect(dotProduct(vec(1.5, 3), vec(4, -2))).toBe(0);
+    // Практика 1–3, 5, 6, 11.
+    expect(dotProduct(vec(3, -2), vec(-1, 4))).toBe(-11);
+    expect(dotProduct(vec(-6, 8), vec(-6, 8))).toBe(100);
+    expect(vectorLength(vec(-6, 8))).toBe(10);
+    expect(arePerpendicular(vec(2, -1), vec(3, 6))).toBe(true);
+    expect(angleBetweenDegrees(vec(1, 0), vec(1, 1))).toBeCloseTo(45, 10);
+    expect(angleBetweenDegrees(vec(2, 2), vec(-3, 0))).toBeCloseTo(135, 10);
+    expect(roundTo(cosineBetween(vec(8, 6), vec(-8, 6)), 2)).toBe(-0.28);
+    // Практика 12: ABCD — квадрат.
+    const square = [{ x: 0, y: 0 }, { x: 4, y: 3 }, { x: 1, y: 7 }, { x: -3, y: 4 }];
+    const sides = square.map((point, index) => vectorBetween(point, square[(index + 1) % 4]!));
+    expect(sides.map((side) => vectorLength(side))).toEqual([5, 5, 5, 5]);
+    expect(sides.map((side, index) => dotProduct(side, sides[(index + 1) % 4]!))).toEqual([0, 0, 0, 0]);
+    // Ловушка: одинаковое произведение не означает равенства векторов.
+    expect(dotProduct(vec(1, 0), vec(2, 5))).toBe(dotProduct(vec(1, 0), vec(2, -3)));
+    expect(equalVectors(vec(2, 5), vec(2, -3))).toBe(false);
+  });
+
+  it('checks the motions of lesson 5.4', () => {
+    // Перенос по двум точкам.
+    const shift = vectorBetween({ x: -3, y: 4 }, { x: 2, y: 1 });
+    expect(shift).toEqual({ x: 5, y: -3 });
+    expect(translatePoint({ x: 1, y: 1 }, shift)).toEqual({ x: 6, y: -2 });
+    expect(translatePoint({ x: -4, y: 3 }, vec(6, -5))).toEqual({ x: 2, y: -2 });
+    // Поворот треугольника на 90°.
+    const origin = { x: 0, y: 0 };
+    expect(rotatePoint({ x: 2, y: 1 }, origin, 90)).toEqual({ x: -1, y: 2 });
+    expect(rotatePoint({ x: 5, y: 1 }, origin, 90)).toEqual({ x: -1, y: 5 });
+    expect(rotatePoint({ x: 2, y: 3 }, origin, 90)).toEqual({ x: -3, y: 2 });
+    // Практика 3–7.
+    expect(reflectOverLine({ x: 3, y: -7 }, { a: 0, b: 1, c: 0 })).toEqual({ x: 3, y: 7 });
+    expect(reflectOverLine({ x: 3, y: -7 }, { a: 1, b: 0, c: 0 })).toEqual({ x: -3, y: -7 });
+    expect(reflectOverPoint({ x: 3, y: -7 }, origin)).toEqual({ x: -3, y: 7 });
+    expect(reflectOverPoint({ x: 3, y: -7 }, { x: 1, y: 2 })).toEqual({ x: -1, y: 11 });
+    expect(midpoint({ x: 6, y: -2 }, { x: -2, y: 4 })).toEqual({ x: 2, y: 1 });
+    expect(rotatePoint({ x: 4, y: 1 }, origin, 90)).toEqual({ x: -1, y: 4 });
+    expect(rotatePoint({ x: 4, y: 1 }, origin, 180)).toEqual({ x: -4, y: -1 });
+    expect(rotatePoint({ x: 4, y: 1 }, origin, -90)).toEqual({ x: 1, y: -4 });
+    expect(reflectOverLine({ x: -2, y: 5 }, { a: 1, b: -1, c: 0 })).toEqual({ x: 5, y: -2 });
+    // Практика 8: поворот на 180° сохраняет все три стороны.
+    const triangle = [{ x: 1, y: 1 }, { x: 4, y: 1 }, { x: 1, y: 5 }];
+    const turned = triangle.map((point) => rotatePoint(point, origin, 180));
+    expect(turned).toEqual([{ x: -1, y: -1 }, { x: -4, y: -1 }, { x: -1, y: -5 }]);
+    expect(distance(triangle[0]!, triangle[1]!)).toBe(distance(turned[0]!, turned[1]!));
+    expect(distance(triangle[0]!, triangle[2]!)).toBe(distance(turned[0]!, turned[2]!));
+    expect(distance(triangle[1]!, triangle[2]!)).toBe(5);
+    expect(distance(turned[1]!, turned[2]!)).toBe(5);
+    // Практика 10: две симметрии относительно x = 1 и x = 4 дают перенос на (6;0).
+    const mirrored = reflectOverLine(reflectOverLine({ x: 0, y: 3 }, { a: 1, b: 0, c: -1 }), { a: 1, b: 0, c: -4 });
+    expect(mirrored).toEqual(translatePoint({ x: 0, y: 3 }, vec(6, 0)));
+    // Схема урока: та же композиция для вершин треугольника (1;4), (1;2), (0;2)
+    // относительно прямых x = 2 и x = 5.
+    const figure = [{ x: 1, y: 4 }, { x: 1, y: 2 }, { x: 0, y: 2 }];
+    const first = figure.map((point) => reflectOverLine(point, { a: 1, b: 0, c: -2 }));
+    const second = first.map((point) => reflectOverLine(point, { a: 1, b: 0, c: -5 }));
+    expect(first).toEqual([{ x: 3, y: 4 }, { x: 3, y: 2 }, { x: 4, y: 2 }]);
+    expect(second).toEqual([{ x: 7, y: 4 }, { x: 7, y: 2 }, { x: 6, y: 2 }]);
+    // Практика 12: поворот сохраняет длину отрезка.
+    expect(rotatePoint({ x: 4, y: 2 }, origin, 90)).toEqual({ x: -2, y: 4 });
+    expect(distance(origin, { x: 4, y: 2 })).toBeCloseTo(distance(origin, { x: -2, y: 4 }), 12);
+    // Ориентация: только осевая симметрия переворачивает обход.
+    expect(preservesOrientation('axial-symmetry')).toBe(false);
+    expect(preservesOrientation('central-symmetry')).toBe(true);
+  });
+
+  it('checks the drone project of lesson 5.5', () => {
+    const hangar = { x: 0, y: 0 };
+    const firstLeg = vec(6, 8);
+    const secondLeg = vec(8, -6);
+    const b = translatePoint(hangar, firstLeg);
+    const c = translatePoint(b, secondLeg);
+    expect(b).toEqual({ x: 6, y: 8 });
+    expect(c).toEqual({ x: 14, y: 2 });
+    expect(vectorLength(firstLeg)).toBe(10);
+    expect(vectorLength(secondLeg)).toBe(10);
+    expect(addVectors(firstLeg, secondLeg)).toEqual({ x: 14, y: 2 });
+    expect(squaredLength(vectorBetween(hangar, c))).toBe(200);
+    expect(roundTo(distance(hangar, c), 1)).toBe(14.1);
+    expect(dotProduct(firstLeg, secondLeg)).toBe(0);
+    expect(midpoint(hangar, c)).toEqual({ x: 7, y: 1 });
+    // Зона связи радиуса 12: B внутри, C снаружи.
+    expect(squaredLength(vectorBetween(hangar, b))).toBe(100);
+    expect(squaredLength(vectorBetween(hangar, b)) < 144).toBe(true);
+    expect(squaredLength(vectorBetween(hangar, c)) > 144).toBe(true);
+    // Угол между первым курсом и направлением на север.
+    expect(dotProduct(firstLeg, vec(0, 1))).toBe(8);
+    expect(cosineBetween(firstLeg, vec(0, 1))).toBeCloseTo(0.8, 12);
+    expect(roundTo(angleBetweenDegrees(firstLeg, vec(0, 1)), 1)).toBe(36.9);
+    // Прямая AB, возврат в ангар, симметрия и поворот.
+    expect(formatLine(lineThroughPoints(hangar, b))).toBe('4x − 3y = 0');
+    expect(vectorBetween(c, hangar)).toEqual({ x: -14, y: -2 });
+    expect(addVectors(addVectors(firstLeg, secondLeg), vectorBetween(c, hangar))).toEqual({ x: 0, y: 0 });
+    expect(reflectOverLine(b, { a: 1, b: 0, c: 0 })).toEqual({ x: -6, y: 8 });
+    expect(reflectOverLine(c, { a: 1, b: 0, c: 0 })).toEqual({ x: -14, y: 2 });
+    expect(rotatePoint({ x: 3, y: 2 }, hangar, 90)).toEqual({ x: -2, y: 3 });
+    // Расстояние BC, площадь и прямой угол при вершине B.
+    expect(distance(b, c)).toBe(10);
+    expect(triangleArea(hangar, b, c)).toBe(50);
+    expect(dotProduct(vectorBetween(b, hangar), vectorBetween(b, c))).toBe(0);
+  });
+});

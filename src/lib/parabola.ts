@@ -284,6 +284,23 @@ export function fromVertexForm(a: number, m: number, n: number): { a: number; b:
   return { a, b, c };
 }
 
+/** Вершинная форма как готовый текст, полученный прямо из стандартного вида. */
+export function toVertexFormText(a: number, b: number, c: number): string {
+  const form = toVertexForm(a, b, c);
+  return vertexFormText(integerRational(form.leading), form.m, form.n);
+}
+
+/**
+ * Целые сдвиги вершинной формы, если вершина попадает в узел сетки, иначе null.
+ * Нужны там, где сдвиг обязан быть целым: в цепочке преобразований и в проверке
+ * ответа «на сколько и куда сдвинули эталонную параболу».
+ */
+export function integerShift(a: number, b: number, c: number): { m: number; n: number } | null {
+  const form = toVertexForm(a, b, c);
+  if (form.m.denominator !== 1 || form.n.denominator !== 1) return null;
+  return { m: form.m.numerator, n: form.n.numerator };
+}
+
 export type TransformKind = 'start' | 'scale' | 'reflect' | 'shift-x' | 'shift-y';
 
 export interface TransformStep {
@@ -349,6 +366,18 @@ export function transformSteps(leading: Rational, m: number, n: number): readonl
   }
 
   return Object.freeze(steps);
+}
+
+/**
+ * Та же цепочка преобразований, но для функции, заданной стандартным видом.
+ * Работает, когда вершина попадает в узел сетки: только тогда сдвиги целые.
+ */
+export function transformChain(a: number, b: number, c: number): readonly TransformStep[] {
+  const shift = integerShift(a, b, c);
+  if (shift === null) {
+    throw new RangeError('Вершина этой параболы не попадает в узел сетки: сдвиги получаются дробными');
+  }
+  return transformSteps(integerRational(a), shift.m, shift.n);
 }
 
 // ────────────────── Дробный старший коэффициент через масштаб ────────────────
@@ -616,7 +645,8 @@ export function solveQuadraticInequality(
   let pieces: readonly SolutionPiece[];
 
   if (solution.rootCount === 2) {
-    const [first, second] = roots as readonly [QuadraticRoot, QuadraticRoot];
+    const first = roots[0]!;
+    const second = roots[1]!;
     if (positive) {
       shape = 'outside';
       pieces = [piece(null, first, !strict), piece(second, null, !strict)];

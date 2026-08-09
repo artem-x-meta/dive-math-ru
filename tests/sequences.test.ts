@@ -23,6 +23,7 @@ import {
   recurrence,
   recurrenceTerms,
   axisBound,
+  axisTicks,
   roundExact,
   simpleAmount,
   totalPercentChange,
@@ -281,6 +282,14 @@ describe('rounding and formatting', () => {
     expect(text(axisBound(0))).toBe('1');
     expect(text(axisBound(-5))).toBe('1');
     expect(text(axisBound(2_100))).toBe('2500');
+  });
+
+  it('splits the axis into equal exact steps', () => {
+    expect(list(axisTicks(100, 4))).toEqual(['0', '25', '50', '75', '100']);
+    expect(list(axisTicks(1, 3))).toEqual(['0', '1/3', '2/3', '1']);
+    expect(list(axisTicks(axisBound(50_388.48), 5))).toEqual(['0', '20000', '40000', '60000', '80000', '100000']);
+    expect(() => axisTicks(10, 0)).toThrow('от 1 до 20');
+    expect(() => axisTicks(10, 2.5)).toThrow('целым числом');
   });
 
   it('approximates only where a picture needs a float', () => {
