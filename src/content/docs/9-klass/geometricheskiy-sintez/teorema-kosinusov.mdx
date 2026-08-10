@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Задай две стороны $b = 5$ и $c = 8$, крути угол $A$ между ними и следи за третьей стороной $a$.
 
-<TriSolveLab client:load mode="sas" initialSideB={5} initialSideC={8} initialAngleA={60} unit="м" />
+<TriSolveLab client:visible mode="sas" initialSideB={5} initialSideC={8} initialAngleA={60} unit="м" />
 
 Три наблюдения, которые стоит записать:
 
@@ -181,7 +181,7 @@ $$\cos \alpha > 0 \text{ при } \alpha < 90°, \qquad \cos 90° = 0, \qquad \c
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="tri9-cos-obtuse-sign"
   question="В треугольнике b = 4, c = 6, а угол между ними равен 120°. Чему равна сторона a?"
   correctIndex={2}
@@ -241,4 +241,4 @@ $$\cos \alpha > 0 \text{ при } \alpha < 90°, \qquad \cos 90° = 0, \qquad \c
 
 [← Вход в тему](/9-klass/geometricheskiy-sintez/) · [Дальше: теорема синусов →](/9-klass/geometricheskiy-sintez/teorema-sinusov/)
 
-<LessonComplete client:load lessonId="9-triangles-cosines" />
+<LessonComplete client:visible lessonId="9-triangles-cosines" />

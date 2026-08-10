@@ -30,7 +30,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Сторона площадки равна $\sqrt{45}$ м. Сначала запишем это число точно и коротко.
 
 <RootSimplifyLab
-  client:load
+  client:visible
   mode="simplify"
   initialValue={45}
   challenge={true}
@@ -51,7 +51,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Теперь нужна оценка. Зажмём сторону между сотыми.
 
 <RootLab
-  client:load
+  client:visible
   mode="estimate"
   initialValue="45"
   initialDigits={2}
@@ -79,7 +79,7 @@ $$14\sqrt{2}=\sqrt{392},\qquad 15\sqrt{2}=\sqrt{450}.$$
 Так как $392<400\le450$, получаем $14\sqrt{2}<20<15\sqrt{2}$. Помещается ровно $14$ плиток, и никакие приближённые вычисления для этого вывода не понадобились.
 
 <QuickCheck
-  client:load
+  client:visible
   id="root8-practice-choice"
   question="Для закупки бордюра по периметру площадки какое значение стороны нужно взять?"
   correctIndex={2}
@@ -138,4 +138,4 @@ $$14\sqrt{2}=\sqrt{392},\qquad 15\sqrt{2}=\sqrt{450}.$$
 
 [← Свойства корня](/8-klass/deystvitelnye-chisla/svoystva-kornya/) · [К обзору 8 класса →](/8-klass/)
 
-<LessonComplete client:load lessonId="8-roots-practice" />
+<LessonComplete client:visible lessonId="8-roots-practice" />

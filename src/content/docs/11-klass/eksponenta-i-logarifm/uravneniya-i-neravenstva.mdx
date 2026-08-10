@@ -37,7 +37,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Ответ у неравенства почти никогда не одно число. Потренируй запись промежутка и особенно круглые и квадратные скобки: дальше в этом уроке от них будет зависеть, входит ли граница в ответ.
 
-<IneqIntervalLab client:load mode="interval" initialLeft={3} initialRight={5} />
+<IneqIntervalLab client:visible mode="interval" initialLeft={3} initialRight={5} />
 
 Промежуток $(3;5)$ выбран не случайно: именно он окажется ответом двойного неравенства $8<2^{x}<32$ в конце урока.
 
@@ -172,7 +172,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="exp11-inequality-base"
   question="Каково решение неравенства (1/3) в степени x > 9?"
   correctIndex={1}
@@ -253,4 +253,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Логарифмическая функция](/11-klass/eksponenta-i-logarifm/logarifmicheskaya-funktsiya/) · [Дальше: практикум →](/11-klass/eksponenta-i-logarifm/praktikum/)
 
-<LessonComplete client:load lessonId="11-explog-equations" />
+<LessonComplete client:visible lessonId="11-explog-equations" />

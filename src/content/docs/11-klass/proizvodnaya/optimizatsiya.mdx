@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Верхний график — объём коробки, нижний — его производная. Ниже лаборатория сама сравнит кандидатов на отрезке $[0;6]$.
 
-<DerivProfileLab client:load initialPreset="box-volume" />
+<DerivProfileLab client:visible initialPreset="box-volume" />
 
 Максимум приходится на $x=2$, и объём там равен $128\text{ см}^3$. Обрати внимание на таблицу кандидатов: кроме стационарной точки в ней есть оба конца отрезка. Для этой задачи концы дают ноль, но так бывает не всегда — переключись на вкладку с забором, а потом посмотри на пример в конце урока.
 
@@ -127,7 +127,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="der11-endpoints"
   question="Функция y = x³ − 12x рассматривается на отрезке [0; 3]. Где достигается её наименьшее значение?"
   correctIndex={1}
@@ -194,4 +194,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Исследование функции](/11-klass/proizvodnaya/issledovanie-funktsii/) · [Дальше: практикум →](/11-klass/proizvodnaya/praktikum/)
 
-<LessonComplete client:load lessonId="11-derivative-optimization" />
+<LessonComplete client:visible lessonId="11-derivative-optimization" />

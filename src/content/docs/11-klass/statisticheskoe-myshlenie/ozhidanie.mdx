@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Лаборатория показывает распределение выплаты столбиками. Прикинь центр тяжести картинки на глаз, введи своё число и только потом нажимай «Проверить». Ползунок цены не меняет распределение выплаты — он двигает лишь кружок на оси и итоговую строку.
 
-<StochExpectLab client:load initialGame="cube" initialPrice={40} challenge={true} />
+<StochExpectLab client:visible initialGame="cube" initialPrice={40} challenge={true} />
 
 Переключись на другие игры. «Надёжный конверт», «Джекпот» и «Аттракцион с кубиком» устроены совершенно по-разному, но одно число у них общее — найди его сам.
 
@@ -115,7 +115,7 @@ $$M(X)=\frac{10+20+30+40+50+60}{6}=\frac{210}{6}=35\ \text{₽}.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="stoch11-expect-fair-price"
   question="В лотерее из 500 билетов один выигрывает 20 000 ₽, четыре — по 5 000 ₽, остальные пустые. Какова справедливая цена билета?"
   correctIndex={0}
@@ -183,4 +183,4 @@ $$M(X)=\frac{10+20+30+40+50+60}{6}=\frac{210}{6}=35\ \text{₽}.$$
 
 [← Вход в тему](/11-klass/statisticheskoe-myshlenie/) · [Дальше: дисперсия и стандартное отклонение →](/11-klass/statisticheskoe-myshlenie/dispersiya/)
 
-<LessonComplete client:load lessonId="11-statistics-expectation" />
+<LessonComplete client:visible lessonId="11-statistics-expectation" />

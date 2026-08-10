@@ -50,7 +50,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Складывай векторы на решётке и следи за двумя вещами сразу: за замыкающей стрелкой и за координатами результата.
 
-<VecLab client:load mode="sum" initialAx={4} initialAy={1} initialBx={-1} initialBy={3} />
+<VecLab client:visible mode="sum" initialAx={4} initialAy={1} initialBx={-1} initialBy={3} />
 
 Переключи вкладку «Умножение на число» и посмотри, что происходит с длиной и с направлением при разных множителях, в том числе отрицательных.
 
@@ -102,7 +102,7 @@ $$\vec a + \vec b = \vec b + \vec a, \qquad (\vec a + \vec b) + \vec c = \vec a 
 
 $$\vec{OA} - \vec{OB} = \vec{BA}.$$
 
-<VecLab client:load mode="difference" initialAx={5} initialAy={2} initialBx={2} initialBy={5} />
+<VecLab client:visible mode="difference" initialAx={5} initialAy={2} initialBx={2} initialBy={5} />
 
 ## Умножение вектора на число
 
@@ -120,7 +120,7 @@ $$\vec{OA} - \vec{OB} = \vec{BA}.$$
   В координатах это значит, что координаты пропорциональны: $\dfrac{x_2}{x_1} = \dfrac{y_2}{y_1}$ (когда знаменатели не равны нулю).
 </Concept>
 
-<VecLab client:load mode="scale" initialAx={3} initialAy={2} initialFactor={-1.5} challenge={true} />
+<VecLab client:visible mode="scale" initialAx={3} initialAy={2} initialFactor={-1.5} challenge={true} />
 
 <WorkedExample title="Медиана через две стороны">
   Пусть $M$ — середина стороны $BC$ треугольника $ABC$. Выразим $\vec{AM}$ через $\vec{AB}$ и $\vec{AC}$.
@@ -141,7 +141,7 @@ $$\vec{OA} - \vec{OB} = \vec{BA}.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec9-equal-vectors"
   question="Векторы a и b имеют равные длины. Обязательно ли они равны?"
   correctIndex={1}
@@ -194,4 +194,4 @@ $$\vec{OA} - \vec{OB} = \vec{BA}.$$
 
 [← Вход в тему](/9-klass/vektory-i-dvizheniya/) · [Дальше: координатный метод →](/9-klass/vektory-i-dvizheniya/koordinatnyy-metod/)
 
-<LessonComplete client:load lessonId="9-vectors-actions" />
+<LessonComplete client:visible lessonId="9-vectors-actions" />

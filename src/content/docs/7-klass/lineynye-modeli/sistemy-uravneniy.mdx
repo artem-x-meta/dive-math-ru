@@ -33,7 +33,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Каждое уравнение вида $ax+by=c$ задаёт на плоскости прямую. Меняй коэффициенты и следи, как ведёт себя общая точка. Переключай вкладки: рисунок и алгебра должны давать один и тот же ответ.
 
 <LinearSystemLab
-  client:load
+  client:visible
   mode="graph"
   first={{ a: 2, b: 3, c: 12 }}
   second={{ a: 1, b: -1, c: 1 }}
@@ -117,7 +117,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Например, система $x+y=4$ и $2x+2y=10$ решений не имеет: второе уравнение равносильно $x+y=5$, а сумма не может равняться сразу $4$ и $5$. А система $x+y=4$ и $2x+2y=8$ — это одно и то же условие, записанное дважды.
 
 <QuickCheck
-  client:load
+  client:visible
   id="lin7-system-meaning"
   question="Является ли пара (2; 1) решением системы x + y = 3 и x − y = 1?"
   correctIndex={2}
@@ -180,4 +180,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Линейная функция](/7-klass/lineynye-modeli/lineynaya-funktsiya/) · [Дальше: практикум →](/7-klass/lineynye-modeli/praktikum/)
 
-<LessonComplete client:load lessonId="7-linear-systems" />
+<LessonComplete client:visible lessonId="7-linear-systems" />

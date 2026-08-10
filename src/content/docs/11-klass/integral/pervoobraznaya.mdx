@@ -78,7 +78,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Число в самом низу лаборатория тоже считает — это площадь под графиком. Пока не обращай на него внимания: оно станет главным героем со следующего урока.
 
-<IntegAreaLab client:load initialTop="dome" initialBottom="zero" initialFrom={0} initialTo={2} />
+<IntegAreaLab client:visible initialTop="dome" initialBottom="zero" initialFrom={0} initialTo={2} />
 
 ## Таблица первообразных
 
@@ -130,7 +130,7 @@ $$F(x)=\frac{x^{3}}{3}+C,\qquad F'(x)=\frac{3x^{2}}{3}=x^{2}.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="int11-antiderivative-power"
   question="Какая функция является первообразной для f(x) = x³?"
   correctIndex={1}
@@ -197,4 +197,4 @@ $$F(x)=\frac{x^{3}}{3}+C,\qquad F'(x)=\frac{3x^{2}}{3}=x^{2}.$$
 
 [← Вход в тему](/11-klass/integral/) · [Дальше: площадь под графиком →](/11-klass/integral/ploshchad-pod-grafikom/)
 
-<LessonComplete client:load lessonId="11-integral-antiderivative" />
+<LessonComplete client:visible lessonId="11-integral-antiderivative" />

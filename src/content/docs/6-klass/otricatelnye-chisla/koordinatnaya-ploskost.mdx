@@ -28,7 +28,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Точка $(-3;2)$ означает: сначала $3$ единицы влево, затем $2$ вверх. Построй маршрут из этой точки: четыре единицы на восток, пять на юг и затем две на запад и три на север.
 
 <CoordinatePlaneLab
-  client:load
+  client:visible
   mode="route"
   initialX={-3}
   initialY={2}
@@ -70,7 +70,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="signed-plane-axis-point"
   question="Где находится точка (0;−4)?"
   correctIndex={1}
@@ -95,7 +95,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Отражение сохраняет расстояние до оси, но переносит точку на другую сторону. Исследуй отражения точки $(-3;2)$.
 
-<CoordinatePlaneLab client:load mode="reflections" initialX={-3} initialY={2} min={-6} max={6} step={1} />
+<CoordinatePlaneLab client:visible mode="reflections" initialX={-3} initialY={2} min={-6} max={6} step={1} />
 
 После наблюдения можно коротко записать закономерности для точки $(x;y)$:
 
@@ -158,4 +158,4 @@ $$CD=|-1-2{,}5|=3{,}5.$$
 
 В [практикуме](/6-klass/otricatelnye-chisla/praktikum/) все идеи главы соединятся на карте полярной станции.
 
-<LessonComplete client:load lessonId="6-signed-plane" />
+<LessonComplete client:visible lessonId="6-signed-plane" />

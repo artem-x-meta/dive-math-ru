@@ -27,19 +27,19 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Две дороги пересекаются. Один угол размечен, остальные нужно посчитать, а не измерить.
 
-<ProofAngleLab client:load mode="crossing" initialDegrees={57} challenge={true} />
+<ProofAngleLab client:visible mode="crossing" initialDegrees={57} challenge={true} />
 
 ## Станция 2. Разметка параллельных полос
 
 Две полосы разметки параллельны, поперёк идёт пешеходный переход. Найди парный угол, выбрав нужное свойство.
 
-<ProofAngleLab client:load mode="parallel" initialDegrees={72} challenge={true} />
+<ProofAngleLab client:visible mode="parallel" initialDegrees={72} challenge={true} />
 
 ## Станция 3. Треугольная ферма моста
 
 Два угла фермы известны из проекта. Третий угол и внешний угол при вершине нужно вычислить.
 
-<ProofTriangleLab client:load mode="angles" initialAngleA={55} initialAngleB={65} challenge={true} />
+<ProofTriangleLab client:visible mode="angles" initialAngleA={55} initialAngleB={65} challenge={true} />
 
 ## Как устроено доказательство
 
@@ -84,7 +84,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geo7-proof-step"
   question="В работе написано: «∠1 = ∠2, потому что на чертеже они выглядят одинаково». Что здесь неверно?"
   correctIndex={1}
@@ -142,4 +142,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Сумма углов треугольника](/7-klass/yazyk-dokazatelstva/summa-uglov/) · [К обзору 7 класса →](/7-klass/)
 
-<LessonComplete client:load lessonId="7-proof-practice" />
+<LessonComplete client:visible lessonId="7-proof-practice" />

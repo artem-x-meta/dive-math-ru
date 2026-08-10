@@ -38,12 +38,12 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Выбирай два условия и операцию. Смотри, какие элементы попадают в результат при «хотя бы одно», при «оба сразу» и при отрицании.
 
-<ProbEventLab client:load mode="sets" initialLeft="even" initialRight="prime" initialOperation="intersection" />
+<ProbEventLab client:visible mode="sets" initialLeft="even" initialRight="prime" initialOperation="intersection" />
 
 А теперь то же самое на числовой прямой: система двух условий — это пересечение двух множеств.
 
 <IneqIntervalLab
-  client:load
+  client:visible
   mode="system"
   leftSlope={1}
   leftConst={0}
@@ -159,7 +159,7 @@ $$\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="log10-negation"
   question="Как звучит отрицание утверждения «все корни уравнения целые»?"
   correctIndex={1}
@@ -225,4 +225,4 @@ $$\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}.$$
 
 [← Уравнения с модулем](/10-klass/uravneniya-i-logika/uravneniya-s-modulem/) · [Дальше: практикум →](/10-klass/uravneniya-i-logika/praktikum/)
 
-<LessonComplete client:load lessonId="10-logic-sets" />
+<LessonComplete client:visible lessonId="10-logic-sets" />

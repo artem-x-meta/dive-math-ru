@@ -30,7 +30,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сначала потренируйся на лаборатории: она задаёт тот же прямоугольный треугольник «перпендикуляр — наклонная — проекция». Для $MH=6$ и $HA=8$ найди наклонную и угол, который она образует с плоскостью.
 
-<SpaceDistanceLab client:load mode="slant" initialHeight={6} initialProjection={8} unitLabel="см" challenge={true} />
+<SpaceDistanceLab client:visible mode="slant" initialHeight={6} initialProjection={8} unitLabel="см" challenge={true} />
 
 ## Пять расстояний
 
@@ -91,7 +91,7 @@ $$AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}.$$
 Расстояние от точки $M(x;y;z)$ до плоскости $Oxy$ равно $|z|$, а до оси $Oz$ — величине $\sqrt{x^2+y^2}$: это уже знакомая проекция.
 
 <QuickCheck
-  client:load
+  client:visible
   id="space10-distance-meaning"
   question="Из точки M к плоскости α проведены перпендикуляр 12 см и две наклонные 13 см и 20 см. Чему равно расстояние от M до α?"
   correctIndex={1}
@@ -148,4 +148,4 @@ $$AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}.$$
 
 [← Перпендикулярность](/10-klass/prostranstvo/perpendikulyarnost/) · [Дальше: практикум →](/10-klass/prostranstvo/praktikum/)
 
-<LessonComplete client:load lessonId="10-space-distances" />
+<LessonComplete client:visible lessonId="10-space-distances" />

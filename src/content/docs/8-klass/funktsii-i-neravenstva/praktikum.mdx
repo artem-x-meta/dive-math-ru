@@ -30,7 +30,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Расход воды на грядку постоянен, а время полива зависит от напора: чем сильнее напор, тем меньше времени. Узнай семейство по графику и найди коэффициент.
 
 <CurveGalleryLab
-  client:load
+  client:visible
   initialKind="inverse"
   initialCoefficient={6}
   extent={8}
@@ -50,7 +50,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Грядку размечают вдоль стены, а отсчёт ведут от опорной стойки: влево координаты отрицательные, вправо — положительные. Разрешённая зона — от $-1$ м включительно до $6$ м, причём саму отметку $6$ занимать нельзя. Собери этот промежуток и посмотри, как одно и то же множество выглядит в трёх записях.
 
 <IneqIntervalLab
-  client:load
+  client:visible
   mode="interval"
   initialLeft={-1}
   initialRight={6}
@@ -61,7 +61,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Автоматика включается, если выполняются оба технических условия. Найди, при каких значениях параметра система работает.
 
 <IneqIntervalLab
-  client:load
+  client:visible
   mode="system"
   leftSlope={4}
   leftConst={-3}
@@ -78,7 +78,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="ineq8-practice-model"
   question="Бюджет не должен быть превышен: стоимость 250 + 90x рублей, в кассе 1000 рублей. Какая модель отвечает условию?"
   correctIndex={2}
@@ -139,4 +139,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Системы неравенств](/8-klass/funktsii-i-neravenstva/sistemy-neravenstv/) · [К обзору 8 класса →](/8-klass/)
 
-<LessonComplete client:load lessonId="8-inequalities-practice" />
+<LessonComplete client:visible lessonId="8-inequalities-practice" />

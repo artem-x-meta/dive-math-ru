@@ -33,7 +33,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Меняй коэффициенты и следи за двумя числами сразу: за значением $D$ в панели результата и за тем, сколько раз парабола встречает ось $x$.
 
-<QuadRootsLab client:load initialA={1} initialB={-5} initialC={6} />
+<QuadRootsLab client:visible initialA={1} initialB={-5} initialC={6} />
 
 Останови взгляд на моменте, когда $D$ переходит через ноль: два пересечения сливаются в одно касание, а потом исчезают совсем. Знак одного числа полностью управляет числом корней.
 
@@ -145,10 +145,10 @@ $$x+\frac{b}{2a}=\pm\sqrt{\frac{D}{4a^2}}=\pm\frac{\sqrt D}{2|a|}.$$
 
 Здесь график скрыт: сначала посчитай дискриминант сам, выбери число корней и только потом смотри на параболу.
 
-<QuadRootsLab client:load challenge={true} initialA={1} initialB={-4} initialC={3} />
+<QuadRootsLab client:visible challenge={true} initialA={1} initialB={-4} initialC={3} />
 
 <QuickCheck
-  client:load
+  client:visible
   id="quad8-discriminant-count"
   question="Сколько корней у уравнения 3x² − 4x + 2 = 0?"
   correctIndex={2}
@@ -212,4 +212,4 @@ $$x+\frac{b}{2a}=\pm\sqrt{\frac{D}{4a^2}}=\pm\frac{\sqrt D}{2|a|}.$$
 
 [← Неполные квадратные уравнения](/8-klass/kvadratnye-uravneniya/nepolnye-uravneniya/) · [Дальше: теорема Виета →](/8-klass/kvadratnye-uravneniya/teorema-vieta/)
 
-<LessonComplete client:load lessonId="8-quadratic-discriminant" />
+<LessonComplete client:visible lessonId="8-quadratic-discriminant" />

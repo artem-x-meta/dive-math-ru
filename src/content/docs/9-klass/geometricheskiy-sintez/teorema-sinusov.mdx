@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Задай сторону между двумя углами и меняй сами углы. Следи не за длинами по отдельности, а за отношением каждой стороны к синусу противолежащего угла.
 
-<TriSolveLab client:load mode="asa" initialSideC={10} initialAngleA={60} initialAngleB={45} unit="м" />
+<TriSolveLab client:visible mode="asa" initialSideC={10} initialAngleA={60} initialAngleB={45} unit="м" />
 
 Проверь на нескольких наборах: три отношения $\dfrac{a}{\sin A}$, $\dfrac{b}{\sin B}$, $\dfrac{c}{\sin C}$ всё время совпадают. Причём равное значение получается и в остроугольном, и в тупоугольном треугольнике.
 
@@ -149,7 +149,7 @@ $$\sin B' = \frac{BC}{BB'} = \frac{a}{2R}, \qquad \text{а так как } \sin 
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="tri9-sin-choose-tool"
   question="В треугольнике известны сторона a = 12, угол A = 40° и угол B = 65°. Что найдётся быстрее всего?"
   correctIndex={1}
@@ -211,4 +211,4 @@ $$\sin B' = \frac{BC}{BB'} = \frac{a}{2R}, \qquad \text{а так как } \sin 
 
 [← Теорема косинусов](/9-klass/geometricheskiy-sintez/teorema-kosinusov/) · [Дальше: решение треугольников →](/9-klass/geometricheskiy-sintez/reshenie-treugolnikov/)
 
-<LessonComplete client:load lessonId="9-triangles-sines" />
+<LessonComplete client:visible lessonId="9-triangles-sines" />

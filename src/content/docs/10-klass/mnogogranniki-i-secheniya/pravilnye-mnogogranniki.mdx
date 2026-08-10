@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Возьми разные тела и в каждом случае вычисли $V-E+F$. Начни с призм, потом перейди к пирамидам, потом попробуй крайние случаи — треугольную пирамиду и восьмиугольную призму.
 
-<PolyhedronLab client:load mode="counts" initialSolid="pyramid" initialSides={5} initialSide={5} initialHeight={8} initialProjection="cabinet" unit="cm" challenge={true} />
+<PolyhedronLab client:visible mode="counts" initialSolid="pyramid" initialSides={5} initialSide={5} initialHeight={8} initialProjection="cabinet" unit="cm" challenge={true} />
 
 Комбинация $V-E+F$ упрямо равна $2$. Причём тело можно вытягивать, наклонять, менять основание — число не двигается.
 
@@ -132,7 +132,7 @@ $$2E=Vm.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="poly10-euler-count"
   question="Все грани многогранника — треугольники, их 8, и в каждой вершине сходится 4 ребра. Сколько у него вершин?"
   correctIndex={0}
@@ -194,4 +194,4 @@ $$2E=Vm.$$
 
 [← Призма и пирамида](/10-klass/mnogogranniki-i-secheniya/prizma-i-piramida/) · [Дальше: построение сечений →](/10-klass/mnogogranniki-i-secheniya/postroenie-secheniy/)
 
-<LessonComplete client:load lessonId="10-polyhedra-regular" />
+<LessonComplete client:visible lessonId="10-polyhedra-regular" />

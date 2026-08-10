@@ -43,7 +43,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Открой набор «Два станка» и сравни высоты цветных частей в двух столбцах со штриховой линией.
 
-<CondTableLab client:load mode="table" initialScenario="machines" />
+<CondTableLab client:visible mode="table" initialScenario="machines" />
 
 Обе цветные части заканчиваются ровно на штриховой линии. Это и означает: условие ничего не изменило. Переключись на «Коты и собаки» — там столбцы разойдутся, и лаборатория сообщит, сколько объектов стояло бы в первой клетке при независимости.
 
@@ -103,7 +103,7 @@ $$P(A_1\cap A_2\cap\ldots\cap A_n)=P(A_1)\,P(A_2)\cdots P(A_n).$$
 
 Один и тот же мешок даёт независимые или зависимые шаги в зависимости от того, возвращаем ли мы шар.
 
-<ProbTreeLab client:load preset="urn" initialRed={3} initialBlue={2} initialDraws={2} initialWithReplacement={false} initialEvent="all" />
+<ProbTreeLab client:visible preset="urn" initialRed={3} initialBlue={2} initialDraws={2} initialWithReplacement={false} initialEvent="all" />
 
 Переключи режим на «с возвращением» и сравни числа на рёбрах второго уровня. Без возвращения:
 
@@ -112,7 +112,7 @@ $$P(\text{второй красный}\mid\text{первый красный})=\f
 шаги зависимы. С возвращением состав мешка восстанавливается, и обе вероятности равны $\frac{3}{5}$ — шаги независимы.
 
 <QuickCheck
-  client:load
+  client:visible
   id="cond10-independence-disjoint"
   question="События A и B несовместны, P(A) = 0,3 и P(B) = 0,4. Независимы ли они?"
   correctIndex={1}
@@ -177,4 +177,4 @@ $$P(\text{второй красный}\mid\text{первый красный})=\f
 
 [← Условная вероятность](/10-klass/uslovnaya-veroyatnost/uslovnaya-veroyatnost/) · [Дальше: полная вероятность и формула Байеса →](/10-klass/uslovnaya-veroyatnost/polnaya-veroyatnost-i-bayes/)
 
-<LessonComplete client:load lessonId="10-probability-independence" />
+<LessonComplete client:visible lessonId="10-probability-independence" />

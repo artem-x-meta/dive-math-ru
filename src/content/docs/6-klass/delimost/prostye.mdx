@@ -23,7 +23,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Дойди до простых листьев
 
-<PrimeFactorLab client:load />
+<PrimeFactorLab client:visible />
 
 Меняй число и раскрывай дерево по одному шагу. Ветвление заканчивается тогда, когда каждый лист уже нельзя разложить в произведение двух натуральных чисел, больших $1$.
 
@@ -89,7 +89,7 @@ $$84=2\cdot42=2\cdot2\cdot21=2\cdot2\cdot3\cdot7=2^2\cdot3\cdot7.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="prime-number-choice"
   question="Какое из трёх чисел является простым?"
   correctIndex={2}
@@ -149,4 +149,4 @@ $$84=2^2\cdot3\cdot7,\qquad126=2\cdot3^2\cdot7.$$
 
 Общие простые части $2$, $3$ и $7$ образуют число $42$. В следующем уроке разберёмся, почему именно оно позволяет собрать наибольшее число одинаковых комплектов.
 
-<LessonComplete client:load lessonId="6-numbers-primes" />
+<LessonComplete client:visible lessonId="6-numbers-primes" />

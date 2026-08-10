@@ -30,7 +30,7 @@ $$2(x+3)-5.$$
 Выражение можно представить машиной: число входит слева, проходит операции в заданном порядке, результат выходит справа. Проследи каждый шаг для разных значений $x$.
 
 <ExpressionMachineLab
-  client:load
+  client:visible
   expression="2*(x+3)-5"
   mode="order"
   variables={[{ name: 'x', label: 'Входное число x', initial: -1, min: -6, max: 6, step: 0.5 }]}
@@ -76,7 +76,7 @@ $$2(x+3),\qquad 2x+3,\qquad 2(x+3)-5.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="expression-order"
   question="Чему равно 3(x + 4) − 1, если x = −2?"
   correctIndex={1}
@@ -134,4 +134,4 @@ $$2(x+3),\qquad 2x+3,\qquad 2(x+3)-5.$$
 
 Следующий шаг — выполнять этот план без потери знаков и собирать результаты в [таблицу значений](/6-klass/bukvy-i-formuly/podstanovka-i-tablitsa/).
 
-<LessonComplete client:load lessonId="6-algebra-expressions" />
+<LessonComplete client:visible lessonId="6-algebra-expressions" />

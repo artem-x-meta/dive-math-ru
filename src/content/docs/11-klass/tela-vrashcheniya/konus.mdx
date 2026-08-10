@@ -32,7 +32,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Вращаем прямоугольный треугольник вокруг катета. Второй катет заметает круг основания, а гипотенуза — боковую поверхность.
 
-<RevolLab client:load mode="rotate" initialSolid="cone" initialRadius={3} initialHeight={4} initialAngle={120} unit="cm" />
+<RevolLab client:visible mode="rotate" initialSolid="cone" initialRadius={3} initialHeight={4} initialAngle={120} unit="cm" />
 
 Доведи оборот до $360°$, а потом открой вкладку «Развёртка» и меняй радиус и высоту. Следи за углом сектора: он зависит не от размеров по отдельности, а только от их отношения.
 
@@ -64,7 +64,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Разрежем боковую поверхность по одной образующей и развернём. Все точки поверхности удалены от вершины ровно на $l$, поэтому развёртка — **круговой сектор радиуса $l$**. А дуга этого сектора получилась из окружности основания, поэтому её длина равна $2\pi r$.
 
-<RevolLab client:load mode="net" initialSolid="cone" initialRadius={3} initialHeight={4} unit="cm" />
+<RevolLab client:visible mode="net" initialSolid="cone" initialRadius={3} initialHeight={4} unit="cm" />
 
 <Concept type="rule" title="Угол сектора и боковая поверхность">
   Длина дуги сектора с углом $\varphi$ в круге радиуса $l$ равна $2\pi l\cdot\dfrac{\varphi}{360°}$. Приравняем её длине окружности основания:
@@ -113,7 +113,7 @@ $$S_{\text{бок}}=\pi\cdot6\cdot10=60\pi, \qquad S_{\text{осн}}=\pi\cdot36=
 Боковая поверхность больше — и, как мы выяснили, так будет всегда. Конуса с боковой поверхностью меньше основания не существует: неравенство $\pi rl>\pi r^2$ равносильно $l>r$, а это просто «гипотенуза длиннее катета».
 
 <QuickCheck
-  client:load
+  client:visible
   id="rev11-cone-lateral"
   question="У конуса радиус 6 и высота 8. Чему равна площадь боковой поверхности?"
   correctIndex={1}
@@ -134,7 +134,7 @@ $$S_{\text{бок}}=\pi\cdot6\cdot10=60\pi, \qquad S_{\text{осн}}=\pi\cdot36=
   **Забывают, что основание одно.** У конуса $S_{\text{полн}}=S_{\text{бок}}+S_{\text{осн}}$, никакой двойки — в отличие от цилиндра. А у открытого кулька основания нет вовсе.
 </Concept>
 
-<RevolLab client:load mode="measure" initialSolid="cone" initialRadius={6} initialHeight={8} unit="cm" challenge={true} />
+<RevolLab client:visible mode="measure" initialSolid="cone" initialRadius={6} initialHeight={8} unit="cm" challenge={true} />
 
 ## Практика
 
@@ -176,4 +176,4 @@ $$S_{\text{бок}}=\pi\cdot6\cdot10=60\pi, \qquad S_{\text{осн}}=\pi\cdot36=
 
 [← Цилиндр](/11-klass/tela-vrashcheniya/tsilindr/) · [Дальше: шар и сфера →](/11-klass/tela-vrashcheniya/shar-i-sfera/)
 
-<LessonComplete client:load lessonId="11-solids-cone" />
+<LessonComplete client:visible lessonId="11-solids-cone" />

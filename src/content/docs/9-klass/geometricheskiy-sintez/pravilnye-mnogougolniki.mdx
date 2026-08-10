@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Меняй число сторон при постоянной длине стороны и следи за двумя радиусами: описанной окружности $R$ и вписанной $r$.
 
-<TriSolvePolygonLab client:load mode="polygon" initialVertices={6} initialSide={4} unit="см" />
+<TriSolvePolygonLab client:visible mode="polygon" initialVertices={6} initialSide={4} unit="см" />
 
 Обрати внимание на последнюю строку результата: отношение площади многоугольника к площади описанного круга. При $n = 3$ оно около $0{,}41$, при $n = 6$ — около $0{,}83$, при $n = 12$ — около $0{,}95$. Многоугольник «заполняет» круг всё плотнее.
 
@@ -130,10 +130,10 @@ $$S_{\text{сегмента}} = \frac{\pi R^2\alpha}{360} - \frac{1}{2}R^2\sin\a
 
 Второе слагаемое — площадь треугольника по двум сторонам $R$ и углу $\alpha$ между ними из [прошлого урока](/9-klass/geometricheskiy-sintez/teorema-sinusov/).
 
-<TriSolvePolygonLab client:load mode="sector" initialRadius={6} initialArc={60} unit="см" challenge={true} />
+<TriSolvePolygonLab client:visible mode="sector" initialRadius={6} initialArc={60} unit="см" challenge={true} />
 
 <QuickCheck
-  client:load
+  client:visible
   id="tri9-polygon-radii"
   question="Сторона правильного шестиугольника равна 6. Чему равен радиус описанной окружности?"
   correctIndex={1}
@@ -195,4 +195,4 @@ $$S_{\text{сегмента}} = \frac{\pi R^2\alpha}{360} - \frac{1}{2}R^2\sin\a
 
 [← Решение треугольников](/9-klass/geometricheskiy-sintez/reshenie-treugolnikov/) · [Дальше: практикум →](/9-klass/geometricheskiy-sintez/praktikum/)
 
-<LessonComplete client:load lessonId="9-triangles-polygons" />
+<LessonComplete client:visible lessonId="9-triangles-polygons" />

@@ -30,7 +30,7 @@ $$3\cdot(-1)-2=-3-2=-5.$$
 Скобки помогают увидеть, что минус относится ко всему числу $-1$.
 
 <ExpressionMachineLab
-  client:load
+  client:visible
   expression="3*x-2"
   mode="table"
   variables={[{ name: 'x', label: 'Значение x', initial: 0, min: -5, max: 5, step: 1 }]}
@@ -60,7 +60,7 @@ $$(-2;-8),\ (-1;-5),\ (0;-2),\ (1;1),\ (2;4),\ (3;7).$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="table-substitution"
   question="Чему равно 2x − 3 при x = −1?"
   correctIndex={1}
@@ -82,7 +82,7 @@ $$\frac{12}{n-1}.$$
 При $n=3$ знаменатель равен $2$, результат равен $6$. При $n=1$ знаменатель становится нулём, а делить на ноль нельзя. Поэтому $1$ — недопустимое значение для этого выражения.
 
 <ExpressionMachineLab
-  client:load
+  client:visible
   expression="12/(n-1)"
   mode="substitute"
   variables={[{ name: 'n', label: 'Значение n', initial: 3, min: -2, max: 6, step: 1 }]}
@@ -146,4 +146,4 @@ $$\frac{12}{n-1}.$$
 
 Дальше узнаем, почему некоторые внешне разные планы всегда дают одинаковый результат: [разделим прямоугольник на части](/6-klass/bukvy-i-formuly/raspredelitelnoe-svoystvo/).
 
-<LessonComplete client:load lessonId="6-algebra-substitution" />
+<LessonComplete client:visible lessonId="6-algebra-substitution" />

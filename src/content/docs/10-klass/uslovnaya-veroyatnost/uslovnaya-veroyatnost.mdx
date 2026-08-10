@@ -46,7 +46,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 В лаборатории таблица превращается в прямоугольник: ширина столбца показывает, сколько объектов попало в условие, а высота цветной части — какая доля из них обладает вторым признаком. Штриховая линия отмечает **безусловную** долю по всей группе.
 
-<CondTableLab client:load mode="table" initialScenario="homework" />
+<CondTableLab client:visible mode="table" initialScenario="homework" />
 
 Понаблюдай за двумя вещами. Первая: при переходе от столбца к столбцу высота цветной части меняется — значит, доля зависит от условия. Вторая: если увеличить все четыре числа вдвое, картинка не изменится совсем: вероятности зависят от долей, а не от размера группы.
 
@@ -101,7 +101,7 @@ $$P(\text{справился}\mid\text{не делал})=\frac{45}{150}=\frac{3}
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="cond10-column-or-row"
   question="В таблице урока 125 человек справились с контрольной, и 80 из них делали домашнюю работу. Какая величина равна дроби 80/125?"
   correctIndex={1}
@@ -162,4 +162,4 @@ $$P(\text{справился}\mid\text{не делал})=\frac{45}{150}=\frac{3}
 
 [← Вход в тему](/10-klass/uslovnaya-veroyatnost/) · [Дальше: независимость событий →](/10-klass/uslovnaya-veroyatnost/nezavisimost/)
 
-<LessonComplete client:load lessonId="10-probability-conditional" />
+<LessonComplete client:visible lessonId="10-probability-conditional" />

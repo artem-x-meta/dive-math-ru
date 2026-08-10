@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Перейди на вкладку «Геометрическая». Меняй первый член и знаменатель — и смотри, как быстро точки уходят за пределы прежнего масштаба.
 
-<SeqRuleLab client:load preset="geometric" initialFirst={3} initialRatio={2} initialCount={8} />
+<SeqRuleLab client:visible preset="geometric" initialFirst={3} initialRatio={2} initialCount={8} />
 
 Проверь три режима:
 
@@ -141,7 +141,7 @@ $$S_{64}=\frac{1\cdot\left(2^{64}-1\right)}{2-1}=2^{64}-1=18\,446\,744\,073\,709
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="seq9-geom-exponent"
   question="В прогрессии b₁ = 3, q = 2. Чему равен b₈?"
   correctIndex={0}
@@ -156,7 +156,7 @@ $$S_{64}=\frac{1\cdot\left(2^{64}-1\right)}{2-1}=2^{64}-1=18\,446\,744\,073\,709
 
 Видны только первые три члена. Найди последний сам — и обрати внимание, как быстро растут числа.
 
-<SeqRuleLab client:load preset="geometric" initialFirst={2} initialRatio={3} initialCount={7} challenge={true} />
+<SeqRuleLab client:visible preset="geometric" initialFirst={2} initialRatio={3} initialCount={7} challenge={true} />
 
 <Concept type="mistake" title="Четыре типичные ошибки">
   1. **Показатель $n$ вместо $n-1$.** Проверяй формулу подстановкой $n=1$: должно получиться $b_1\cdot q^0=b_1$.
@@ -211,4 +211,4 @@ $$S_{64}=\frac{1\cdot\left(2^{64}-1\right)}{2-1}=2^{64}-1=18\,446\,744\,073\,709
 
 [← Арифметическая прогрессия](/9-klass/posledovatelnosti/arifmeticheskaya-progressiya/) · [Дальше: сложный процент и рост →](/9-klass/posledovatelnosti/slozhnyy-protsent/)
 
-<LessonComplete client:load lessonId="9-sequences-geometric" />
+<LessonComplete client:visible lessonId="9-sequences-geometric" />

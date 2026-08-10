@@ -115,7 +115,7 @@ $$x\ \xrightarrow{\ u=k(x-m)\ }\ u\ \xrightarrow{\ v=f(u)\ }\ v\ \xrightarrow{\ 
 
 Первое звено — линейная функция внутри, второе — эталон, третье — линейная функция снаружи. Меняй параметры и смотри на список шагов под графиком: это и есть разложенная композиция.
 
-<FnTransformLab client:load initialBase="square" initialA={2} initialK={1} initialM={-3} initialN={-4} />
+<FnTransformLab client:visible initialBase="square" initialA={2} initialK={1} initialM={-3} initialN={-4} />
 
 ## Композиция и обратная функция
 
@@ -126,7 +126,7 @@ $$f^{-1}\bigl(f(x)\bigr)=x\ \text{ при }x\in D(f),\qquad f\bigl(f^{-1}(x)\big
 Композиция функции с обратной даёт **тождественную** функцию $y=x$ — ту, которая ничего не меняет. Именно поэтому обратную функцию и называют обратной: она отменяет действие исходной.
 
 <QuickCheck
-  client:load
+  client:visible
   id="fn10-composition-domain"
   question="Даны f(x) = 1/x и g(x) = x − 2. Какова область определения функции f(g(x))?"
   correctIndex={1}
@@ -187,4 +187,4 @@ $$f^{-1}\bigl(f(x)\bigr)=x\ \text{ при }x\in D(f),\qquad f\bigl(f^{-1}(x)\big
 
 [← Обратная функция](/10-klass/yazyk-funktsiy/obratnaya-funktsiya/) · [Дальше: практикум →](/10-klass/yazyk-funktsiy/praktikum/)
 
-<LessonComplete client:load lessonId="10-functions-composition" />
+<LessonComplete client:visible lessonId="10-functions-composition" />

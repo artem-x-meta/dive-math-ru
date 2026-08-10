@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Организация фестиваля стоит $1800$ ₽ на общие расходы плюс $240$ ₽ на каждого участника: $C=1800+240n$. Бюджет — $4200$ ₽.
 
 <FormulaLab
-  client:load
+  client:visible
   preset="expedition-cost"
   mode="unknown-bridge"
   initialValues={{ n: 4 }}
@@ -64,7 +64,7 @@ $$300+20n=50n,\qquad 30n=300,\qquad n=10.$$
 Прежде чем читать формулу тарифа с чужого графика, потренируйся на чистой прямой: определи $k$ и $b$ по рисунку, а потом проверь себя.
 
 <LinearGraphLab
-  client:load
+  client:visible
   mode="read"
   initialK={-2}
   initialB={3}
@@ -77,7 +77,7 @@ $$300+20n=50n,\qquad 30n=300,\qquad n=10.$$
 Планировщик сборов даёт два условия на цену взрослого билета $x$ и детского $y$. Прочитай координаты общей точки по графику, а затем обязательно проверь пару подстановкой в оба уравнения.
 
 <LinearSystemLab
-  client:load
+  client:visible
   first={{ a: 1, b: 1, c: 5 }}
   second={{ a: 3, b: -1, c: 3 }}
   extent={7}
@@ -89,7 +89,7 @@ $$300+20n=50n,\qquad 30n=300,\qquad n=10.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="lin7-practice-tool"
   question="Известны две цены наборов: 2 взрослых и 3 детских билета стоят 1500 ₽, 3 взрослых и 2 детских — 1750 ₽. Какой инструмент нужен?"
   correctIndex={1}
@@ -147,4 +147,4 @@ $$300+20n=50n,\qquad 30n=300,\qquad n=10.$$
 
 [← Системы двух уравнений](/7-klass/lineynye-modeli/sistemy-uravneniy/) · [К обзору 7 класса →](/7-klass/)
 
-<LessonComplete client:load lessonId="7-linear-practice" />
+<LessonComplete client:visible lessonId="7-linear-practice" />

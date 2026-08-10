@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 На сетке одна клетка соответствует одному метру внутри павильона. От входа маршрут идёт $6$ м вправо, $4$ м вверх и $2$ м влево.
 
 <GeometryGridLab
-  client:load
+  client:visible
   mode="route"
   initialPoint={{ x: 0, y: 0 }}
   initialRoute={[
@@ -52,7 +52,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Зал получен из прямоугольника $10\times8$ м вырезанием из угла прямоугольника $3\times2$ м. Для покрытия важна площадь, для плинтуса — периметр с вычетом ширины двери.
 
 <FigureMeasureLab
-  client:load
+  client:visible
   mode="perimeter-area"
   preset="l-shape"
   initialWidth="10"
@@ -69,7 +69,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Внутренние размеры коробки — $1{,}2$ м, $0{,}5$ м и $0{,}4$ м. Модель предполагает прямоугольный параллелепипед без внутренних перегородок.
 
 <SolidLab
-  client:load
+  client:visible
   mode="volume"
   initialSolid="cuboid"
   initialLength="1.2"
@@ -84,7 +84,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geometry-practice-dimension"
   question="Для ленты по границе круглой эмблемы какая величина и единица нужны?"
   correctIndex={1}
@@ -142,4 +142,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Тела, развёртки и объём](/6-klass/geometriya-i-izmereniya/tela-razvertki-i-obem/) · [К обзору 6 класса →](/6-klass/)
 
-<LessonComplete client:load lessonId="6-geometry-practice" />
+<LessonComplete client:visible lessonId="6-geometry-practice" />

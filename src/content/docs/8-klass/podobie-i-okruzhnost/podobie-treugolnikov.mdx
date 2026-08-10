@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Вкладка «Коэффициент подобия»: слева треугольник, справа его увеличенная копия. Обе фигуры нарисованы в одном масштабе, поэтому размеру на экране можно верить. Меняй $k$ и следи за двумя строчками внизу: периметры и площади.
 
-<SimTriangleLab client:load mode="ratio" initialAb={10} initialAc={8} initialAngle={55} initialFactorTenths={15} />
+<SimTriangleLab client:visible mode="ratio" initialAb={10} initialAc={8} initialAngle={55} initialFactorTenths={15} />
 
 Периметр растёт ровно в $k$ раз. Площадь — в $k^2$ раз. При $k = 2$ площадь учетверяется, при $k = 3$ — вырастает в девять раз. Разберёмся, почему.
 
@@ -54,7 +54,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Обрати внимание на две разные записи. Первая сравнивает **части** отрезка друг с другом, вторая — часть с **целым**. Их легко перепутать, а числа получаются разные.
 
-<SimTriangleLab client:load mode="thales" initialAb={10} initialAc={8} initialAngle={55} initialPart={4} challenge={true} />
+<SimTriangleLab client:visible mode="thales" initialAb={10} initialAc={8} initialAngle={55} initialPart={4} challenge={true} />
 
 Важное следствие: если $M$ и $N$ — середины сторон $AB$ и $AC$, то $MN \parallel BC$ и $MN = \frac{1}{2}BC$. Отрезок $MN$ называют **средней линией** треугольника.
 
@@ -141,7 +141,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="sim8-similarity-area"
   question="Все стороны треугольника увеличили в 3 раза. Во сколько раз увеличилась его площадь?"
   correctIndex={2}
@@ -192,4 +192,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Вход в тему](/8-klass/podobie-i-okruzhnost/) · [Дальше: теорема Пифагора →](/8-klass/podobie-i-okruzhnost/teorema-pifagora/)
 
-<LessonComplete client:load lessonId="8-geometry-similarity" />
+<LessonComplete client:visible lessonId="8-geometry-similarity" />

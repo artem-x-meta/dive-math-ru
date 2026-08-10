@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Все четыре угла на чертеже ниже вычислены из одного числа, а не нарисованы приблизительно. Меняй наклон и следи за тем, что остаётся неизменным.
 
-<ProofAngleLab client:load mode="crossing" initialDegrees={63} />
+<ProofAngleLab client:visible mode="crossing" initialDegrees={63} />
 
 Наблюдение повторяется при любом наклоне. Но наблюдение — ещё не теорема: чертежей бесконечно много, а мы проверили несколько. Докажем.
 
@@ -141,7 +141,7 @@ $$\angle 3 + \angle 2 = 180°, \qquad \text{откуда}\quad \angle 3 = 180° 
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geo7-crossing-angles"
   question="Один из углов при пересечении двух прямых равен 35°. Каким может быть набор остальных трёх углов?"
   correctIndex={1}
@@ -200,4 +200,4 @@ $$\angle 3 + \angle 2 = 180°, \qquad \text{откуда}\quad \angle 3 = 180° 
 
 [← Вход в тему](/7-klass/yazyk-dokazatelstva/) · [Дальше: признаки равенства треугольников →](/7-klass/yazyk-dokazatelstva/priznaki-ravenstva/)
 
-<LessonComplete client:load lessonId="7-proof-basics" />
+<LessonComplete client:visible lessonId="7-proof-basics" />

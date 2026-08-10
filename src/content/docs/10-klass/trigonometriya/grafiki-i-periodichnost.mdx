@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Слева точка идёт по окружности, справа её координата откладывается по вертикали. Меняй аргумент и следи, как связаны две картинки. Включи отметки через период и проверь: точки, отличающиеся на $2\pi$, лежат на одной высоте.
 
-<TrigWaveLab client:load kind="sin" initialDegrees={60} />
+<TrigWaveLab client:visible kind="sin" initialDegrees={60} />
 
 График не нарисован по памяти — каждая точка получена из координат точки поворота. Именно поэтому он выглядит одинаково на каждом отрезке длины $2\pi$.
 
@@ -114,7 +114,7 @@ $$\cos x=\sin\left(x+\frac{\pi}{2}\right).$$
 
 Переключи лабораторию на косинус и убедись, что связь та же, только снимается другая координата.
 
-<TrigWaveLab client:load kind="cos" initialDegrees={120} challenge={true} />
+<TrigWaveLab client:visible kind="cos" initialDegrees={120} challenge={true} />
 
 <Concept type="mistake" title="Где обычно теряют задачу">
   **Считают период тангенса равным $2\pi$.** Он равен $\pi$: ветви графика повторяются вдвое чаще, чем волны синуса.
@@ -127,7 +127,7 @@ $$\cos x=\sin\left(x+\frac{\pi}{2}\right).$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="trig10-period"
   question="Чему равен основной период функции y = tg x?"
   correctIndex={0}
@@ -178,4 +178,4 @@ $$\cos x=\sin\left(x+\frac{\pi}{2}\right).$$
 
 [← Единичная окружность и радианы](/10-klass/trigonometriya/edinichnaya-okruzhnost/) · [Дальше: тождества →](/10-klass/trigonometriya/tozhdestva/)
 
-<LessonComplete client:load lessonId="10-trig-graphs" />
+<LessonComplete client:visible lessonId="10-trig-graphs" />

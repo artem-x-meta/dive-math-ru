@@ -32,7 +32,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Ответь до того, как нажмёшь «Проверить»: график сначала показывает только начальный участок.
 
-<ExpoLab client:load initialBase={2} initialDegree={3} initialSlope={20} initialMaxX={16} challenge={true} />
+<ExpoLab client:visible initialBase={2} initialDegree={3} initialSlope={20} initialMaxX={16} challenge={true} />
 
 <Concept type="remember" title="Почему интуиция ошибается">
   На коротком участке показательная функция выглядит скромно: при $x=3$ имеем $2^{3}=8$, а $x^{3}=27$ — степенная больше более чем втрое. При $x=16$ картина обратная: $2^{16}=65\,536$ против $16^{3}=4096$. Обгон случается позже, но он неизбежен, и после него разрыв растёт лавинообразно.
@@ -44,7 +44,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Точка на показательной кривой известна. Где её пара на логарифмической?
 
-<ExpoLogMirrorLab client:load initialBase={3} challenge={true} />
+<ExpoLogMirrorLab client:visible initialBase={3} challenge={true} />
 
 <WorkedExample title="Что именно проверяет эта станция">
   Пусть основание равно $3$ и отмечена точка $\left(-1;\dfrac13\right)$ на графике $y=3^{x}$.
@@ -60,7 +60,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Неравенство решено, осталось записать ответ. Ошибка в скобке — потерянный балл, хотя вся математика сделана верно.
 
-<IneqIntervalLab client:load mode="interval" initialLeft={2} initialRight={7} />
+<IneqIntervalLab client:visible mode="interval" initialLeft={2} initialRight={7} />
 
 <Concept type="remember" title="Паспорт ответа">
   Рядом с каждым числом запиши: что именно оно измеряет, в какой единице получено, точное оно или приближённое и какое условие модели использовано.
@@ -69,7 +69,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="exp11-practice-model-choice"
   question="Население города растёт на 2% в год. Какой моделью это описывается?"
   correctIndex={2}
@@ -144,4 +144,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Уравнения и неравенства](/11-klass/eksponenta-i-logarifm/uravneniya-i-neravenstva/) · [К обзору 11 класса →](/11-klass/)
 
-<LessonComplete client:load lessonId="11-explog-practice" />
+<LessonComplete client:visible lessonId="11-explog-practice" />

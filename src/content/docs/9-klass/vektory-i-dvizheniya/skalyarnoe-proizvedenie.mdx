@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Меняй координаты и следи за знаком числа $\vec a\cdot\vec b$ и за видом угла на чертеже.
 
-<VecDotLab client:load mode="sign" initialAx={5} initialAy={1} initialBx={2} initialBy={4} />
+<VecDotLab client:visible mode="sign" initialAx={5} initialAy={1} initialBx={2} initialBy={4} />
 
 Знак меняется ровно в тот момент, когда угол проходит через $90°$. Это не совпадение.
 
@@ -86,7 +86,7 @@ $$\vec a \cdot \vec a = x_1^2+y_1^2 = |\vec a|^2.$$
 
 $$\cos\alpha = \frac{\vec a\cdot\vec b}{|\vec a|\cdot|\vec b|} = \frac{x_1x_2+y_1y_2}{\sqrt{x_1^2+y_1^2}\cdot\sqrt{x_2^2+y_2^2}}.$$
 
-<VecDotLab client:load mode="angle" initialAx={1} initialAy={2} initialBx={3} initialBy={1} challenge={true} />
+<VecDotLab client:visible mode="angle" initialAx={1} initialAy={2} initialBx={3} initialBy={1} challenge={true} />
 
 <WorkedExample title="Угол по координатам">
   Найдём угол между $\vec a(1;2)$ и $\vec b(3;1)$.
@@ -137,7 +137,7 @@ $$\cos\alpha = \frac{\vec a\cdot\vec b}{|\vec a|\cdot|\vec b|} = \frac{x_1x_2+y_
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec9-dot-sign"
   question="Скалярное произведение двух ненулевых векторов равно −6. Что можно сказать об угле между ними?"
   correctIndex={1}
@@ -192,4 +192,4 @@ $$\cos\alpha = \frac{\vec a\cdot\vec b}{|\vec a|\cdot|\vec b|} = \frac{x_1x_2+y_
 
 [← Координатный метод](/9-klass/vektory-i-dvizheniya/koordinatnyy-metod/) · [Дальше: движения плоскости →](/9-klass/vektory-i-dvizheniya/dvizheniya-ploskosti/)
 
-<LessonComplete client:load lessonId="9-vectors-dot" />
+<LessonComplete client:visible lessonId="9-vectors-dot" />

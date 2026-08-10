@@ -30,7 +30,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Сначала ответь сам: сколько всего людей побывало на фестивале? Потом проверь себя в лаборатории.
 
 <DataChartLab
-  client:load
+  client:visible
   mode="bar"
   categoryName="День"
   valueName="Посетителей"
@@ -50,7 +50,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Бюджет фестиваля — $30$ тысяч рублей: оформление — $12$, призы — $9$, музыка — $6$, печать — $3$. Здесь вопрос не «где больше», а «какую часть целого».
 
 <DataChartLab
-  client:load
+  client:visible
   mode="pie"
   categoryName="Статья"
   valueName="Сумма"
@@ -81,7 +81,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Теперь свернём пять дней в одно число — и сразу посмотрим, что это число скрывает.
 
 <DataChartLab
-  client:load
+  client:visible
   mode="mean"
   categoryName="День"
   valueName="Посетителей"
@@ -101,7 +101,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Бейдж состоит из цвета фона, формы и надписи. Сначала посчитай число вариантов правилом умножения, а потом проверь себя полным перебором.
 
 <DataTreeLab
-  client:load
+  client:visible
   mode="tree"
   challenge={true}
   initialSteps={[
@@ -116,7 +116,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 В турнире шесть команд, каждая играет с каждой по одному разу.
 
 <DataTreeLab
-  client:load
+  client:visible
   mode="pairs"
   challenge={true}
   initialItems={['Астра', 'Барс', 'Вихрь', 'Гроза', 'Дельта', 'Ель']}
@@ -127,7 +127,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="data6-practice-choice"
   question="Оргкомитет хочет показать, какую часть бюджета съела каждая статья расходов. Какая диаграмма подойдёт лучше?"
   correctIndex={2}
@@ -185,4 +185,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Перебор вариантов](/6-klass/dannye/perebor-variantov/) · [К обзору 6 класса →](/6-klass/)
 
-<LessonComplete client:load lessonId="6-data-practice" />
+<LessonComplete client:visible lessonId="6-data-practice" />

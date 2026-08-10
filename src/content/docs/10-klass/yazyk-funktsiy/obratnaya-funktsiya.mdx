@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Переключай примеры и смотри на две вещи сразу: сколько раз горизонтальная прямая пересекает график и как вторая линия получается отражением первой относительно пунктирной прямой $y=x$.
 
-<FnInverseLab client:load initialPreset="square-right" />
+<FnInverseLab client:visible initialPreset="square-right" />
 
 Обязательно посмотри пример $y=x^2$ без ограничений: там появляется горизонтальная прямая-свидетель, которая ловит график сразу в двух точках.
 
@@ -119,10 +119,10 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 График показан, ответ спрятан. Мысленно проведи горизонтальную прямую, реши — и проверь себя.
 
-<FnInverseLab client:load challenge={true} />
+<FnInverseLab client:visible challenge={true} />
 
 <QuickCheck
-  client:load
+  client:visible
   id="fn10-inverse-domain-swap"
   question="У функции f область определения [0; +∞), множество значений [−1; +∞). Что верно для обратной функции?"
   correctIndex={1}
@@ -193,4 +193,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Преобразования графиков](/10-klass/yazyk-funktsiy/preobrazovaniya-grafikov/) · [Дальше: композиция функций →](/10-klass/yazyk-funktsiy/kompozitsiya/)
 
-<LessonComplete client:load lessonId="10-functions-inverse" />
+<LessonComplete client:visible lessonId="10-functions-inverse" />

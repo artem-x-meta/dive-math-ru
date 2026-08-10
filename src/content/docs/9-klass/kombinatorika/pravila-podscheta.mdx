@@ -57,7 +57,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Дерево вариантов показывает оба правила сразу: от каждой ветви первого шага отходит одинаковый пучок ветвей второго, а число готовых вариантов равно числу листьев.
 
 <DataTreeLab
-  client:load
+  client:visible
   mode="tree"
   initialSteps={[
     { name: 'Рама', options: ['городская', 'горная', 'складная'] },
@@ -103,7 +103,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="comb9-sum-vs-product"
   question="В библиотеке 6 книг по физике и 9 по биологии, все книги разные. Сколькими способами можно взять одну книгу по физике и одну по биологии?"
   correctIndex={2}
@@ -171,4 +171,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Вход в тему](/9-klass/kombinatorika/) · [Дальше: перестановки и размещения →](/9-klass/kombinatorika/perestanovki-i-razmeshcheniya/)
 
-<LessonComplete client:load lessonId="9-combinatorics-rules" />
+<LessonComplete client:visible lessonId="9-combinatorics-rules" />

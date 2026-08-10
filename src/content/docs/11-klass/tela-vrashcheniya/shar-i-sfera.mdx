@@ -33,7 +33,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Двигай секущую плоскость и следи за радиусом круга сечения. Обрати внимание, как быстро круг убывает вблизи полюса и как медленно — вблизи центра.
 
-<RevolSectionLab client:load mode="section" initialRadius={5} initialLevel={3} unit="cm" />
+<RevolSectionLab client:visible mode="section" initialRadius={5} initialLevel={3} unit="cm" />
 
 Доведи ползунок до $d=R$ и потом дальше: увидишь два особых положения плоскости.
 
@@ -85,7 +85,7 @@ import LessonComplete from '../../../../components/LessonComplete';
   Площадь сферы ровно вчетверо больше площади её большого круга $\pi R^2$. Это можно проверить руками: намотай нить на полусферу, а потом уложи ту же нить в спираль на плоскости — она заполнит ровно два больших круга.
 </Concept>
 
-<RevolLab client:load mode="net" initialSolid="sphere" initialRadius={5} unit="cm" />
+<RevolLab client:visible mode="net" initialSolid="sphere" initialRadius={5} unit="cm" />
 
 <WorkedExample title="Сечение по данным R и d">
   Радиус шара $R=13$ см, плоскость удалена от центра на $d=5$ см.
@@ -120,7 +120,7 @@ $$\frac{64\pi}{100\pi}=0{,}64=64\%.$$
 Не $40\%$. Причина в том, что убывает не радиус пропорционально расстоянию, а квадрат радиуса: $\rho^2=R^2-d^2$. Круг сечения держится большим почти до самого края, а потом схлопывается очень быстро.
 
 <QuickCheck
-  client:load
+  client:visible
   id="rev11-sphere-section"
   question="Радиус шара 10, плоскость проходит на расстоянии 6 от центра. Чему равна площадь сечения?"
   correctIndex={1}
@@ -141,7 +141,7 @@ $$\frac{64\pi}{100\pi}=0{,}64=64\%.$$
   **Подставляют диаметр в $S=4\pi R^2$.** Если дан $d=12$, то $R=6$ и $S=144\pi$, а не $576\pi$. Ошибка вчетверо.
 </Concept>
 
-<RevolSectionLab client:load mode="section" initialRadius={10} initialLevel={6} unit="cm" challenge={true} />
+<RevolSectionLab client:visible mode="section" initialRadius={10} initialLevel={6} unit="cm" challenge={true} />
 
 ## Практика
 
@@ -183,4 +183,4 @@ $$\frac{64\pi}{100\pi}=0{,}64=64\%.$$
 
 [← Конус](/11-klass/tela-vrashcheniya/konus/) · [Дальше: объёмы →](/11-klass/tela-vrashcheniya/obyomy/)
 
-<LessonComplete client:load lessonId="11-solids-sphere" />
+<LessonComplete client:visible lessonId="11-solids-sphere" />

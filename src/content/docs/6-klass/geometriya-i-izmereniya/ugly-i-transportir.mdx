@@ -46,7 +46,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 5. Проверь смысл: острый угол должен дать меньше $90°$, тупой — больше.
 
 <AngleShapeLab
-  client:load
+  client:visible
   mode="measure"
   initialDegrees={125}
   step={1}
@@ -62,7 +62,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Для угла $68°$ сначала проведи луч, затем поставь центр транспортира в его начале, отметь деление $68°$ на шкале от нужного нуля и проведи второй луч через отметку. После построения измерь угол ещё раз — это независимая проверка.
 
 <AngleShapeLab
-  client:load
+  client:visible
   mode="build"
   initialDegrees={35}
   targetDegrees={68}
@@ -75,7 +75,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geometry-protractor-reading"
   question="Исходный луч направлен вправо. Второй луч проходит через отметку 125° той шкалы, которая начинается справа с 0°. Какова величина угла?"
   correctIndex={1}
@@ -123,5 +123,5 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Прямые и расстояния](/6-klass/geometriya-i-izmereniya/pryamye-i-rasstoyaniya/) · [Дальше: треугольники и четырёхугольники →](/6-klass/geometriya-i-izmereniya/treugolniki-i-chetyrehugolniki/)
 
-<LessonComplete client:load lessonId="6-geometry-angles" />
+<LessonComplete client:visible lessonId="6-geometry-angles" />
 

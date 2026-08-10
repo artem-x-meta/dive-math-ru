@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Лаборатория строит чертёж по данным и прячет искомую величину до нажатия «Проверить». Пройди все три вкладки: посчитай сам, потом сверься.
 
-<TriSolveLab client:load mode="sss" initialSideA={6} initialSideB={7} initialSideC={9} unit="см" challenge={true} />
+<TriSolveLab client:visible mode="sss" initialSideA={6} initialSideB={7} initialSideC={9} unit="см" challenge={true} />
 
 Три стороны определяют треугольник полностью — это признак равенства по трём сторонам. Три угла не определяют: подобных треугольников бесконечно много, и хотя бы одна длина обязана быть в данных.
 
@@ -111,7 +111,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="tri9-solve-ambiguous"
   question="В каком наборе данных треугольник может оказаться не единственным?"
   correctIndex={2}
@@ -173,4 +173,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Теорема синусов](/9-klass/geometricheskiy-sintez/teorema-sinusov/) · [Дальше: правильные многоугольники и круг →](/9-klass/geometricheskiy-sintez/pravilnye-mnogougolniki/)
 
-<LessonComplete client:load lessonId="9-triangles-solving" />
+<LessonComplete client:visible lessonId="9-triangles-solving" />

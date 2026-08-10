@@ -31,7 +31,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Солнечные лучи параллельны, поэтому треугольники «столб — тень» и «башня — тень» подобны по двум углам. Поработай с коэффициентом в лаборатории, а потом реши задачу.
 
-<SimTriangleLab client:load mode="ratio" initialAb={8} initialAc={5} initialAngle={70} initialFactorTenths={16} />
+<SimTriangleLab client:visible mode="ratio" initialAb={8} initialAc={5} initialAngle={70} initialFactorTenths={16} />
 
 <WorkedExample title="Башня">
   Коэффициент подобия равен отношению теней:
@@ -51,7 +51,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 К реке подойти можно, переплыть — нет. На своём берегу отмечают точку $A$, ставят вешки $M$ и $N$ так, чтобы $MN$ была параллельна линии противоположного берега $BC$.
 
-<SimTriangleLab client:load mode="thales" initialAb={12} initialAc={9} initialAngle={65} initialPart={4} challenge={true} />
+<SimTriangleLab client:visible mode="thales" initialAb={12} initialAc={9} initialAngle={65} initialPart={4} challenge={true} />
 
 <WorkedExample title="Река">
   Измерения на берегу: $AM = 12$ м, $MB = 24$ м, $MN = 15$ м. Найдём $BC$ — ширину реки в этом створе.
@@ -71,7 +71,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Прямоугольный участок имеет стороны $9$ и $12$ м. Сколько метров троса нужно, чтобы натянуть его по диагонали?
 
-<PythSquaresLab client:load mode="find" initialLegA={9} initialLegB={12} challenge={true} />
+<PythSquaresLab client:visible mode="find" initialLegA={9} initialLegB={12} challenge={true} />
 
 Проверь себя ещё на двух наборах: катеты $5$ и $7$ (корень не извлекается) и катеты $8$ и $6$ (извлекается нацело).
 
@@ -79,7 +79,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Стропило длиной $9$ м поднимается под углом $35°$ к горизонту.
 
-<PythSquaresLab client:load mode="ratios" initialHypotenuse={9} initialAngle={35} challenge={true} />
+<PythSquaresLab client:visible mode="ratios" initialHypotenuse={9} initialAngle={35} challenge={true} />
 
 Высота конька — это противолежащий катет, поэтому нужен синус; длина горизонтальной проекции — прилежащий катет, поэтому косинус. Если известны обе стороны, а угол неизвестен, работает тангенс.
 
@@ -104,7 +104,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="sim8-practice-tool"
   question="Известны длина наклонной лестницы и угол её наклона к земле. Какой инструмент даёт высоту верхнего конца?"
   correctIndex={2}
@@ -167,4 +167,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Вписанные углы](/8-klass/podobie-i-okruzhnost/vpisannye-ugly/) · [К обзору 8 класса →](/8-klass/)
 
-<LessonComplete client:load lessonId="8-geometry-practice" />
+<LessonComplete client:visible lessonId="8-geometry-practice" />

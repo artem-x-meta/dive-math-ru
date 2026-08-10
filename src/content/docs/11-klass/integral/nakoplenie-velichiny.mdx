@@ -67,7 +67,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Верхний график — скорость, нижняя граница — ось времени. Площадь под графиком равна пути (точнее, перемещению), а лаборатория показывает всю выкладку по шагам.
 
-<IntegAreaLab client:load context="motion" initialTop="linear" initialBottom="zero" initialFrom={0} initialTo={3} />
+<IntegAreaLab client:visible context="motion" initialTop="linear" initialBottom="zero" initialFrom={0} initialTo={3} />
 
 План работы:
 
@@ -125,7 +125,7 @@ $$f_{\text{ср}}=\frac{1}{b-a}\int_a^b f(x)\,dx.$$
 Для $v(t)=t^2$ на $[0;3]$: интеграл равен $9$, длина промежутка $3$, среднее равно $3$ м/с. Обрати внимание: значение функции в середине промежутка равно $v(1{,}5)=2{,}25$ — это не то же самое. Среднее по значениям и значение в середине совпадают только у линейной функции.
 
 <QuickCheck
-  client:load
+  client:visible
   id="int11-accumulation-units"
   question="Расход воды измеряется в литрах в минуту, время — в минутах. Что означает площадь под графиком расхода?"
   correctIndex={1}
@@ -195,4 +195,4 @@ $$f_{\text{ср}}=\frac{1}{b-a}\int_a^b f(x)\,dx.$$
 
 [← Формула Ньютона–Лейбница](/11-klass/integral/nyuton-leybnits/) · [Дальше: практикум →](/11-klass/integral/praktikum/)
 
-<LessonComplete client:load lessonId="11-integral-accumulation" />
+<LessonComplete client:visible lessonId="11-integral-accumulation" />

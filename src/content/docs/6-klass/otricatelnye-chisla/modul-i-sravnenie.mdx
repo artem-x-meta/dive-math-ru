@@ -25,7 +25,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Перемещай точку и сравнивай её координату с расстоянием до нуля. Обрати внимание на пары $-4$ и $4$, $-1{,}5$ и $1{,}5$.
 
-<SignedNumberLineLab client:load mode="absolute" initialA={-4.5} initialB={2} min={-8} max={8} step={0.5} />
+<SignedNumberLineLab client:visible mode="absolute" initialA={-4.5} initialB={2} min={-8} max={8} step={0.5} />
 
 Точки $-4{,}5$ и $4{,}5$ лежат по разные стороны от нуля, но длина пути до нуля у обеих равна $4{,}5$.
 
@@ -51,7 +51,7 @@ $$-5<-2<0<1{,}5<4.$$
 
 Попробуй сближать и разводить две точки, в том числе две отрицательные.
 
-<SignedNumberLineLab client:load mode="compare" initialA={-3.5} initialB={-1.5} min={-6} max={6} step={0.5} />
+<SignedNumberLineLab client:visible mode="compare" initialA={-3.5} initialB={-1.5} min={-6} max={6} step={0.5} />
 
 Среди двух отрицательных чисел больше то, которое **ближе к нулю**. Поэтому $-1{,}5>-3{,}5$. Величина $3{,}5$ по модулю больше, но точка $-3{,}5$ находится левее.
 
@@ -64,7 +64,7 @@ $$-5<-2<0<1{,}5<4.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="signed-compare-fractions"
   question="Какое сравнение верно?"
   correctIndex={2}
@@ -81,7 +81,7 @@ $$-5<-2<0<1{,}5<4.$$
 
 Исследуй расстояние между двумя точками, не пытаясь заранее выбрать знак.
 
-<SignedNumberLineLab client:load mode="distance" initialA={-3} initialB={2} min={-7} max={7} step={0.5} />
+<SignedNumberLineLab client:visible mode="distance" initialA={-3} initialB={2} min={-7} max={7} step={0.5} />
 
 <Concept type="rule" title="Расстояние между координатами">
   Если точки находятся по разные стороны от нуля, сложи их модули. Если по одну сторону — вычти меньший модуль из большего. Так мы измеряем длину отрезка, не вводя направление пути.
@@ -132,4 +132,4 @@ $$-5<-2<0<1{,}5<4.$$
 
 Дальше превратим направленные перемещения в [сложение чисел со знаком](/6-klass/otricatelnye-chisla/slozhenie/).
 
-<LessonComplete client:load lessonId="6-signed-absolute" />
+<LessonComplete client:visible lessonId="6-signed-absolute" />

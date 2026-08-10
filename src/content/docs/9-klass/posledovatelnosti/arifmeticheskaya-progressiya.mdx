@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Оставь вкладку «Арифметическая» и меняй первый член и разность. Следи за таблицей, за расположением точек и за строкой суммы под графиком.
 
-<SeqRuleLab client:load preset="arithmetic" initialFirst={12} initialStep={2} initialCount={8} />
+<SeqRuleLab client:visible preset="arithmetic" initialFirst={12} initialStep={2} initialCount={8} />
 
 Что стоит заметить:
 
@@ -137,7 +137,7 @@ $$S_{15}=\frac{12+40}{2}\cdot15=26\cdot15=390$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="seq9-arith-term-index"
   question="В прогрессии a₁ = 12, d = 2. Чему равен a₁₅?"
   correctIndex={1}
@@ -152,7 +152,7 @@ $$S_{15}=\frac{12+40}{2}\cdot15=26\cdot15=390$$
 
 Первые три члена видны, остальные скрыты. Найди последний член сам и только потом нажимай «Проверить».
 
-<SeqRuleLab client:load preset="arithmetic" initialFirst={7} initialStep={-3} initialCount={9} challenge={true} />
+<SeqRuleLab client:visible preset="arithmetic" initialFirst={7} initialStep={-3} initialCount={9} challenge={true} />
 
 <Concept type="mistake" title="Четыре типичные ошибки">
   1. **$(n-1)$ превращается в $n$.** Запись $a_n=a_1+nd$ смещает всю прогрессию на один шаг. Проверяй формулу подстановкой $n=1$: должно получиться ровно $a_1$.
@@ -207,4 +207,4 @@ $$S_{15}=\frac{12+40}{2}\cdot15=26\cdot15=390$$
 
 [← Числовые последовательности](/9-klass/posledovatelnosti/chislovye-posledovatelnosti/) · [Дальше: геометрическая прогрессия →](/9-klass/posledovatelnosti/geometricheskaya-progressiya/)
 
-<LessonComplete client:load lessonId="9-sequences-arithmetic" />
+<LessonComplete client:visible lessonId="9-sequences-arithmetic" />

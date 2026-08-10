@@ -23,7 +23,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Меняй основание и наблюдай
 
-<PercentLab client:load initialPercent={20} initialValue={3000} unit="₽" />
+<PercentLab client:visible initialPercent={20} initialValue={3000} unit="₽" />
 
 ## Три вопроса об одной модели
 
@@ -88,7 +88,7 @@ $$A_{\text{нов}}=A\left(1-\frac p{100}\right).$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="percent-down-up"
   question="Цена 1000 ₽ сначала уменьшилась на 20%, затем новая цена выросла на 20%. Какой стала цена?"
   correctIndex={1}
@@ -164,4 +164,4 @@ $$\frac{50-40}{40}\cdot100\%=25\%.$$
 
 В практикуме предстоит по условию выбрать нужную модель: отношение, пропорцию, ставку, масштаб или процент.
 
-<LessonComplete client:load lessonId="6-ratios-change" />
+<LessonComplete client:visible lessonId="6-ratios-change" />

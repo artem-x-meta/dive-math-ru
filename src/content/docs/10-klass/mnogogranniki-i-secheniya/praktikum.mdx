@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Корпус павильона — правильная шестиугольная призма. Сколько отрезков профиля придётся нарезать и сколько узлов сварить?
 
-<PolyhedronLab client:load mode="counts" initialSolid="prism" initialSides={6} initialSide={3} initialHeight={4} unit="m" challenge={true} />
+<PolyhedronLab client:visible mode="counts" initialSolid="prism" initialSides={6} initialSide={3} initialHeight={4} unit="m" challenge={true} />
 
 <WorkedExample title="Полный расчёт павильона">
   Корпус — правильная шестиугольная призма: сторона основания $3$ м, высота $4$ м. Крыша — правильная шестиугольная пирамида на верхнем основании корпуса, высота крыши $2$ м.
@@ -59,7 +59,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Тот же корпус, но теперь считаем материал. Сначала прикинь ответ в уме, потом проверь.
 
-<PolyhedronLab client:load mode="surface" initialSolid="prism" initialSides={6} initialSide={3} initialHeight={4} initialProjection="cabinet" unit="m" challenge={true} />
+<PolyhedronLab client:visible mode="surface" initialSolid="prism" initialSides={6} initialSide={3} initialHeight={4} initialProjection="cabinet" unit="m" challenge={true} />
 
 Обрати внимание: лаборатория показывает и полную поверхность, а на стены нужна только боковая. Полная включает пол и потолок, которые обшивать не надо.
 
@@ -67,7 +67,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Витринный блок — куб с ребром $6$ дм. Дизайнер просит разрез через середины трёх рёбер, выходящих из одной вершины, а затем — через середины рёбер $AB$, $BC$ и $CC_1$.
 
-<PolyhedronSectionLab client:load initialPreset="pentagon" initialEdge={6} unit="dm" challenge={true} />
+<PolyhedronSectionLab client:visible initialPreset="pentagon" initialEdge={6} unit="dm" challenge={true} />
 
 Сначала назови число сторон, не глядя на ответ: посчитай, скольких граней касается плоскость. Потом переключай заготовки и проверяй каждую.
 
@@ -78,7 +78,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="poly10-practice-choice"
   question="Нужно посчитать, сколько ткани уйдёт на стены шестигранной башни — без пола и без потолка. Какая величина нужна?"
   correctIndex={1}
@@ -138,4 +138,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Площадь поверхности](/10-klass/mnogogranniki-i-secheniya/ploshchad-poverkhnosti/) · [К обзору 10 класса →](/10-klass/)
 
-<LessonComplete client:load lessonId="10-polyhedra-practice" />
+<LessonComplete client:visible lessonId="10-polyhedra-practice" />

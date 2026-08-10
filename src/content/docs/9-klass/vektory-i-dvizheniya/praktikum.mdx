@@ -30,7 +30,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сложи два вектора этапов и посмотри, куда приведёт замыкающая стрелка.
 
-<VecLab client:load mode="sum" initialAx={6} initialAy={8} initialBx={8} initialBy={-6} challenge={true} />
+<VecLab client:visible mode="sum" initialAx={6} initialAy={8} initialBx={8} initialBy={-6} challenge={true} />
 
 <WorkedExample title="Путь и перемещение — разные числа">
   Длины этапов: $|\vec p_1| = \sqrt{36+64} = 10$ и $|\vec p_2| = \sqrt{64+36} = 10$ клеток. Значит, дрон пролетел $20$ клеток, то есть $200$ м.
@@ -64,7 +64,7 @@ $$x^2+y^2 = 144.$$
 
 Найди скалярное произведение курса и направления на север $\vec n(0;1)$ — оно подскажет угол отклонения.
 
-<VecDotLab client:load mode="angle" initialAx={6} initialAy={8} initialBx={0} initialBy={1} challenge={true} />
+<VecDotLab client:visible mode="angle" initialAx={6} initialAy={8} initialBx={0} initialBy={1} challenge={true} />
 
 <Concept type="idea" title="Ноль как ответ">
   Для двух курсов дрона $\vec p_1(6;8)$ и $\vec p_2(8;-6)$ произведение равно $6\cdot8+8\cdot(-6) = 0$. Это значит, что дрон повернул ровно на $90°$ — и проверить это удалось арифметикой, без транспортира и без чертежа.
@@ -74,14 +74,14 @@ $$x^2+y^2 = 144.$$
 
 Вторую площадку размечают зеркально первой. Посмотри, как ведут себя координаты стенда $P(3;2)$ при отражениях.
 
-<CoordinatePlaneLab client:load mode="reflections" initialX={3} initialY={2} min={-6} max={6} />
+<CoordinatePlaneLab client:visible mode="reflections" initialX={3} initialY={2} min={-6} max={6} />
 
 <Concept type="remember" title="Паспорт результата">
   Рядом с каждым числом запиши: что оно измеряет (длину, угол, площадь), в каких единицах получено, точное оно или приближённое. Число $\sqrt{200}$ — точное, $14{,}1$ — приближённое, и знак между ними обязан быть $\approx$, а не $=$.
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec9-practice-path"
   question="Чем длина пути отличается от длины итогового перемещения?"
   correctIndex={1}
@@ -145,4 +145,4 @@ $$x^2+y^2 = 144.$$
 
 [← Движения плоскости](/9-klass/vektory-i-dvizheniya/dvizheniya-ploskosti/) · [К обзору 9 класса →](/9-klass/)
 
-<LessonComplete client:load lessonId="9-vectors-practice" />
+<LessonComplete client:visible lessonId="9-vectors-practice" />

@@ -23,13 +23,13 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Сохрани состав
 
-<ProportionLab client:load initialFirst={2} initialSecond={3} initialTarget={8} />
+<ProportionLab client:visible initialFirst={2} initialSecond={3} initialTarget={8} />
 
 Если увеличить каждую часть рецепта в $4$ раза, получим
 
 $$2:3=8:12.$$
 
-Синего пигмента понадобится $8$ мерок. Количество краски выросло, а её состав не изменился.
+Белого пигмента понадобится $12$ мерок. Количество краски выросло, а её состав не изменился.
 
 <Concept type="rule" title="Пропорция">
   Равенство двух отношений называют **пропорцией**:
@@ -98,7 +98,7 @@ $$4\cdot21=84,\qquad 7\cdot12=84.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="proportion-map-scale"
   question="Какое число завершает пропорцию 5 : 8 = 15 : x?"
   correctIndex={1}
@@ -160,4 +160,4 @@ $$4\cdot21=84,\qquad 7\cdot12=84.$$
 
 Следующий урок соберёт единичную ставку, таблицу, формулу $y=kx$ и график в одну модель прямой пропорциональности.
 
-<LessonComplete client:load lessonId="6-ratios-proportions" />
+<LessonComplete client:visible lessonId="6-ratios-proportions" />

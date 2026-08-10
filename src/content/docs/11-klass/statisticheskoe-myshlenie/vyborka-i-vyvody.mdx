@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Пусть в населении ровно $\frac35$ сторонников. Опросим двенадцать случайных человек. Сколько из них скажут «да»?
 
-<StochNormalLab client:load initialSource="success" initialCount={12} initialSuccess="3/5" challenge={true} />
+<StochNormalLab client:visible initialSource="success" initialCount={12} initialSuccess="3/5" challenge={true} />
 
 Ожидание равно $12\cdot\frac35=7{,}2$ человека, но реально выпасть может и пять, и десять. Доля в такой выборке — это $\frac{X}{12}$, и она гуляет вместе с $X$. Увеличивай $n$ ползунком: горб становится острее относительно своей ширины — колебания доли уменьшаются.
 
@@ -54,7 +54,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 | - | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
 | доля, % | $54$ | $57$ | $53$ | $59$ | $58$ | $57$ | $62$ | $60$ | $60$ | $54$ |
 
-Ни одна выборка не дала ровно $60\%$. Разброс — от $53\%$ до $67\%$, среднее по всем двадцати опросам равно $59{,}15\%$. Это и есть **ошибка выборки**: она возникает не от небрежности, а от самого факта, что опрошены не все.
+Ровно $60\%$ выпало лишь в двух опросах из двадцати. Разброс — от $53\%$ до $67\%$, среднее по всем двадцати опросам равно $59{,}15\%$. Это и есть **ошибка выборки**: она возникает не от небрежности, а от самого факта, что опрошены не все.
 
 Хорошая новость: эта ошибка подчиняется формуле из урока 6.2.
 
@@ -109,7 +109,7 @@ $$D(\hat p)=\frac{np(1-p)}{n^2}=\frac{p(1-p)}{n}.$$
 Проверь по строке сам: $\frac{1}{0{,}03^2}=\frac{1}{0{,}0009}\approx1111{,}1$, поэтому берём $1112$ — объём выборки округляют только вверх.
 
 <QuickCheck
-  client:load
+  client:visible
   id="stoch11-sampling-margin"
   question="Опрос 400 человек дал 54 % сторонников. Какой вывод корректен?"
   correctIndex={2}
@@ -224,4 +224,4 @@ $$D(\hat p)=\frac{np(1-p)}{n^2}=\frac{p(1-p)}{n}.$$
 
 [← Нормальная модель и правило трёх сигм](/11-klass/statisticheskoe-myshlenie/normalnaya-model/) · [Дальше: практикум →](/11-klass/statisticheskoe-myshlenie/praktikum/)
 
-<LessonComplete client:load lessonId="11-statistics-sampling" />
+<LessonComplete client:visible lessonId="11-statistics-sampling" />

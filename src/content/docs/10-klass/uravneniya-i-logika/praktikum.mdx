@@ -48,7 +48,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Оцени число корней по рисунку, а потом сверься с таблицей отбора.
 
-<LogicRootsLab client:load preset="sqrt-linear-c" view="original" challenge={true} />
+<LogicRootsLab client:visible preset="sqrt-linear-c" view="original" challenge={true} />
 
 <WorkedExample title="Паспорт решения иррационального уравнения">
   Оформляй так, чтобы аудитору было нечего искать:
@@ -66,7 +66,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Здесь важно не число, а форма ответа: иногда это одно значение, иногда четыре, а иногда целый промежуток.
 
-<LogicModulusLab client:load preset="abs-quad" challenge={true} />
+<LogicModulusLab client:visible preset="abs-quad" challenge={true} />
 
 <Concept type="remember" title="Паспорт результата">
   Рядом с ответом запиши: какое множество получилось, каким преобразованием ты пользовался, где стоял знак $\Rightarrow$, а где $\Leftrightarrow$, и как ты проверил результат. Ответ без такого паспорта нельзя проверить — ни другому человеку, ни себе через неделю.
@@ -77,7 +77,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Переведи на язык кванторов и множеств и найди верное утверждение.
 
 <QuickCheck
-  client:load
+  client:visible
   id="log10-practice-audit"
   question="Решая √(x + 1) = x − 1, ученик записал: «ОДЗ: x ≥ −1. После квадрата x² − 3x = 0, корни 0 и 3. Оба лежат в ОДЗ, значит ответ 0 и 3». Где ошибка?"
   correctIndex={2}
@@ -152,4 +152,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Множества и логика](/10-klass/uravneniya-i-logika/mnozhestva-i-logika/) · [К обзору 10 класса →](/10-klass/)
 
-<LessonComplete client:load lessonId="10-logic-practice" />
+<LessonComplete client:visible lessonId="10-logic-practice" />

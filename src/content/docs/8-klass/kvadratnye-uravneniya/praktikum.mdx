@@ -59,13 +59,13 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 График скрыт до проверки. Считай дискриминант в уме, выбирай ответ, потом сверяйся с параболой. Пройди все шесть уравнений.
 
-<QuadRootsLab client:load challenge={true} initialA={2} initialB={-3} initialC={-2} />
+<QuadRootsLab client:visible challenge={true} initialA={2} initialB={-3} initialC={-2} />
 
 ## Станция 3. Виет на скорость
 
 Здесь тоже сначала ответ, потом таблица делителей. Пробуй разные $p$ и $q$ — в том числе такие, где целой пары нет.
 
-<QuadVietaLab client:load mode="find" initialP={-9} initialQ={20} challenge={true} />
+<QuadVietaLab client:visible mode="find" initialP={-9} initialQ={20} challenge={true} />
 
 Переключись на вкладку «Составить уравнение» и проверь обратный ход: по паре корней получить $p$, $q$ и разложение на множители.
 
@@ -86,7 +86,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="quad8-practice-method"
   question="Каким способом быстрее всего решить уравнение x² + 9x = 0?"
   correctIndex={1}
@@ -154,4 +154,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Текстовые задачи](/8-klass/kvadratnye-uravneniya/tekstovye-zadachi/) · [К обзору 8 класса →](/8-klass/)
 
-<LessonComplete client:load lessonId="8-quadratic-practice" />
+<LessonComplete client:visible lessonId="8-quadratic-practice" />

@@ -32,7 +32,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Возьми прямоугольник и начни вращать его вокруг одной из сторон. Пока оборот неполный, тела ещё нет — есть только след. После $360°$ появляется цилиндр.
 
-<RevolLab client:load mode="rotate" initialSolid="cylinder" initialRadius={3} initialHeight={5} initialAngle={140} unit="cm" />
+<RevolLab client:visible mode="rotate" initialSolid="cylinder" initialRadius={3} initialHeight={5} initialAngle={140} unit="cm" />
 
 Останови вращение на $180°$ и посмотри, какую линию заметает каждая угловая точка прямоугольника. Затем доведи до $360°$ и переключись на вкладку «Развёртка».
 
@@ -60,7 +60,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Разрежем боковую поверхность по одной образующей и развернём её на плоскость. Разрез идёт вдоль образующей, а перпендикулярное ему направление — это окружность основания, которая распрямляется в отрезок длины $2\pi r$.
 
-<RevolLab client:load mode="net" initialSolid="cylinder" initialRadius={4} initialHeight={10} unit="cm" />
+<RevolLab client:visible mode="net" initialSolid="cylinder" initialRadius={4} initialHeight={10} unit="cm" />
 
 <Concept type="rule" title="Поверхность цилиндра">
   Развёртка боковой поверхности — прямоугольник со сторонами $2\pi r$ и $h$, поэтому
@@ -95,7 +95,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="rev11-cylinder-total"
   question="У цилиндра радиус 5, высота 4. Чему равна площадь полной поверхности?"
   correctIndex={1}
@@ -156,4 +156,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Вход в тему](/11-klass/tela-vrashcheniya/) · [Дальше: конус →](/11-klass/tela-vrashcheniya/konus/)
 
-<LessonComplete client:load lessonId="11-solids-cylinder" />
+<LessonComplete client:visible lessonId="11-solids-cylinder" />

@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Меняй по одному числу и смотри, что именно меняется в рисунке. Клетка сетки — одна единица по каждой оси, поэтому наклон можно измерять.
 
 <LinearGraphLab
-  client:load
+  client:visible
   mode="function"
   initialK={2}
   initialB={-3}
@@ -93,7 +93,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Теперь наоборот — прямая дана, а $k$ и $b$ нужно найти. Сначала прочитай ответ на рисунке, потом нажми «Проверить».
 
 <LinearGraphLab
-  client:load
+  client:visible
   mode="read"
   initialK={-1}
   initialB={2}
@@ -102,7 +102,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 />
 
 <QuickCheck
-  client:load
+  client:visible
   id="lin7-function-slope"
   question="График функции y = kx + b проходит через точки (0; 3) и (2; 7). Чему равны k и b?"
   correctIndex={0}
@@ -167,4 +167,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Текстовые задачи через уравнение](/7-klass/lineynye-modeli/tekstovye-zadachi/) · [Дальше: системы двух уравнений →](/7-klass/lineynye-modeli/sistemy-uravneniy/)
 
-<LessonComplete client:load lessonId="7-linear-function" />
+<LessonComplete client:visible lessonId="7-linear-function" />

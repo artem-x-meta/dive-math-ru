@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Меняй угол и следи за координатами точки. Обрати внимание на четыре момента: когда координата меняет знак, когда обращается в ноль, что происходит при переходе через $360°$ и что общего у углов $30°$ и $150°$.
 
-<TrigCircleLab client:load mode="point" initialDegrees={210} />
+<TrigCircleLab client:visible mode="point" initialDegrees={210} />
 
 ## Точка поворота
 
@@ -142,7 +142,7 @@ $$\sin(\alpha+360°k)=\sin\alpha, \qquad \cos(\alpha+360°k)=\cos\alpha.$$
 
 Проверь себя на лаборатории: введи угол больше оборота и посмотри, сколько оборотов она отбрасывает и в какой четверти оказывается точка.
 
-<TrigCircleLab client:load mode="reduce" initialDegrees={750} challenge={true} />
+<TrigCircleLab client:visible mode="reduce" initialDegrees={750} challenge={true} />
 
 <Concept type="mistake" title="Где обычно теряют задачу">
   **Путают радианы с градусами.** $\sin 2$ и $\sin 2°$ — разные числа: $2$ рад $\approx 114{,}6°$, поэтому $\sin 2\approx 0{,}909$, а $\sin 2°\approx 0{,}035$. Если в записи нет знака градуса, аргумент измерен в радианах.
@@ -153,7 +153,7 @@ $$\sin(\alpha+360°k)=\sin\alpha, \qquad \cos(\alpha+360°k)=\cos\alpha.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="trig10-radians"
   question="Сколько радиан в угле 135°?"
   correctIndex={1}
@@ -204,4 +204,4 @@ $$\sin(\alpha+360°k)=\sin\alpha, \qquad \cos(\alpha+360°k)=\cos\alpha.$$
 
 [← Вход в тему](/10-klass/trigonometriya/) · [Дальше: графики и периодичность →](/10-klass/trigonometriya/grafiki-i-periodichnost/)
 
-<LessonComplete client:load lessonId="10-trig-circle" />
+<LessonComplete client:visible lessonId="10-trig-circle" />

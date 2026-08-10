@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Двигай ползунок числа кубиков от одного к восьми. Один кубик — ровная полка, два — «крыша», три — уже почти колокол. Кривая появляется только после нажатия «Проверить»: сначала прогноз, потом картинка.
 
-<StochNormalLab client:load initialSource="dice" initialCount={4} challenge={true} />
+<StochNormalLab client:visible initialSource="dice" initialCount={4} challenge={true} />
 
 В таблице лаборатории точные вероятности вычислены по распределению — без всякого приближения, обыкновенными дробями. Последний столбец показывает, что обещает нормальная модель. Сравни эти два столбца: расхождение и есть цена приближения.
 
@@ -105,7 +105,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="stoch11-normal-three-sigma"
   question="Автомат фасует крупу: средний вес пачки 500 г, стандартное отклонение 4 г, распределение близко к нормальному. Какая доля пачек весит больше 508 г?"
   correctIndex={1}
@@ -183,4 +183,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Дисперсия и стандартное отклонение](/11-klass/statisticheskoe-myshlenie/dispersiya/) · [Дальше: выборка, ошибка и честные выводы →](/11-klass/statisticheskoe-myshlenie/vyborka-i-vyvody/)
 
-<LessonComplete client:load lessonId="11-statistics-normal" />
+<LessonComplete client:visible lessonId="11-statistics-normal" />

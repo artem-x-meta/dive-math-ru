@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Исследуй прямую: поставь точку на $-3{,}5$, затем перемещай её через ноль и следи, как знак хранит сторону.
 
-<SignedNumberLineLab client:load mode="locate" initialA={-3.5} initialB={2} min={-8} max={8} step={0.5} />
+<SignedNumberLineLab client:visible mode="locate" initialA={-3.5} initialB={2} min={-8} max={8} step={0.5} />
 
 <Concept type="rule" title="Координатная прямая">
   Координатная прямая — это прямая с выбранными началом отсчёта, единичным отрезком и положительным направлением. Число, соответствующее точке, называют её координатой.
@@ -52,7 +52,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="signed-line-negative-decimal"
   question="Между какими соседними целыми числами лежит −3,2?"
   correctIndex={1}
@@ -69,7 +69,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Перемещай одну точку и наблюдай, где автоматически появляется её отражение.
 
-<SignedNumberLineLab client:load mode="opposite" initialA={-2.5} initialB={2.5} min={-6} max={6} step={0.5} />
+<SignedNumberLineLab client:visible mode="opposite" initialA={-2.5} initialB={2.5} min={-6} max={6} step={0.5} />
 
 <Concept type="remember" title="Противоположные числа">
   Два числа называют противоположными, если они отличаются только знаком. Число, противоположное $a$, обозначают $-a$. Числу $0$ противоположен сам $0$.
@@ -128,4 +128,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 В следующем уроке перестанем путать сторону с расстоянием и научимся [сравнивать числа по координатной прямой](/6-klass/otricatelnye-chisla/modul-i-sravnenie/).
 
-<LessonComplete client:load lessonId="6-signed-line" />
+<LessonComplete client:visible lessonId="6-signed-line" />

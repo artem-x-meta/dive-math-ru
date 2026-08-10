@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Мяч брошен вверх со скоростью $20$ м/с: высота меняется по закону $h=20t-5t^2$. Посчитай на бумаге мгновенную скорость в момент $t=1$ — по определению или по правилам — и только потом нажимай «Проверить».
 
-<DerivSecantLab client:load initialPreset="throw" initialAnchor={1} challenge={true} />
+<DerivSecantLab client:visible initialPreset="throw" initialAnchor={1} challenge={true} />
 
 <WorkedExample title="Разбор станции 1">
   По правилам: $h'(t)=20-10t$, поэтому $h'(1)=10$ м/с.
@@ -71,7 +71,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Здесь верхний график виден, а нижний спрятан. Сначала прочитай поведение функции глазами и назови точку максимума, потом проверяй.
 
-<DerivProfileLab client:load initialPreset="quartic" challenge={true} />
+<DerivProfileLab client:visible initialPreset="quartic" challenge={true} />
 
 <Concept type="idea" title="Три стационарные точки — это нормально">
   У функции $y=x^4-2x^2$ производная $4x^3-4x$ имеет три корня, и все три оказываются экстремумами: минимум, максимум, минимум.
@@ -83,7 +83,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Забор длиной $60$ м огораживает площадку у стены. Ниже лаборатория показывает целевую функцию, её производную и всех кандидатов на отрезке $[0;30]$.
 
-<DerivProfileLab client:load initialPreset="fence" />
+<DerivProfileLab client:visible initialPreset="fence" />
 
 <WorkedExample title="Полное исследование y = 2x³ − 3x² − 12x + 5">
   **Производная:** $y'=6x^2-6x-12=6\bigl(x^2-x-2\bigr)=6(x-2)(x+1)$.
@@ -100,7 +100,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="der11-practice-tool"
   question="В задаче спрашивают наибольшее значение функции y = 12x − x³ на отрезке [0; 3]. С чего начать?"
   correctIndex={2}
@@ -175,4 +175,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Задачи оптимизации](/11-klass/proizvodnaya/optimizatsiya/) · [К обзору 11 класса →](/11-klass/)
 
-<LessonComplete client:load lessonId="11-derivative-practice" />
+<LessonComplete client:visible lessonId="11-derivative-practice" />

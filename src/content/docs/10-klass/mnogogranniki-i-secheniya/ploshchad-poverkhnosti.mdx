@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Переключись на вкладку «Площадь поверхности» и посмотри, как разбирается ответ: сначала основание, потом боковая поверхность, потом сумма.
 
-<PolyhedronLab client:load mode="surface" initialSolid="pyramid" initialSides={4} initialSide={6} initialHeight={4} unit="cm" />
+<PolyhedronLab client:visible mode="surface" initialSolid="pyramid" initialSides={4} initialSide={6} initialHeight={4} unit="cm" />
 
 Поставь сторону $6$ и высоту $4$ у пирамиды — получишь ровные числа. Затем нажми «Призма» с теми же размерами и сравни боковые поверхности. Потом уменьши высоту до $1$ и сравни ещё раз: результат может тебя удивить.
 
@@ -129,7 +129,7 @@ $$h>\frac{a}{2\sqrt{3}}\approx0{,}29a.$$
 Значит, у высокого тела боковая поверхность призмы больше, а у совсем плоского — наоборот. Ответ «призма всегда больше» неверен, хотя на практике почти всегда верен: постройки редко бывают ниже трети своей ширины.
 
 <QuickCheck
-  client:load
+  client:visible
   id="poly10-pyramid-apothem"
   question="У правильной четырёхугольной пирамиды сторона основания 8, высота 3. Чему равна боковая поверхность?"
   correctIndex={1}
@@ -150,7 +150,7 @@ $$h>\frac{a}{2\sqrt{3}}\approx0{,}29a.$$
   **Применяют $S_{\text{бок}}=Ph$ к наклонной призме.** У наклонной призмы боковые грани — параллелограммы, и формула другая: нужно взять периметр перпендикулярного сечения и умножить на боковое ребро. В этой главе все призмы прямые, но помнить об ограничении полезно.
 </Concept>
 
-<PolyhedronLab client:load mode="surface" initialSolid="prism" initialSides={6} initialSide={4} initialHeight={10} initialProjection="cabinet" unit="cm" challenge={true} />
+<PolyhedronLab client:visible mode="surface" initialSolid="prism" initialSides={6} initialSide={4} initialHeight={10} initialProjection="cabinet" unit="cm" challenge={true} />
 
 ## Практика
 
@@ -193,4 +193,4 @@ $$h>\frac{a}{2\sqrt{3}}\approx0{,}29a.$$
 
 [← Построение сечений](/10-klass/mnogogranniki-i-secheniya/postroenie-secheniy/) · [Дальше: практикум →](/10-klass/mnogogranniki-i-secheniya/praktikum/)
 
-<LessonComplete client:load lessonId="10-polyhedra-surface" />
+<LessonComplete client:visible lessonId="10-polyhedra-surface" />

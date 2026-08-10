@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Электробус трогается с места, и его скорость растёт по закону $v(t)=t^2$ м/с. Нужно узнать, сколько метров он проедет за первые $3$ секунды.
 
-<IntegAreaLab client:load context="motion" initialTop="square" initialBottom="zero" initialFrom={0} initialTo={3} />
+<IntegAreaLab client:visible context="motion" initialTop="square" initialBottom="zero" initialFrom={0} initialTo={3} />
 
 <WorkedExample title="Путь и правдоподобие">
   Перемещение равно интегралу от скорости:
@@ -45,7 +45,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Инженер оценивал путь при законе $v(t)=t^3$ м/с на промежутке $[0;2]$ с, разбив его на $4$ равные части и взяв скорость по левому краю каждой части. Насколько он ошибся?
 
-<IntegRiemannLab client:load initialFunction="cubic" initialFrom={0} initialTo={2} initialParts={4} initialRule="left" />
+<IntegRiemannLab client:visible initialFunction="cubic" initialFrom={0} initialTo={2} initialParts={4} initialRule="left" />
 
 Проведи эксперимент по шагам:
 
@@ -66,7 +66,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сначала посчитай сам, потом введи ответ в лабораторию — числа появятся только после проверки.
 
-<IntegAreaLab client:load initialTop="dome" initialBottom="linear" initialFrom={-3} initialTo={1} challenge={true} />
+<IntegAreaLab client:visible initialTop="dome" initialBottom="linear" initialFrom={-3} initialTo={1} challenge={true} />
 
 <WorkedExample title="Арка по шагам">
   **Границы.** Ищем пересечения:
@@ -87,7 +87,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="int11-practice-tool"
   question="На промежутке движения скорость тела меняет знак. Что даёт интеграл от v(t) по этому промежутку?"
   correctIndex={2}
@@ -156,4 +156,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Накопление величины](/11-klass/integral/nakoplenie-velichiny/) · [К обзору 11 класса →](/11-klass/)
 
-<LessonComplete client:load lessonId="11-integral-practice" />
+<LessonComplete client:visible lessonId="11-integral-practice" />

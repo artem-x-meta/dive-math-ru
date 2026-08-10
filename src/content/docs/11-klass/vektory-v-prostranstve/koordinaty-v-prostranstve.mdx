@@ -51,7 +51,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Лаборатория ставит начало координат в вершину $A$ и направляет оси по рёбрам $AB$, $AD$ и $AA_1$. Выбирай точки, меняй рёбра и следи, как меняются координаты и длина отрезка. Поворачивай тело: **числа не меняются, меняется только картинка**.
 
-<Vec3Lab client:load mode="vector" shape="box" initialEdgeA={2} initialEdgeB={3} initialEdgeC={6} firstFrom="A" firstTo="C1" unitLabel="см" />
+<Vec3Lab client:visible mode="vector" shape="box" initialEdgeA={2} initialEdgeB={3} initialEdgeC={6} firstFrom="A" firstTo="C1" unitLabel="см" />
 
 Поставь рёбра $2$, $3$ и $6$ и посмотри на диагональ $AC_1$. Получилось ровно $7$ — редкий случай, когда корень извлекается нацело.
 
@@ -112,7 +112,7 @@ $$d=\sqrt{a^2+b^2+c^2}.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec11-coords-distances"
   question="Дана точка M(3;−4;12). Чему равны расстояния от неё до плоскости Oxy и до оси Oz?"
   correctIndex={2}
@@ -167,4 +167,4 @@ $$d=\sqrt{a^2+b^2+c^2}.$$
 
 [← Вход в тему](/11-klass/vektory-v-prostranstve/) · [Дальше: векторы и действия →](/11-klass/vektory-v-prostranstve/vektory-i-deystviya/)
 
-<LessonComplete client:load lessonId="11-vectors-coords" />
+<LessonComplete client:visible lessonId="11-vectors-coords" />

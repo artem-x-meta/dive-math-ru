@@ -33,7 +33,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Разбери примеры сам и только потом сверься с разбором. Особое внимание — примерам, где кандидатов больше, чем корней.
 
-<SysEquationLab client:load preset="shared-denominator" challenge={true} />
+<SysEquationLab client:visible preset="shared-denominator" challenge={true} />
 
 <Concept type="remember" title="Паспорт ответа">
   Рядом с каждым числом полезно записать: что оно обозначает, в каких единицах получено, точное оно или приближённое и какое ограничение задачи учтено. Число без такого паспорта трудно проверить — и легко перепутать с ответом на другой вопрос.
@@ -43,7 +43,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Проверь несколько пар в уравнении $x^2+y^2=25$. Найди пару с $x=3$, потом вторую пару с тем же $x$.
 
-<SysGraphLab client:load mode="point" curve="circle" />
+<SysGraphLab client:visible mode="point" curve="circle" />
 
 <WorkedExample title="Почему пар именно две">
   При $x=3$ уравнение $x^2+y^2=25$ превращается в
@@ -59,10 +59,10 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Оцени число решений по рисунку, потом впиши координаты одной из общих точек и проверь себя.
 
-<SysGraphLab client:load mode="system" preset="circle-line" challenge={true} />
+<SysGraphLab client:visible mode="system" preset="circle-line" challenge={true} />
 
 <QuickCheck
-  client:load
+  client:visible
   id="sys9-practice-model"
   question="«Периметр прямоугольника 22 см, площадь 24 см². Найди стороны.» Какая модель подходит?"
   correctIndex={1}
@@ -153,4 +153,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Текстовые задачи](/9-klass/uravneniya-i-sistemy/tekstovye-zadachi/) · [К обзору 9 класса →](/9-klass/)
 
-<LessonComplete client:load lessonId="9-systems-practice" />
+<LessonComplete client:visible lessonId="9-systems-practice" />

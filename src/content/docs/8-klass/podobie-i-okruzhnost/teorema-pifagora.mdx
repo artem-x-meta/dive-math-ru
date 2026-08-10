@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Меняй катеты и следи за тремя числами внутри квадратов.
 
-<PythSquaresLab client:load mode="squares" initialLegA={3} initialLegB={4} />
+<PythSquaresLab client:visible mode="squares" initialLegA={3} initialLegB={4} />
 
 Сколько бы ты ни менял катеты, сумма площадей двух маленьких квадратов равна площади большого. Это не совпадение и не свойство «удобных» чисел — это теорема.
 
@@ -107,7 +107,7 @@ $$a^2 + 2ab + b^2 = 2ab + c^2 \;\Longrightarrow\; a^2 + b^2 = c^2. \qquad \black
 
 ## Как считать на практике
 
-<PythSquaresLab client:load mode="find" initialLegA={6} initialLegB={8} challenge={true} />
+<PythSquaresLab client:visible mode="find" initialLegA={6} initialLegB={8} challenge={true} />
 
 <WorkedExample title="Лестница у стены">
   Лестница длиной $5$ м отодвинута от стены на $3$ м. Стена вертикальна, земля горизонтальна, поэтому угол между ними прямой, и лестница — гипотенуза.
@@ -152,7 +152,7 @@ $$a^2 + 2ab + b^2 = 2ab + c^2 \;\Longrightarrow\; a^2 + b^2 = c^2. \qquad \black
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="sim8-pythagoras-leg"
   question="В прямоугольном треугольнике гипотенуза равна 13, один катет равен 5. Чему равен второй катет?"
   correctIndex={1}
@@ -205,4 +205,4 @@ $$a^2 + 2ab + b^2 = 2ab + c^2 \;\Longrightarrow\; a^2 + b^2 = c^2. \qquad \black
 
 [← Подобие треугольников](/8-klass/podobie-i-okruzhnost/podobie-treugolnikov/) · [Дальше: тригонометрия острого угла →](/8-klass/podobie-i-okruzhnost/trigonometriya-ostrogo-ugla/)
 
-<LessonComplete client:load lessonId="8-geometry-pythagoras" />
+<LessonComplete client:visible lessonId="8-geometry-pythagoras" />

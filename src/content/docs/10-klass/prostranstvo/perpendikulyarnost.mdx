@@ -28,7 +28,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Из точки $M$ к плоскости проведён перпендикуляр $MH=3$ и наклонная $MA$, проекция которой $HA=4$. Прикинь до вычисления: длина наклонной ближе к $5$, к $7$ или к $12$? А если проекцию увеличить вдвое — во сколько раз вырастет наклонная?
 
-<SpaceDistanceLab client:load mode="slant" initialHeight={3} initialProjection={4} unitLabel="см" />
+<SpaceDistanceLab client:visible mode="slant" initialHeight={3} initialProjection={4} unitLabel="см" />
 
 Второе число почти всегда переоценивают: при $HA=8$ наклонная равна $\sqrt{9+64}\approx8{,}54$, то есть выросла меньше чем в $2$ раза.
 
@@ -84,7 +84,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Переключи лабораторию в режим «Три перпендикуляра»: прямая $a$ остаётся перпендикулярной и проекции, и наклонной при любых длинах $MH$ и $HA$. Обрати внимание, что на рисунке эти прямые углы выглядят непрямыми — метки построены как проекции настоящих квадратиков.
 
-<SpaceDistanceLab client:load mode="three-perpendiculars" initialHeight={4} initialProjection={5} unitLabel="см" />
+<SpaceDistanceLab client:visible mode="three-perpendiculars" initialHeight={4} initialProjection={5} unitLabel="см" />
 
 <WorkedExample title="Пирамида с квадратом в основании">
   Пусть $ABCD$ — квадрат со стороной $4$, а $SA\perp(ABC)$ и $SA=4$.
@@ -103,7 +103,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="space10-perpendicular-sign"
   question="Прямая p проходит через точку O плоскости α и перпендикулярна двум прямым этой плоскости. Когда отсюда следует, что p ⊥ α?"
   correctIndex={1}
@@ -154,4 +154,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Параллельность](/10-klass/prostranstvo/parallelnost/) · [Дальше: расстояния и углы →](/10-klass/prostranstvo/rasstoyaniya-i-ugly/)
 
-<LessonComplete client:load lessonId="10-space-perpendicular" />
+<LessonComplete client:visible lessonId="10-space-perpendicular" />

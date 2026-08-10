@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Стоимость поездки задаётся выражением $50+8t$, где $t$ — время в минутах. Прогони через таблицу несколько значений и найди, где появляется $210$.
 
 <ExpressionMachineLab
-  client:load
+  client:visible
   expression="50+8*t"
   mode="table"
   variables={[{ name: 't', label: 'Время поездки, мин', initial: 10, min: 0, max: 40, step: 1 }]}
@@ -137,7 +137,7 @@ $$50+8t=210 \;\Longrightarrow\; 8t=210-50 \;\Longrightarrow\; 8t=160 \;\Longrigh
 Например, $3x+5=3x-1$ даёт $0\cdot x=-6$ — корней нет. А $4(x+1)=4x+4$ даёт $0\cdot x=0$ — подходит любое число.
 
 <QuickCheck
-  client:load
+  client:visible
   id="lin7-equation-root"
   question="Какое уравнение равносильно уравнению 6x − 1 = 2x + 11?"
   correctIndex={1}
@@ -200,4 +200,4 @@ $$50+8t=210 \;\Longrightarrow\; 8t=210-50 \;\Longrightarrow\; 8t=160 \;\Longrigh
 
 [← Вход в тему](/7-klass/lineynye-modeli/) · [Дальше: текстовые задачи через уравнение →](/7-klass/lineynye-modeli/tekstovye-zadachi/)
 
-<LessonComplete client:load lessonId="7-linear-equations" />
+<LessonComplete client:visible lessonId="7-linear-equations" />

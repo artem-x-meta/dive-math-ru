@@ -46,7 +46,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Распределительный закон читается в обе стороны. Слева направо он раскрывает скобки, справа налево — собирает их обратно. Включи в лаборатории режим «Собрать обратно» и посмотри на этот же переход в числах.
 
 <DistributiveLab
-  client:load
+  client:visible
   variable="x"
   initialFactor={3}
   initialValue={2}
@@ -104,7 +104,7 @@ $$a^2-2ab+b^2=(a-b)^2.$$
 Модель разности квадратов показывает это буквально: фигура площадью $a^2-b^2$ перекладывается в прямоугольник со сторонами $a+b$ и $a-b$. Посчитай площадь по рисунку и проверь себя.
 
 <PolySquareLab
-  client:load
+  client:visible
   mode="difference-of-squares"
   allowedModes={['difference-of-squares']}
   initialA={9}
@@ -136,7 +136,7 @@ $$a^2-2ab+b^2=(a-b)^2.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="poly7-factor-common"
   question="Разложи на множители 4x² − 4x."
   correctIndex={0}
@@ -188,4 +188,4 @@ $$a^2-2ab+b^2=(a-b)^2.$$
 
 [← Формулы сокращённого умножения](/7-klass/algebraicheskiy-yazyk/formuly-sokrashchennogo-umnozheniya/) · [Дальше: практикум →](/7-klass/algebraicheskiy-yazyk/praktikum/)
 
-<LessonComplete client:load lessonId="7-algebra-factoring" />
+<LessonComplete client:visible lessonId="7-algebra-factoring" />

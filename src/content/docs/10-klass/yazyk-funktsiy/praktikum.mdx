@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Функция задана формулой, картинка спрятана. Назови область определения и множество значений, а потом проверь себя.
 
-<FnTransformLab client:load challenge={true} />
+<FnTransformLab client:visible challenge={true} />
 
 <WorkedExample title="Полный паспорт функции f(x) = 2 − √(x + 3)">
   **Область определения.** Под корнем должно быть неотрицательное число: $x+3\geqslant 0$, поэтому
@@ -70,7 +70,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Здесь важен только один вопрос: можно ли по значению однозначно восстановить аргумент. Реши до нажатия кнопки.
 
-<FnInverseLab client:load challenge={true} />
+<FnInverseLab client:visible challenge={true} />
 
 <Concept type="idea" title="Сужение спасает почти всегда">
   Если функция необратима, это ещё не приговор модели. Обычно достаточно ограничить область определения тем промежутком, который нужен в задаче.
@@ -98,7 +98,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </details>
 
 <QuickCheck
-  client:load
+  client:visible
   id="fn10-practice-passport"
   question="Функция задана формулой y = 5 − √(x − 1). Какое утверждение о ней верно?"
   correctIndex={1}
@@ -167,4 +167,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Композиция функций](/10-klass/yazyk-funktsiy/kompozitsiya/) · [К обзору 10 класса →](/10-klass/)
 
-<LessonComplete client:load lessonId="10-functions-practice" />
+<LessonComplete client:visible lessonId="10-functions-practice" />

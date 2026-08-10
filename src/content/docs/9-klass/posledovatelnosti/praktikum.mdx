@@ -41,7 +41,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Первые три члена видны, остальные скрыты. Посчитай разности и отношения и предскажи последний член.
 
-<SeqRuleLab client:load preset="mixed" initialFirst={2} initialStep={3} initialRatio={2} initialCount={6} challenge={true} />
+<SeqRuleLab client:visible preset="mixed" initialFirst={2} initialStep={3} initialRatio={2} initialCount={6} challenge={true} />
 
 <WorkedExample title="Когда не подходит ни один шаблон">
   Правило $a_1=2$, $a_{n+1}=2a_n+3$ даёт $2,\;7,\;17,\;37,\;77,\;157$.
@@ -55,7 +55,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Первый день пробежки — $15$ минут, каждый следующий день на $5$ минут больше. Проверь свой ответ для десятого дня в лаборатории, а для двадцатого посчитай по формуле.
 
-<SeqRuleLab client:load preset="arithmetic" initialFirst={15} initialStep={5} initialCount={10} challenge={true} />
+<SeqRuleLab client:visible preset="arithmetic" initialFirst={15} initialStep={5} initialCount={10} challenge={true} />
 
 <WorkedExample title="Два вопроса — две формулы">
   Здесь $a_1=15$ и $d=5$.
@@ -75,14 +75,14 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Вклад $50\,000$ ₽ под $9\,\%$ годовых на $4$ года. Посчитай сумму при сложном проценте сам, округли до целых рублей и проверь.
 
-<SeqGrowthLab client:load initialStart={50000} initialRate={9} initialPeriods={4} challenge={true} />
+<SeqGrowthLab client:visible initialStart={50000} initialRate={9} initialPeriods={4} challenge={true} />
 
 <Concept type="remember" title="Паспорт результата">
   Рядом с каждым числом запиши: что оно измеряет, в какой единице получено, точное оно или округлённое и какое допущение модели использовано. Для денег — округление до копеек; для населения — до целых людей; для физического процесса — с оговоркой, что ставка постоянна.
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="seq9-practice-identify"
   question="Число заражённых растёт: 200, 240, 288, 345,6… Какая это модель?"
   correctIndex={2}
@@ -146,4 +146,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Сложный процент и рост](/9-klass/posledovatelnosti/slozhnyy-protsent/) · [К обзору 9 класса →](/9-klass/)
 
-<LessonComplete client:load lessonId="9-sequences-practice" />
+<LessonComplete client:visible lessonId="9-sequences-practice" />

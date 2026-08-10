@@ -27,7 +27,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Гость тянет одну из двенадцати карточек с числами от $1$ до $12$. Приз выдают, если число простое **или** больше $6$.
 
-<ProbEventLab client:load mode="sets" initialLeft="prime" initialRight="greaterThanSix" initialOperation="union" />
+<ProbEventLab client:visible mode="sets" initialLeft="prime" initialRight="greaterThanSix" initialOperation="union" />
 
 <WorkedExample title="Сколько призов готовить">
   $A$ — «число простое» $=\{2;\,3;\,5;\,7;\,11\}$, значит $|A|=5$. $B$ — «число больше $6$» $=\{7;\,8;\,9;\,10;\,11;\,12\}$, значит $|B|=6$.
@@ -55,7 +55,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Посчитай вероятность сам, запиши её дробью и только потом нажми «Проверить»: дерево подскажет ответ.
 
-<ProbTreeLab client:load preset="urn" initialRed={3} initialBlue={2} initialDraws={2} initialEvent="all" challenge={true} />
+<ProbTreeLab client:visible preset="urn" initialRed={3} initialBlue={2} initialDraws={2} initialEvent="all" challenge={true} />
 
 <Concept type="remember" title="Паспорт каждого ответа">
   Рядом с вероятностью запиши четыре вещи: какой опыт, какой список исходов, почему они равновозможны и точный это ответ или оценка по серии. Число без такого паспорта проверить невозможно — и спорить с ним бесполезно.
@@ -78,7 +78,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Средний результат одинаков, но Дима стабильнее более чем вчетверо.
 
 <QuickCheck
-  client:load
+  client:visible
   id="prob8-practice-tools"
   question="Какой инструмент подходит для вопроса «какова вероятность вынуть два красных шара подряд без возвращения»?"
   correctIndex={1}
@@ -139,4 +139,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Рассеивание данных](/8-klass/veroyatnostnye-derevya/rasseivanie-dannykh/) · [К обзору 8 класса →](/8-klass/)
 
-<LessonComplete client:load lessonId="8-probability-practice" />
+<LessonComplete client:visible lessonId="8-probability-practice" />

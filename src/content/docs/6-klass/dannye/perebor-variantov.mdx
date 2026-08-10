@@ -43,7 +43,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Тот же порядок удобно нарисовать. Из точки «начало» выходит по ветви на каждый напиток; из каждого напитка — по ветви на каждый бутерброд. Готовый вариант читается как путь от начала до конца ветви, а число вариантов равно числу листьев дерева.
 
 <DataTreeLab
-  client:load
+  client:visible
   mode="tree"
   initialSteps={[
     { name: 'Напиток', options: ['чай', 'какао', 'сок'] },
@@ -78,7 +78,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="data6-multiplication-rule"
   question="В кафе 3 вида блинов и 4 вида начинок. Сколько разных блинов с одной начинкой можно заказать?"
   correctIndex={1}
@@ -98,7 +98,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 $$\frac{5\cdot4}{2}=10.$$
 
 <DataTreeLab
-  client:load
+  client:visible
   mode="pairs"
   initialItems={['Астра', 'Барс', 'Вихрь', 'Гроза', 'Дельта']}
 />
@@ -160,4 +160,4 @@ $$\frac{5\cdot4}{2}=10.$$
 
 [← Среднее арифметическое](/6-klass/dannye/srednee-arifmeticheskoe/) · [Дальше: практикум →](/6-klass/dannye/praktikum/)
 
-<LessonComplete client:load lessonId="6-data-variants" />
+<LessonComplete client:visible lessonId="6-data-variants" />

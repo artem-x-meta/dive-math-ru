@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сварщику важно знать, встречаются ли две трубы в узле. Для каждой пары рёбер модуля возможны три ответа, и «на глаз» они различаются плохо: поверни куб — и картинка изменится, а ответ нет.
 
-<SpaceLab client:load initialFirst="BB1" initialSecond="D1A1" edgeLength={4} unitLabel="м" challenge={true} />
+<SpaceLab client:visible initialFirst="BB1" initialSecond="D1A1" edgeLength={4} unitLabel="м" challenge={true} />
 
 <WorkedExample title="Почему BB₁ и A₁D₁ не встречаются">
   Прямая $A_1D_1$ лежит в плоскости потолка $A_1B_1C_1D_1$. Прямая $BB_1$ пересекает эту плоскость в точке $B_1$, причём $B_1\notin A_1D_1$: точки $A_1$, $B_1$, $D_1$ — три разные вершины квадрата и на одной прямой не лежат.
@@ -41,7 +41,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Прожектор закреплён в точке $M$ на высоте $3$ м над полом. Его основание — точка $H$ пола, а трос идёт от $M$ к анкеру $A$, причём $HA=4$ м.
 
-<SpaceDistanceLab client:load mode="slant" initialHeight={3} initialProjection={4} unitLabel="м" challenge={true} />
+<SpaceDistanceLab client:visible mode="slant" initialHeight={3} initialProjection={4} unitLabel="м" challenge={true} />
 
 Заказывать нужно две разные величины: длину троса (это наклонная) и высоту подвеса (это перпендикуляр). Путать их нельзя — трос длиной $3$ м до анкера просто не дотянется.
 
@@ -49,14 +49,14 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Рейка $a$ лежит на полу, проходит через анкер $A$ и перпендикулярна проекции троса $HA$. Монтажник утверждает, что рейка перпендикулярна и самому тросу. Проверь это утверждение при разных длинах.
 
-<SpaceDistanceLab client:load mode="three-perpendiculars" initialHeight={5} initialProjection={6} unitLabel="м" />
+<SpaceDistanceLab client:visible mode="three-perpendiculars" initialHeight={5} initialProjection={6} unitLabel="м" />
 
 <Concept type="remember" title="Паспорт результата">
   Рядом с каждым числом запиши: какую величину оно измеряет (расстояние, длину наклонной, угол между прямыми, угол с плоскостью), в каких единицах получено, точное оно или приближённое и какой признак или теорема его обосновывает. Число без такого паспорта проверить невозможно.
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="space10-practice-model"
   question="Для заказа троса от прожектора на высоте 3 м до анкера, удалённого от основания на 4 м, какая величина нужна?"
   correctIndex={2}
@@ -116,4 +116,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Расстояния и углы](/10-klass/prostranstvo/rasstoyaniya-i-ugly/) · [К обзору 10 класса →](/10-klass/)
 
-<LessonComplete client:load lessonId="10-space-practice" />
+<LessonComplete client:visible lessonId="10-space-practice" />

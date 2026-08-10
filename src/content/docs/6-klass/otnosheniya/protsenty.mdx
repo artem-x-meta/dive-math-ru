@@ -23,7 +23,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Закрась сотню
 
-<PercentLab client:load initialPercent={37} initialValue={100} unit="клеток" showChanges={false} />
+<PercentLab client:visible initialPercent={37} initialValue={100} unit="клеток" showChanges={false} />
 
 Сетка $10\times10$ содержит $100$ одинаковых клеток. Если закрашены $37$, то закрашенная доля равна
 
@@ -91,7 +91,7 @@ $$p\%\text{ от }A=A\cdot\frac p{100}.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="percent-of-number-quick"
   question="Чему равны 15% от 320?"
   correctIndex={1}
@@ -165,4 +165,4 @@ $$\text{процент}=\frac{\text{часть}}{\text{целое}}\cdot100\%.$$
 
 В следующем уроке научимся восстанавливать целое и процент, а затем аккуратно увеличивать и уменьшать величины.
 
-<LessonComplete client:load lessonId="6-ratios-percent" />
+<LessonComplete client:visible lessonId="6-ratios-percent" />

@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Цилиндрический бак имеет радиус $3$ м и высоту $10$ м. Для сметы нужны два числа: объём (сколько воды войдёт) и площадь боковой стенки (сколько листа нужно на обечайку).
 
-<RevolLab client:load mode="measure" initialSolid="cylinder" initialRadius={3} initialHeight={10} unit="m" />
+<RevolLab client:visible mode="measure" initialSolid="cylinder" initialRadius={3} initialHeight={10} unit="m" />
 
 <Concept type="remember" title="Сначала вопрос, потом формула">
   Слова «сколько войдёт», «вместимость», «залили» указывают на **объём**. Слова «покрасить», «обшить», «сколько материала», «этикетка» указывают на **площадь поверхности**. Единица ответа проверяет выбор: кубические метры против квадратных.
@@ -39,7 +39,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Воронка — конус с радиусом $5$ см и высотой $12$ см, без дна. Мастеру нужна плоская выкройка.
 
-<RevolLab client:load mode="net" initialSolid="cone" initialRadius={5} initialHeight={12} unit="cm" />
+<RevolLab client:visible mode="net" initialSolid="cone" initialRadius={5} initialHeight={12} unit="cm" />
 
 <WorkedExample title="Читаем выкройку">
   Образующая: $l=\sqrt{25+144}=13$ см.
@@ -71,14 +71,14 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Шар радиуса $10$ см разрезают плоскостью. Проверь себя: угадай площадь сечения до того, как отпустишь ползунок.
 
-<RevolSectionLab client:load mode="section" initialRadius={10} initialLevel={8} unit="cm" challenge={true} />
+<RevolSectionLab client:visible mode="section" initialRadius={10} initialLevel={8} unit="cm" challenge={true} />
 
 <Concept type="remember" title="Паспорт результата">
   Рядом с каждым числом запиши: что оно измеряет, в какой единице получено, точное оно или приближённое и какое допущение модели использовано. Например: «$108\pi\text{ м}^3\approx339{,}3\text{ м}^3$, объём бака с куполом, толщина стенок не учтена».
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="rev11-practice-choice"
   question="Башня состоит из цилиндра высотой 10 м и полусферы сверху, общий радиус 3 м. Что нужно посчитать, чтобы заказать краску для наружных поверхностей?"
   correctIndex={2}
@@ -138,4 +138,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Объёмы](/11-klass/tela-vrashcheniya/obyomy/) · [К обзору 11 класса →](/11-klass/)
 
-<LessonComplete client:load lessonId="11-solids-practice" />
+<LessonComplete client:visible lessonId="11-solids-practice" />

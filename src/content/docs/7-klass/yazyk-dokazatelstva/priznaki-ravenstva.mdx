@@ -40,7 +40,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Зададим только три величины: сторону $AB$ и два угла, прилежащих к ней. Второй треугольник построен по тем же трём числам, но повёрнут. Нажми «Совместить наложением».
 
-<ProofTriangleLab client:load mode="build" initialBase={6} initialAngleA={50} initialAngleB={70} />
+<ProofTriangleLab client:visible mode="build" initialBase={6} initialAngleA={50} initialAngleB={70} />
 
 Меняй данные как угодно: копия всегда совпадает с оригиналом. Третья вершина не имеет выбора — её положение определяется пересечением двух лучей, а два луча пересекаются не более чем в одной точке.
 
@@ -129,7 +129,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geo7-congruence-criterion"
   question="В треугольниках ABC и A₁B₁C₁ известно: AB = A₁B₁, AC = A₁C₁, ∠B = ∠B₁. Можно ли утверждать, что треугольники равны?"
   correctIndex={2}
@@ -180,4 +180,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Определения и доказательства](/7-klass/yazyk-dokazatelstva/opredeleniya-i-dokazatelstva/) · [Дальше: равнобедренный треугольник →](/7-klass/yazyk-dokazatelstva/ravnobedrennyy-treugolnik/)
 
-<LessonComplete client:load lessonId="7-proof-congruence" />
+<LessonComplete client:visible lessonId="7-proof-congruence" />

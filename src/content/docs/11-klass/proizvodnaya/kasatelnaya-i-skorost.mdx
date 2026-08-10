@@ -40,7 +40,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 На графике такой расчёт — это угловой коэффициент прямой через две точки кривой. Прямая через две точки графика называется **секущей**. Уменьшай $h$ и следи за столбцом $\Delta y/h$.
 
-<DerivSecantLab client:load initialPreset="fall" initialAnchor={2} />
+<DerivSecantLab client:visible initialPreset="fall" initialAnchor={2} />
 
 Число в таблице не мечется, а спокойно подбирается к $20$. При этом сама секущая всё плотнее прижимается к одной-единственной прямой, которая касается кривой в точке $A$. Переключи вкладки: у броска, у параболы и у кубической кривой картина такая же.
 
@@ -141,7 +141,7 @@ $$\frac{\Delta y}{\Delta x}=\frac{f(x_0+h)-f(x_0)}{h}$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="der11-instant-speed"
   question="Тело движется по закону s(t) = 5t². Разностное отношение на отрезке от t = 2 до t = 2 + h равно 20 + 5h. Чему равна мгновенная скорость при t = 2?"
   correctIndex={1}
@@ -204,4 +204,4 @@ $$\frac{\Delta y}{\Delta x}=\frac{f(x_0+h)-f(x_0)}{h}$$
 
 [← Вход в тему](/11-klass/proizvodnaya/) · [Дальше: правила дифференцирования →](/11-klass/proizvodnaya/pravila-differentsirovaniya/)
 
-<LessonComplete client:load lessonId="11-derivative-tangent" />
+<LessonComplete client:visible lessonId="11-derivative-tangent" />

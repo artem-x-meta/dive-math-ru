@@ -129,12 +129,12 @@ $$S(b)=F(b)-F(a).$$
 
 Проверь этот и другие примеры в лаборатории. Кнопка «Взять пределы по пересечениям» сама поставит границы, а список шагов повторит выкладку.
 
-<IntegAreaLab client:load initialTop="line-shift" initialBottom="square" initialFrom={-1} initialTo={2} />
+<IntegAreaLab client:visible initialTop="line-shift" initialBottom="square" initialFrom={-1} initialTo={2} />
 
 Отдельно поставь эксперимент про знаки: возьми $f(x)=x^3$ и $g(x)=x$ на отрезке $[-1;1]$. Интеграл разности окажется равен нулю, а площадь — нет. Таблица кусков объяснит, почему.
 
 <QuickCheck
-  client:load
+  client:visible
   id="int11-newton-substitution"
   question="Чему равен интеграл функции f(x) = x² от 1 до 3?"
   correctIndex={2}
@@ -203,4 +203,4 @@ $$S(b)=F(b)-F(a).$$
 
 [← Площадь под графиком](/11-klass/integral/ploshchad-pod-grafikom/) · [Дальше: накопление величины →](/11-klass/integral/nakoplenie-velichiny/)
 
-<LessonComplete client:load lessonId="11-integral-newton" />
+<LessonComplete client:visible lessonId="11-integral-newton" />

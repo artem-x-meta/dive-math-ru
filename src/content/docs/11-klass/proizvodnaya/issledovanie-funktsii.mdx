@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 В лаборатории сверху нарисована функция, снизу — её производная, и ось $x$ у них общая. Сравнивай два рисунка колонка за колонкой: что происходит с верхней линией там, где нижняя выше нуля, ниже нуля и ровно в нуле.
 
-<DerivProfileLab client:load initialPreset="cubic" />
+<DerivProfileLab client:visible initialPreset="cubic" />
 
 Правило читается прямо с картинки. Пока нижний график **выше** оси — верхний идёт вверх. Пока нижний **ниже** оси — верхний идёт вниз. Точки, где нижний график **пересекает** ось, — это в точности вершины и впадины верхнего. Переключи вкладки и убедись, что это не совпадение: у монотонной кубической кривой производная вообще не пересекает ось, и разворотов у функции нет.
 
@@ -121,7 +121,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="der11-sign-change"
   question="Производная функции равна f′(x) = (x + 2)(x − 3). Что происходит в точке x = 3?"
   correctIndex={0}
@@ -186,4 +186,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Правила дифференцирования](/11-klass/proizvodnaya/pravila-differentsirovaniya/) · [Дальше: задачи оптимизации →](/11-klass/proizvodnaya/optimizatsiya/)
 
-<LessonComplete client:load lessonId="11-derivative-analysis" />
+<LessonComplete client:visible lessonId="11-derivative-analysis" />

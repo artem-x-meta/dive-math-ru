@@ -66,12 +66,12 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сначала посмотри на симметрии: отметь точку и сравни её образы относительно осей и относительно начала координат.
 
-<CoordinatePlaneLab client:load mode="reflections" initialX={3} initialY={2} min={-6} max={6} />
+<CoordinatePlaneLab client:visible mode="reflections" initialX={3} initialY={2} min={-6} max={6} />
 
 Теперь переключись на вкладку «Маршрут»: один шаг маршрута — это ровно параллельный перенос на вектор.
 
 <CoordinatePlaneLab
-  client:load
+  client:visible
   mode="route"
   initialX={-3}
   initialY={4}
@@ -168,7 +168,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec9-motion-orientation"
   question="Какое из движений меняет направление обхода фигуры?"
   correctIndex={1}
@@ -223,4 +223,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Скалярное произведение](/9-klass/vektory-i-dvizheniya/skalyarnoe-proizvedenie/) · [Дальше: практикум →](/9-klass/vektory-i-dvizheniya/praktikum/)
 
-<LessonComplete client:load lessonId="9-vectors-motions" />
+<LessonComplete client:visible lessonId="9-vectors-motions" />

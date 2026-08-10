@@ -23,7 +23,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Две задачи с одними числами
 
-<GcdLcmLab client:load initialLeft={6} initialRight={8} maxNumber={30} />
+<GcdLcmLab client:visible initialLeft={6} initialRight={8} maxNumber={30} />
 
 В правой части лаборатории два списка движутся с разным шагом. Для чисел $6$ и $8$ получаем:
 
@@ -104,7 +104,7 @@ $$\operatorname{\text{НОК}}(12,18)=2^2\cdot3^2=36.$$
 </div>
 
 <QuickCheck
-  client:load
+  client:visible
   id="lcm-12-18-context"
   question="Автобус A приходит каждые 12 минут, а автобус B — каждые 18 минут. Сейчас они пришли вместе. Когда это впервые повторится?"
   correctIndex={1}
@@ -192,4 +192,4 @@ $$\frac14+\frac16=\frac3{12}+\frac2{12}=\frac5{12}.$$
 - В разложениях на простые множители НОК собирает наибольшую степень каждого простого числа.
 - Повторяющиеся события и общий знаменатель ведут к НОК; деление запасов на одинаковые группы — к НОД.
 
-<LessonComplete client:load lessonId="6-numbers-lcm" />
+<LessonComplete client:visible lessonId="6-numbers-lcm" />

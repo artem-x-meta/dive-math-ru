@@ -23,7 +23,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Одна связь — четыре представления
 
-<RateLab client:load initialContext="shopping" initialRate={180} initialX={2} />
+<RateLab client:visible initialContext="shopping" initialRate={180} initialX={2} />
 
 Для яблок постоянна цена одного килограмма:
 
@@ -82,7 +82,7 @@ $$s=60t$$
 - В прикладной задаче берут только осмысленную часть графика. Масса или время обычно не бывают отрицательными, поэтому нужен луч в первой четверти.
 
 <QuickCheck
-  client:load
+  client:visible
   id="rate-direct-or-not"
   question="Какая зависимость является прямой пропорциональностью?"
   correctIndex={0}
@@ -146,4 +146,4 @@ $$s=60t$$
 
 Дальше используем тот же коэффициентный язык для планов и карт, где одна длина уменьшена в строго заданное число раз.
 
-<LessonComplete client:load lessonId="6-ratios-rate" />
+<LessonComplete client:visible lessonId="6-ratios-rate" />

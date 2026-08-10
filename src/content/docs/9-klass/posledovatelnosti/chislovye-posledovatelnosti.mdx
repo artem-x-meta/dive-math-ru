@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Лаборатория работает по правилу «следующий член получается из предыдущего»: $a_{n+1}=m\cdot a_n+c$. Меняй множитель $m$ и слагаемое $c$ и следи за таблицей и графиком.
 
-<SeqRuleLab client:load preset="mixed" initialFirst={3} initialStep={4} initialRatio={2} initialCount={7} />
+<SeqRuleLab client:visible preset="mixed" initialFirst={3} initialStep={4} initialRatio={2} initialCount={7} />
 
 Обрати внимание на три настройки:
 
@@ -113,7 +113,7 @@ $$a_1=5,\qquad a_{n+1}=a_n+7\quad\Rightarrow\quad 5,\;12,\;19,\;26,\;\dots$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="seq9-rule-not-determined"
   question="Первые три члена последовательности: 2, 4, 8. Чему равен четвёртый?"
   correctIndex={2}
@@ -128,7 +128,7 @@ $$a_1=5,\qquad a_{n+1}=a_n+7\quad\Rightarrow\quad 5,\;12,\;19,\;26,\;\dots$$
 
 Здесь показаны только первые три члена, а дальше стоят вопросительные знаки. Определи правило и предскажи последний член сам.
 
-<SeqRuleLab client:load preset="arithmetic" initialFirst={-4} initialStep={3} initialCount={6} challenge={true} />
+<SeqRuleLab client:visible preset="arithmetic" initialFirst={-4} initialStep={3} initialCount={6} challenge={true} />
 
 <Concept type="mistake" title="Три места, где теряется смысл">
   1. **Номер вместо значения.** Запись $a_5$ означает «пятый член», а не «$a$ умножить на $5$». В равенстве $a_5=17$ число $5$ стоит внизу не случайно.
@@ -182,4 +182,4 @@ $$a_1=5,\qquad a_{n+1}=a_n+7\quad\Rightarrow\quad 5,\;12,\;19,\;26,\;\dots$$
 
 [← Вход в тему](/9-klass/posledovatelnosti/) · [Дальше: арифметическая прогрессия →](/9-klass/posledovatelnosti/arifmeticheskaya-progressiya/)
 
-<LessonComplete client:load lessonId="9-sequences-basics" />
+<LessonComplete client:visible lessonId="9-sequences-basics" />

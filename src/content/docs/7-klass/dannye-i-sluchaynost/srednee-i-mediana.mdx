@@ -38,7 +38,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Двигай ползунок: девять результатов остаются на месте, меняется только десятый. Следи за двумя вертикальными линиями на числовой оси.
 
-<StatCenterLab client:load preset="cubing" initialExtra={40} challenge={true} />
+<StatCenterLab client:visible preset="cubing" initialExtra={40} challenge={true} />
 
 Сплошная линия — среднее, пунктирная — медиана. Пока десятое значение держится рядом с остальными, линии почти совпадают. Уведи ползунок вправо — и линии разъедутся.
 
@@ -97,7 +97,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="stat7-center-outlier"
   question="В ряду 4, 5, 6, 7, 100 последнее значение заменили на 1000. Что изменится?"
   correctIndex={1}
@@ -158,4 +158,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Вход в тему](/7-klass/dannye-i-sluchaynost/) · [Дальше: частоты и диаграммы →](/7-klass/dannye-i-sluchaynost/chastoty-i-diagrammy/)
 
-<LessonComplete client:load lessonId="7-data-center" />
+<LessonComplete client:visible lessonId="7-data-center" />

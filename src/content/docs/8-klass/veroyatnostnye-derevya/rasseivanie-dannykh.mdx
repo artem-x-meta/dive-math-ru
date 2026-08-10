@@ -45,7 +45,7 @@ $$R=x_{\max}-x_{\min}.$$
 
 Но у размаха есть слабое место: он смотрит только на два крайних значения и ничего не знает об остальных. Один-единственный выброс растягивает его как угодно.
 
-<StatCenterLab client:load preset="cubing" initialExtra={40} challenge={true} />
+<StatCenterLab client:visible preset="cubing" initialExtra={40} challenge={true} />
 
 Подвигай ползунок: одно значение улетает вправо — и размах прыгает, хотя девять остальных результатов остались на месте. Нужна мерка, которая учитывает **каждое** значение.
 
@@ -129,7 +129,7 @@ $$R=x_{\max}-x_{\min}.$$
 У Веры данные жмутся к середине, у Гали — расходятся к краям. Дисперсия это видит, размах — нет. Именно поэтому дисперсию считают, даже когда размах уже известен.
 
 <QuickCheck
-  client:load
+  client:visible
   id="prob8-spread-variance"
   question="Ряды 5, 8, 8, 8, 11 и 5, 5, 8, 11, 11 имеют одинаковое среднее 8 и одинаковый размах 6. Что можно сказать о разбросе?"
   correctIndex={2}
@@ -198,4 +198,4 @@ $$R=x_{\max}-x_{\min}.$$
 
 [← Дерево испытаний](/8-klass/veroyatnostnye-derevya/derevo-ispytaniy/) · [Дальше: практикум →](/8-klass/veroyatnostnye-derevya/praktikum/)
 
-<LessonComplete client:load lessonId="8-probability-spread" />
+<LessonComplete client:visible lessonId="8-probability-spread" />

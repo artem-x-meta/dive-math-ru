@@ -37,7 +37,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Высота окна подобрана под степенную и линейную функции. Показательная кривая в него просто не помещается — и это не дефект рисунка, а суть дела.
 
-<ExpoLab client:load initialBase={2} initialDegree={2} initialSlope={10} initialMaxX={12} />
+<ExpoLab client:visible initialBase={2} initialDegree={2} initialSlope={10} initialMaxX={12} />
 
 Обрати внимание на карточку «Обгон навсегда». При $y=2^x$ и $y=x^2$ она показывает $x=5$: до этого момента парабола честно лидирует, а после — отстаёт навсегда. Переключи степень на $x^3$ — точка обгона сдвинется, но никуда не исчезнет.
 
@@ -127,7 +127,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="exp11-exponential-range"
   question="Каково множество значений функции y = 5 в степени x?"
   correctIndex={2}
@@ -196,4 +196,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Степень с рациональным показателем](/11-klass/eksponenta-i-logarifm/stepen-s-ratsionalnym-pokazatelem/) · [Дальше: логарифм →](/11-klass/eksponenta-i-logarifm/logarifm/)
 
-<LessonComplete client:load lessonId="11-explog-exponential" />
+<LessonComplete client:visible lessonId="11-explog-exponential" />

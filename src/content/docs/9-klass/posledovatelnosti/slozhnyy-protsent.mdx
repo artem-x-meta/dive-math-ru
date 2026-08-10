@@ -64,7 +64,7 @@ $$A\;\longmapsto\;A+A\cdot\frac{p}{100}=A\left(1+\frac{p}{100}\right).$$
 
 Обе модели стартуют из одного числа и нарисованы в одном масштабе. Меняй ставку и число шагов — и смотри, когда разрыв становится заметным.
 
-<SeqGrowthLab client:load initialStart={40000} initialRate={8} initialPeriods={8} />
+<SeqGrowthLab client:visible initialStart={40000} initialRate={8} initialPeriods={8} />
 
 Понаблюдай:
 
@@ -121,7 +121,7 @@ $$A\;\longmapsto\;A+A\cdot\frac{p}{100}=A\left(1+\frac{p}{100}\right).$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="seq9-percent-chain"
   question="Цена выросла на 10 %, а через год ещё на 10 %. На сколько процентов она выросла всего?"
   correctIndex={1}
@@ -136,7 +136,7 @@ $$A\;\longmapsto\;A+A\cdot\frac{p}{100}=A\left(1+\frac{p}{100}\right).$$
 
 Значения скрыты после первого шага. Посчитай сам, чему равна сумма при сложном проценте, округли до целых и только потом нажимай «Проверить».
 
-<SeqGrowthLab client:load initialStart={25000} initialRate={10} initialPeriods={3} challenge={true} />
+<SeqGrowthLab client:visible initialStart={25000} initialRate={10} initialPeriods={3} challenge={true} />
 
 <Concept type="mistake" title="Четыре ловушки процентного роста">
   1. **Сложение процентов.** «$+10\,\%$ и ещё $+10\,\%$ — это $+20\,\%$» неверно: множители перемножаются, получается $1{,}21$, то есть $+21\,\%$.
@@ -191,4 +191,4 @@ $$A\;\longmapsto\;A+A\cdot\frac{p}{100}=A\left(1+\frac{p}{100}\right).$$
 
 [← Геометрическая прогрессия](/9-klass/posledovatelnosti/geometricheskaya-progressiya/) · [Дальше: практикум →](/9-klass/posledovatelnosti/praktikum/)
 
-<LessonComplete client:load lessonId="9-sequences-compound" />
+<LessonComplete client:visible lessonId="9-sequences-compound" />

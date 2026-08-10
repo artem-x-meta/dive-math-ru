@@ -35,7 +35,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сначала посмотри на основание $a=2$: логарифмическая кривая возрастает. Затем переключись на $a=0{,}5$ — кривая пойдёт вниз. Обрати внимание, что в обоих случаях она существует только правее оси $y$.
 
-<ExpoLogMirrorLab client:load initialBase={0.5} />
+<ExpoLogMirrorLab client:visible initialBase={0.5} />
 
 Таблица под графиком показывает главную мысль урока в числах: логарифм возвращает ровно тот показатель, который был подставлен в показательную функцию.
 
@@ -131,7 +131,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="exp11-log-function-domain"
   question="Какова область определения функции y = log₂(4 − x)?"
   correctIndex={0}
@@ -206,4 +206,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Логарифм](/11-klass/eksponenta-i-logarifm/logarifm/) · [Дальше: уравнения и неравенства →](/11-klass/eksponenta-i-logarifm/uravneniya-i-neravenstva/)
 
-<LessonComplete client:load lessonId="11-explog-log-function" />
+<LessonComplete client:visible lessonId="11-explog-log-function" />

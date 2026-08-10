@@ -36,7 +36,7 @@ $$\frac{6x}{8x}=\frac{3}{4}.$$
 
 ## Эксперимент: проверка одной подстановкой обманывает
 
-<AlgFracEquivalenceLab client:load preset="reduce-wrong" challenge={true} />
+<AlgFracEquivalenceLab client:visible preset="reduce-wrong" challenge={true} />
 
 При $x=0$ обе записи дают $0{,}6$ — и на этом многие останавливаются. Но уже при $x=1$ слева $\dfrac{4}{6}=\dfrac{2}{3}$, а справа $\dfrac{3}{5}$. Одно расхождение убивает равенство: значит, «сокращение» было незаконным.
 
@@ -70,7 +70,7 @@ $$\frac{6x}{8x}=\frac{3}{4}.$$
 
 Третий шаг делается до сокращения. После сокращения исходный знаменатель уже не виден, а запрет никуда не исчез.
 
-<AlgFracEquivalenceLab client:load preset="reduce-difference" />
+<AlgFracEquivalenceLab client:visible preset="reduce-difference" />
 
 <WorkedExample title="Сократим (x² − 9)/(x² − 6x + 9)">
   Раскладываем обе части. Сверху — разность квадратов, снизу — квадрат разности:
@@ -97,7 +97,7 @@ $$\frac{3-x}{x-3}=\frac{-(x-3)}{x-3}=-1\quad\text{при } x\ne3.$$
 Это не «сокращение с потерей знака», а вынесение множителя $-1$ и только потом сокращение.
 
 <QuickCheck
-  client:load
+  client:visible
   id="afr8-reduce-factor"
   question="Сократи дробь (5x + 15)/(x + 3)."
   correctIndex={2}
@@ -150,4 +150,4 @@ $$\frac{3-x}{x-3}=\frac{-(x-3)}{x-3}=-1\quad\text{при } x\ne3.$$
 
 [← Допустимые значения](/8-klass/algebraicheskie-drobi/dopustimye-znacheniya/) · [Дальше: сложение и вычитание →](/8-klass/algebraicheskie-drobi/slozhenie-i-vychitanie/)
 
-<LessonComplete client:load lessonId="8-fractions-reduce" />
+<LessonComplete client:visible lessonId="8-fractions-reduce" />

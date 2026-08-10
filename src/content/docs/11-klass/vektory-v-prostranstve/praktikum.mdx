@@ -51,7 +51,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Потренируйся на модели меньшего тела: метод и формулы те же, отличаются только числа.
 
-<Vec3Lab client:load mode="vector" shape="box" initialEdgeA={4} initialEdgeB={3} initialEdgeC={6} firstFrom="A" firstTo="C1" unitLabel="м" challenge={true} />
+<Vec3Lab client:visible mode="vector" shape="box" initialEdgeA={4} initialEdgeB={3} initialEdgeC={6} firstFrom="A" firstTo="C1" unitLabel="м" challenge={true} />
 
 ## Станция 2. Две балки под потолком
 
@@ -73,7 +73,7 @@ import LessonComplete from '../../../../components/LessonComplete';
   Для сравнения: в **кубе** те же две диагонали дают $\cos\alpha=\tfrac13$ и угол $\approx70{,}5°$. Значит «почти $90°$» — свойство именно этих пропорций $12:9:8$, а не диагоналей вообще.
 </WorkedExample>
 
-<Vec3Lab client:load mode="dot" shape="box" initialEdgeA={4} initialEdgeB={3} initialEdgeC={6} firstFrom="A" firstTo="C1" secondFrom="B" secondTo="D1" unitLabel="м" challenge={true} />
+<Vec3Lab client:visible mode="dot" shape="box" initialEdgeA={4} initialEdgeB={3} initialEdgeC={6} firstFrom="A" firstTo="C1" secondFrom="B" secondTo="D1" unitLabel="м" challenge={true} />
 
 ## Станция 3. Наклонная кровельная панель
 
@@ -101,7 +101,7 @@ import LessonComplete from '../../../../components/LessonComplete';
   то есть $\psi\approx48{,}0°$.
 </WorkedExample>
 
-<Vec3PlaneLab client:load shape="box" initialEdgeA={4} initialEdgeB={3} initialEdgeC={6} firstPoint="B" secondPoint="D" thirdPoint="A1" probePoint="A" unitLabel="м" challenge={true} />
+<Vec3PlaneLab client:visible shape="box" initialEdgeA={4} initialEdgeB={3} initialEdgeC={6} firstPoint="B" secondPoint="D" thirdPoint="A1" probePoint="A" unitLabel="м" challenge={true} />
 
 <Concept type="idea" title="Знак левой части — это сторона">
   Подставив точку в левую часть уравнения плоскости, смотри не только на модуль, но и на знак. Для панели $6x+8y+9z-72$ угол $A(0;0;0)$ даёт $-72$, а центр потолка $(6;4{,}5;8)$ даёт $+72$: точки лежат по **разные стороны** от панели и удалены от неё одинаково. Одинаковые знаки означают одну сторону — так проверяют, не режет ли плоскость нужный отсек.
@@ -126,7 +126,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec11-practice-method"
   question="Нужно узнать, лежат ли датчик и точка крепления по одну сторону от кровельной панели. Что для этого достаточно сделать?"
   correctIndex={1}
@@ -189,4 +189,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Углы и расстояния](/11-klass/vektory-v-prostranstve/ugly-i-rasstoyaniya/) · [К обзору 11 класса →](/11-klass/)
 
-<LessonComplete client:load lessonId="11-vectors-practice" />
+<LessonComplete client:visible lessonId="11-vectors-practice" />

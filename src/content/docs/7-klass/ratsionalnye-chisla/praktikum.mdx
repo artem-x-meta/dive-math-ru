@@ -28,7 +28,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Измерение дало результат $\dfrac{11}{24}$ доли образца. Для отчёта нужна десятичная запись — но какая?
 
 <PowerExactLab
-  client:load
+  client:visible
   mode="rounding"
   initialNumerator={11}
   initialDenominator={24}
@@ -50,7 +50,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Нужно упростить $\left(3^{2}\right)^{3}:3^{4}$. Считать $3^{6}=729$ необязательно — достаточно посчитать множители.
 
 <PowerLab
-  client:load
+  client:visible
   mode="properties"
   initialRule="power-of-power"
   initialLeft={2}
@@ -65,7 +65,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Радиус Земли — $6\,380\,000$ м. Для стенда нужен стандартный вид и порядок числа.
 
 <PowerLab
-  client:load
+  client:visible
   mode="standard"
   initialNumber="6380000"
   challenge={true}
@@ -76,7 +76,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="pow7-practice-order"
   question="Расстояние до Солнца равно 1,496 · 10⁸ км, а диаметр Земли — 1,28 · 10⁴ км. Какое сравнение верно?"
   correctIndex={2}
@@ -136,4 +136,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Стандартный вид числа](/7-klass/ratsionalnye-chisla/standartnyy-vid/) · [К обзору 7 класса →](/7-klass/)
 
-<LessonComplete client:load lessonId="7-powers-practice" />
+<LessonComplete client:visible lessonId="7-powers-practice" />

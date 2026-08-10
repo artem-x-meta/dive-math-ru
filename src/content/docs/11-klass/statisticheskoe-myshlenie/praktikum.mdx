@@ -31,7 +31,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Прежде чем считать, назови вслух свою оценку справедливой цены полиса. Затем открой лабораторию: пример со страховкой велосипеда устроен точно так же, только числа другие.
 
-<StochExpectLab client:load initialGame="bike" initialPrice={700} showSpread={true} challenge={true} />
+<StochExpectLab client:visible initialGame="bike" initialPrice={700} showSpread={true} challenge={true} />
 
 <WorkedExample title="Справедливая цена и наценка">
   Выплата $X$ принимает значение $12\,000$ ₽ с вероятностью $\frac{1}{20}$ и $0$ ₽ с вероятностью $\frac{19}{20}$.
@@ -69,7 +69,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Прежде чем считать границы, посмотри, откуда вообще берётся колокол на конвейере: вес пачки складывается из множества мелких независимых отклонений дозатора — ровно как сумма очков на восьми кубиках.
 
-<StochNormalLab client:load initialSource="dice" initialCount={8} />
+<StochNormalLab client:visible initialSource="dice" initialCount={8} />
 
 Границы контроля ставят на $\mu\pm3\sigma$. Пачка вне этих границ — сигнал остановить линию и проверить настройку; пачка внутри — обычное колебание, каким бы «некруглым» ни выглядел её вес.
 
@@ -92,7 +92,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Найди настоящее объяснение и сформулируй, какой эксперимент (хотя бы мысленный) мог бы отличить причину от совпадения.
 
 <QuickCheck
-  client:load
+  client:visible
   id="stoch11-practice-portfolio"
   question="Компания продала 10 000 независимых полисов. Ожидаемая выплата по одному — 600 ₽, σ одного полиса — около 2615 ₽. Чему примерно равно σ суммарной выплаты?"
   correctIndex={1}
@@ -154,4 +154,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Выборка, ошибка и честные выводы](/11-klass/statisticheskoe-myshlenie/vyborka-i-vyvody/) · [К обзору 11 класса →](/11-klass/)
 
-<LessonComplete client:load lessonId="11-statistics-practice" />
+<LessonComplete client:visible lessonId="11-statistics-practice" />

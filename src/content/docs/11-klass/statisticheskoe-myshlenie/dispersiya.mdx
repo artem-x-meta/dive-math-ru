@@ -40,7 +40,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Теперь в таблице лаборатории появился четвёртый столбец: вклад каждого исхода в квадрат отклонения. Полоса на диаграмме закрывает промежуток $M(X)\pm\sigma$ — посмотри, сколько столбиков в неё попадает у разных игр.
 
-<StochExpectLab client:load initialGame="jackpot" initialPrice={50} showSpread={true} />
+<StochExpectLab client:visible initialGame="jackpot" initialPrice={50} showSpread={true} />
 
 Переключайся между играми и следи за строкой результата: ожидание не меняется, а $\sigma$ прыгает от $5$ ₽ до трёх с половиной сотен.
 
@@ -125,7 +125,7 @@ $$\sigma\!\left(\frac{X_1+\ldots+X_n}{n}\right)=\frac{\sigma\sqrt{n}}{n}=\frac{\
 Разброс суммы растёт как $\sqrt n$, а не как $n$: слагаемые частично гасят друг друга. Разброс среднего, наоборот, убывает как $\frac{1}{\sqrt n}$ — и именно поэтому среднее по большой выборке устойчиво, а отдельное наблюдение — нет. Из этой формулы через два урока вырастет вся теория опросов.
 
 <QuickCheck
-  client:load
+  client:visible
   id="stoch11-variance-scaling"
   question="У величины X дисперсия равна 4. Чему равны дисперсия и стандартное отклонение величины Y = 3X + 10?"
   correctIndex={2}
@@ -193,4 +193,4 @@ $$\sigma\!\left(\frac{X_1+\ldots+X_n}{n}\right)=\frac{\sigma\sqrt{n}}{n}=\frac{\
 
 [← Математическое ожидание и справедливая цена](/11-klass/statisticheskoe-myshlenie/ozhidanie/) · [Дальше: нормальная модель и правило трёх сигм →](/11-klass/statisticheskoe-myshlenie/normalnaya-model/)
 
-<LessonComplete client:load lessonId="11-statistics-variance" />
+<LessonComplete client:visible lessonId="11-statistics-variance" />

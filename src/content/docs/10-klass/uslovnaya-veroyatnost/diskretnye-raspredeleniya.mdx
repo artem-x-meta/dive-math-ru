@@ -48,7 +48,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Эксперимент
 
-<CombBernoulliLab client:load initialMode="variable" initialExperiment="twoDiceSum" />
+<CombBernoulliLab client:visible initialMode="variable" initialExperiment="twoDiceSum" />
 
 Переключись между опытами и посмотри на два режима лаборатории. В режиме «Опыт с равновозможными исходами» вероятности получаются перебором всех исходов; в режиме «Схема Бернулли» — по формуле. Штриховая линия отмечает математическое ожидание: она почти никогда не попадает точно на столбик.
 
@@ -139,7 +139,7 @@ $$P(X=3)=C_5^3\left(\frac{3}{5}\right)^3\left(\frac{2}{5}\right)^2=10\cdot\frac{
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="cond10-distribution-sum"
   question="В таблице распределения случайной величины стоят три вероятности: 0,2; 0,3 и 0,4. Что можно сказать о такой таблице?"
   correctIndex={1}
@@ -210,4 +210,4 @@ $$P(X=3)=C_5^3\left(\frac{3}{5}\right)^3\left(\frac{2}{5}\right)^2=10\cdot\frac{
 
 [← Полная вероятность и формула Байеса](/10-klass/uslovnaya-veroyatnost/polnaya-veroyatnost-i-bayes/) · [Дальше: практикум →](/10-klass/uslovnaya-veroyatnost/praktikum/)
 
-<LessonComplete client:load lessonId="10-probability-distributions" />
+<LessonComplete client:visible lessonId="10-probability-distributions" />

@@ -36,7 +36,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </div>
 
 <QuickCheck
-  client:load
+  client:visible
   id="algebra-model-bridge"
   question="Стоимость экспедиции равна 240n + 1800 рублей, а бюджет — 5400 рублей. Какая запись связывает модель с целевой стоимостью?"
   correctIndex={2}
@@ -52,7 +52,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Построй таблицу стоимости и подбирай целое число участников. Лаборатория показывает мост к будущей теме уравнений, но здесь достаточно смысла операций.
 
 <FormulaLab
-  client:load
+  client:visible
   preset="expedition-cost"
   mode="unknown-bridge"
   initialValues={{ n: 12 }}
@@ -156,4 +156,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Следующий естественный вопрос: как находить неизвестное число не только подбором? К нему ведёт тема **равенств и уравнений**, где знак равенства станет главным объектом исследования.
 
-<LessonComplete client:load lessonId="6-algebra-practice" />
+<LessonComplete client:visible lessonId="6-algebra-practice" />

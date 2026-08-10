@@ -55,7 +55,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 В лаборатории тот же мешок из двенадцати карточек. Выбери события $A$ и $B$, переключай операцию и следи, какие карточки попадают в результат.
 
-<ProbEventLab client:load mode="sets" initialLeft="even" initialRight="multipleOfThree" initialOperation="union" />
+<ProbEventLab client:visible mode="sets" initialLeft="even" initialRight="multipleOfThree" initialOperation="union" />
 
 Обрати внимание на нижнюю строку: сколько бы событий мы ни выбрали, четыре области диаграммы всегда дают в сумме $12$ — ни один исход не потерялся и ни один не посчитан дважды.
 
@@ -115,7 +115,7 @@ $$|A\cup B|=|A|+|B|-|A\cap B|.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="prob8-events-union"
   question="В мешке 12 карточек с числами от 1 до 12. A — «число чётное», B — «число делится на 3». Сколько исходов у события A ∪ B?"
   correctIndex={1}
@@ -180,4 +180,4 @@ $$|A\cup B|=|A|+|B|-|A\cap B|.$$
 
 [← Вход в тему](/8-klass/veroyatnostnye-derevya/) · [Дальше: классическая вероятность →](/8-klass/veroyatnostnye-derevya/klassicheskaya-veroyatnost/)
 
-<LessonComplete client:load lessonId="8-probability-events" />
+<LessonComplete client:visible lessonId="8-probability-events" />

@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Проверь эту симметрию в лаборатории. Сначала предсказывай направление, затем включай переписывание действия.
 
-<SignedOperationLab client:load operation="subtract" initialA={-2} initialB={-5} min={-12} max={12} step={1} model="walk" showRewrite={true} />
+<SignedOperationLab client:visible operation="subtract" initialA={-2} initialB={-5} min={-12} max={12} step={1} model="walk" showRewrite={true} />
 
 Из точки $-2$ при вычитании $-5$ движемся на пять вправо и приходим в $3$. Мы отменили движение на $-5$, то есть выполнили движение на противоположное число $5$.
 
@@ -76,7 +76,7 @@ $$-4-3=-4+(-3)=-7.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="signed-subtract-negative"
   question="Чему равна разность −4 − (−6)?"
   correctIndex={2}
@@ -144,4 +144,4 @@ $$|5-(-2)|=|-2-5|=7.$$
 
 Теперь у нас достаточно моделей, чтобы вывести [правила знаков для умножения и деления](/6-klass/otricatelnye-chisla/umnozhenie-i-delenie/).
 
-<LessonComplete client:load lessonId="6-signed-subtraction" />
+<LessonComplete client:visible lessonId="6-signed-subtraction" />

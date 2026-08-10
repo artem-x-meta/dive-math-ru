@@ -112,7 +112,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Проводи плоскость через любые три отмеченные точки и меряй расстояние от четвёртой. Сначала посчитай сам, потом нажимай «Проверить».
 
-<Vec3PlaneLab client:load shape="cube" initialEdgeA={6} firstPoint="A1" secondPoint="B" thirdPoint="D" probePoint="A" unitLabel="см" challenge={true} />
+<Vec3PlaneLab client:visible shape="cube" initialEdgeA={6} firstPoint="A1" secondPoint="B" thirdPoint="D" probePoint="A" unitLabel="см" challenge={true} />
 
 Обрати внимание на перпендикуляр на рисунке: он почти никогда не выглядит прямым углом. Параллельная проекция искажает углы — а формула не искажает.
 
@@ -178,7 +178,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="vec11-plane-normal"
   question="Плоскость задана уравнением 2x − y + 2z − 6 = 0. Чему равно расстояние от точки P(1;1;1) до неё?"
   correctIndex={2}
@@ -237,4 +237,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Скалярное произведение](/11-klass/vektory-v-prostranstve/skalyarnoe-proizvedenie/) · [Дальше: практикум →](/11-klass/vektory-v-prostranstve/praktikum/)
 
-<LessonComplete client:load lessonId="11-vectors-angles" />
+<LessonComplete client:visible lessonId="11-vectors-angles" />

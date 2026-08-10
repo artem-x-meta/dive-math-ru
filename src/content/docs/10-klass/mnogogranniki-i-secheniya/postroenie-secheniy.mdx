@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Поставь три точки на рёбрах куба. Лаборатория проведёт через них плоскость, найдёт **все** точки её пересечения с рёбрами и соберёт из них многоугольник.
 
-<PolyhedronSectionLab client:load initialPreset="triangle" initialEdge={6} unit="cm" />
+<PolyhedronSectionLab client:visible initialPreset="triangle" initialEdge={6} unit="cm" />
 
 Пройди по четырём заготовкам слева направо и следи за числом сторон. Затем подвигай ползунки вручную: попробуй получить квадрат, пятиугольник и шестиугольник.
 
@@ -135,7 +135,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 - **Семиугольник** — невозможен: граней всего шесть.
 
 <QuickCheck
-  client:load
+  client:visible
   id="poly10-section-shape"
   question="Плоскость пересекает пять граней куба. Какой многоугольник получится в сечении?"
   correctIndex={2}
@@ -199,4 +199,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Правильные многогранники](/10-klass/mnogogranniki-i-secheniya/pravilnye-mnogogranniki/) · [Дальше: площадь поверхности →](/10-klass/mnogogranniki-i-secheniya/ploshchad-poverkhnosti/)
 
-<LessonComplete client:load lessonId="10-polyhedra-sections" />
+<LessonComplete client:visible lessonId="10-polyhedra-sections" />

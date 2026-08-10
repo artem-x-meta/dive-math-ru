@@ -126,12 +126,12 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Правило можно проверить численно: посчитай производную по формуле, а потом сравни с наклоном, к которому стягивается секущая. Возьми кривую $y=x^3-3x$ — по правилам её производная равна $3x^2-3$ — и точку $x_0=2$. Сначала посчитай ответ на бумаге, только потом нажимай «Проверить».
 
-<DerivSecantLab client:load initialPreset="cubic" initialAnchor={2} challenge={true} />
+<DerivSecantLab client:visible initialPreset="cubic" initialAnchor={2} challenge={true} />
 
 Совпадение — не доказательство: таблица показывает лишь приближения. Но расхождение сразу выдало бы арифметическую ошибку, и в этом ценность такой проверки.
 
 <QuickCheck
-  client:load
+  client:visible
   id="der11-product-rule"
   question="Чему равна производная функции y = x²·sin x?"
   correctIndex={2}
@@ -204,4 +204,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Касательная и мгновенная скорость](/11-klass/proizvodnaya/kasatelnaya-i-skorost/) · [Дальше: исследование функции →](/11-klass/proizvodnaya/issledovanie-funktsii/)
 
-<LessonComplete client:load lessonId="11-derivative-rules" />
+<LessonComplete client:visible lessonId="11-derivative-rules" />

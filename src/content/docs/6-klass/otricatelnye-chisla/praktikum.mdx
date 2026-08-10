@@ -45,7 +45,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Вездеход стартует в точке $(-4;-2)$, идёт на $7$ км к востоку, на $5$ км к северу, затем на $3{,}5$ км к западу и на $4{,}5$ км к югу. Проследи, как каждое перемещение меняет только одну координату.
 
 <CoordinatePlaneLab
-  client:load
+  client:visible
   mode="route"
   initialX={-4}
   initialY={-2}
@@ -63,7 +63,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Конечная точка — $(-0{,}5;-1{,}5)$: по горизонтали $-4+7-3{,}5=-0{,}5$, по вертикали $-2+5-4{,}5=-1{,}5$.
 
 <QuickCheck
-  client:load
+  client:visible
   id="signed-practice-change-distance"
   question="Датчик переместился с отметки 2 на отметку −5. Каково направленное изменение и каково расстояние?"
   correctIndex={2}
@@ -160,4 +160,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Дальше буквы будут всё чаще обозначать неизвестные и изменяющиеся величины. Теперь выражения вроде $-a$, $x-y$ и точки $(x;y)$ можно читать по смыслу, а не как набор знаков.
 
-<LessonComplete client:load lessonId="6-signed-practice" />
+<LessonComplete client:visible lessonId="6-signed-practice" />

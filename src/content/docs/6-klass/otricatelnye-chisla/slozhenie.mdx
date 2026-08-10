@@ -27,7 +27,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 В лаборатории первое число ставит нас в начальную точку. Положительное второе слагаемое ведёт вправо, отрицательное — влево. Меняй оба значения и сначала предсказывай конечную точку.
 
-<SignedOperationLab client:load operation="add" initialA={-6} initialB={4} min={-12} max={12} step={1} model="walk" />
+<SignedOperationLab client:visible operation="add" initialA={-6} initialB={4} min={-12} max={12} step={1} model="walk" />
 
 Для исходного движения получаем $-2$: от $-6$ четыре единицы вправо. Если второе слагаемое заменить на $-4$, пойдём влево и придём в $-10$.
 
@@ -59,7 +59,7 @@ $$-2+5=3.$$
 
 То же можно увидеть без прямой. Представим $+1$ светлой фишкой, а $-1$ — тёмной. Пара $+1$ и $-1$ вместе даёт ноль, поэтому её можно убрать. Из пяти тёмных и двух светлых фишек удалятся две нулевые пары, останутся три тёмные.
 
-<SignedOperationLab client:load operation="add" initialA={-5} initialB={2} min={-10} max={10} step={1} model="zero-pairs" />
+<SignedOperationLab client:visible operation="add" initialA={-5} initialB={2} min={-10} max={10} step={1} model="zero-pairs" />
 
 <Concept type="rule" title="Слагаемые разных знаков">
   Вычти меньший модуль из большего. Результат получает знак того слагаемого, чей модуль больше. Если модули равны, сумма равна нулю.
@@ -92,7 +92,7 @@ $$-2+5=3.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="signed-add-decimals"
   question="Чему равна сумма −3,5 + 1,2?"
   correctIndex={1}
@@ -160,4 +160,4 @@ $$-7+10=3,\qquad 10+(-7)=3.$$
 
 Следующий вопрос: что означает «вычесть отрицательное»? Ответ найдём через [обратное движение](/6-klass/otricatelnye-chisla/vychitanie/).
 
-<LessonComplete client:load lessonId="6-signed-addition" />
+<LessonComplete client:visible lessonId="6-signed-addition" />

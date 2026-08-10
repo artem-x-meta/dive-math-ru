@@ -37,7 +37,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Двигай границы и переключай их включённость. Смотри сразу на три записи одного множества: рисунок, скобки и неравенство.
 
 <IneqIntervalLab
-  client:load
+  client:visible
   mode="interval"
   initialLeft={-2}
   initialRight={5}
@@ -75,7 +75,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
   «Прибор работает больше $2$ часов, но не дольше $5$». Первая граница строгая, вторая — нет: $2<t\leqslant 5$, то есть полуинтервал $(2;\ 5]$.
 
-  «Скидка действует, пока сумма меньше $3000$ рублей». Верхней границы нет снизу, а сверху граница не входит: $s<3000$, то есть открытый луч $(-\infty;\ 3000)$. Модель, конечно, неполная: отрицательных сумм не бывает, и в реальной задаче добавляют условие $s\geqslant 0$.
+  «Скидка действует, пока сумма меньше $3000$ рублей». Снизу границы нет, а верхняя граница не входит: $s<3000$, то есть открытый луч $(-\infty;\ 3000)$. Модель, конечно, неполная: отрицательных сумм не бывает, и в реальной задаче добавляют условие $s\geqslant 0$.
 </WorkedExample>
 
 <WorkedExample title="Пересечение двух промежутков">
@@ -91,7 +91,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="ineq8-intervals-brackets"
   question="Какому промежутку принадлежит число 5, но не принадлежит число −2?"
   correctIndex={1}
@@ -154,4 +154,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Галерея графиков](/8-klass/funktsii-i-neravenstva/galereya-grafikov/) · [Дальше: свойства числовых неравенств →](/8-klass/funktsii-i-neravenstva/svoystva-neravenstv/)
 
-<LessonComplete client:load lessonId="8-inequalities-intervals" />
+<LessonComplete client:visible lessonId="8-inequalities-intervals" />

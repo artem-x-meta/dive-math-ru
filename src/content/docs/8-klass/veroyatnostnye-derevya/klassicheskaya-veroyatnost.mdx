@@ -48,7 +48,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Мешок из двенадцати карточек: все исходы равновозможны, поэтому вероятность любого события — просто доля благоприятных карточек. Переключай операции и следи за последним столбцом таблицы.
 
-<ProbEventLab client:load mode="chance" initialLeft="even" initialRight="multipleOfThree" initialOperation="union" />
+<ProbEventLab client:visible mode="chance" initialLeft="even" initialRight="multipleOfThree" initialOperation="union" />
 
 Сравни строки $A$, $B$ и $A\cup B$: вероятность объединения меньше суммы двух первых ровно на вероятность общей части.
 
@@ -115,7 +115,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="prob8-classic-equally-likely"
   question="Стрелок делает один выстрел. Исхода два: попал или промахнулся. Верно ли, что вероятность попадания равна 1/2?"
   correctIndex={1}
@@ -182,4 +182,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← События и множества](/8-klass/veroyatnostnye-derevya/sobytiya-i-mnozhestva/) · [Дальше: дерево испытаний →](/8-klass/veroyatnostnye-derevya/derevo-ispytaniy/)
 
-<LessonComplete client:load lessonId="8-probability-classic" />
+<LessonComplete client:visible lessonId="8-probability-classic" />

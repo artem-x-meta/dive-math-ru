@@ -35,7 +35,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Эти коэффициенты уже стоят в лаборатории. Посмотри на два корня — и подумай, сколько прямоугольников они описывают.
 
-<QuadRootsLab client:load initialA={1} initialB={-7} initialC={12} />
+<QuadRootsLab client:visible initialA={1} initialB={-7} initialC={12} />
 
 Теперь оставь $b=-7$ и увеличивай $c$: это значит «тот же периметр, но большая площадь». При $c=12$ корни $3$ и $4$ — они сближаются, при $c=13$ дискриминант становится отрицательным и корней не остаётся. Прямоугольника с полупериметром $7$ м и площадью $13\ \text{м}^2$ просто не существует: предел здесь $12{,}25\ \text{м}^2$ у квадрата со стороной $3{,}5$ м. Уравнение сообщает об этом честно — знаком дискриминанта.
 
@@ -95,7 +95,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="quad8-word-model"
   question="Ширина прямоугольника равна x см, длина на 5 см больше, площадь равна 84 см². Какое уравнение описывает задачу?"
   correctIndex={0}
@@ -160,4 +160,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Теорема Виета](/8-klass/kvadratnye-uravneniya/teorema-vieta/) · [Дальше: практикум →](/8-klass/kvadratnye-uravneniya/praktikum/)
 
-<LessonComplete client:load lessonId="8-quadratic-word-problems" />
+<LessonComplete client:visible lessonId="8-quadratic-word-problems" />

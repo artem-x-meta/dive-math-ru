@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Поставь угол во вторую четверть и посмотри на пару чисел под чертежом. Потом переведи ту же точку в третью и четвёртую четверти: модули координат будут повторяться, а знаки — меняться.
 
-<TrigCircleLab client:load mode="point" initialDegrees={120} challenge={true} />
+<TrigCircleLab client:visible mode="point" initialDegrees={120} challenge={true} />
 
 Модуль координаты определяется опорным острым углом, знак — четвертью. Это ровно то, чего не хватало прогнозу.
 
@@ -138,7 +138,7 @@ $$\frac{\sin^2\alpha}{\cos^2\alpha}+\frac{\cos^2\alpha}{\cos^2\alpha}=\frac{1}{\
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="trig10-identity"
   question="Известно, что sin α = 0,8 и α — угол II четверти. Чему равен cos α?"
   correctIndex={2}
@@ -189,4 +189,4 @@ $$\frac{\sin^2\alpha}{\cos^2\alpha}+\frac{\cos^2\alpha}{\cos^2\alpha}=\frac{1}{\
 
 [← Графики и периодичность](/10-klass/trigonometriya/grafiki-i-periodichnost/) · [Дальше: формулы сложения →](/10-klass/trigonometriya/formuly-slozheniya/)
 
-<LessonComplete client:load lessonId="10-trig-identities" />
+<LessonComplete client:visible lessonId="10-trig-identities" />

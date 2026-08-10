@@ -31,7 +31,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Посчитай число составов сам, запиши ответ и только потом нажми «Проверить».
 
-<CombLab client:load initialMode="combinations" initialN={9} initialK={4} challenge={true} />
+<CombLab client:visible initialMode="combinations" initialN={9} initialK={4} challenge={true} />
 
 <WorkedExample title="Два взгляда на один ответ">
   **Прямой счёт.** Выбираем $4$ человек из $9$ без порядка:
@@ -53,7 +53,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Отметь нужное значение числа успехов, посчитай его вероятность обыкновенной дробью и проверь себя.
 
-<CombBernoulliLab client:load initialMode="bernoulli" initialTrials={5} initialSuccess="1/3" challenge={true} />
+<CombBernoulliLab client:visible initialMode="bernoulli" initialTrials={5} initialSuccess="1/3" challenge={true} />
 
 <Concept type="remember" title="Паспорт вероятностного ответа">
   Рядом с каждым числом запиши: **что** за случайная величина, **какие** условия модели использованы (независимость, постоянство $p$, равновозможность исходов), точный это ответ или приближённый.
@@ -67,12 +67,12 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Зато общий рецепт работает всегда: перечисли равновозможные исходы опыта, сосчитай, скольким из них отвечает каждое значение, и раздели.
 
-<CombBernoulliLab client:load initialMode="variable" initialExperiment="twoDiceSum" />
+<CombBernoulliLab client:visible initialMode="variable" initialExperiment="twoDiceSum" />
 
 Переключи опыт на «Орлы на трёх монетах» и сравни таблицу с формулой Бернулли при $n=3$, $p=\frac{1}{2}$: числа совпадут полностью. А вот сумма двух кубиков схеме Бернулли не подчиняется — и её картинка треугольная, а не колоколообразная.
 
 <QuickCheck
-  client:load
+  client:visible
   id="comb9-practice-model-choice"
   question="Из 20 участников выбирают троих призёров с распределением первого, второго и третьего мест. Какая формула нужна?"
   correctIndex={1}
@@ -136,4 +136,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Схема Бернулли](/9-klass/kombinatorika/skhema-bernulli/) · [К обзору 9 класса →](/9-klass/)
 
-<LessonComplete client:load lessonId="9-combinatorics-practice" />
+<LessonComplete client:visible lessonId="9-combinatorics-practice" />

@@ -28,7 +28,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Запиши обе догадки. В лаборатории выбери вид пары и нажми «Проверить»: вместе с ответом появится и угол между прямыми — он вычислен по направляющим векторам, а не измерен по картинке.
 
-<SpaceLab client:load initialFirst="AB" initialSecond="B1C1" edgeLength={6} unitLabel="см" challenge={true} />
+<SpaceLab client:visible initialFirst="AB" initialSecond="B1C1" edgeLength={6} unitLabel="см" challenge={true} />
 
 ## Параллельные прямые в пространстве
 
@@ -101,7 +101,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="space10-parallel-plane-sign"
   question="Прямая a не лежит в плоскости α. Какое условие гарантирует, что a ∥ α?"
   correctIndex={1}
@@ -154,4 +154,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Аксиомы и взаимное расположение](/10-klass/prostranstvo/aksiomy-i-raspolozhenie/) · [Дальше: перпендикулярность →](/10-klass/prostranstvo/perpendikulyarnost/)
 
-<LessonComplete client:load lessonId="10-space-parallel" />
+<LessonComplete client:visible lessonId="10-space-parallel" />

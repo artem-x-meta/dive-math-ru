@@ -63,7 +63,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Возьмём полушар радиуса $R$ и цилиндр радиуса $R$ и высоты $R$, из которого вырезан конус с вершиной в центре нижнего основания и основанием, совпадающим с верхним основанием цилиндра.
 
-<RevolSectionLab client:load mode="cavalieri" initialRadius={5} initialLevel={3} unit="cm" />
+<RevolSectionLab client:visible mode="cavalieri" initialRadius={5} initialLevel={3} unit="cm" />
 
 Подними уровень и сравни два числа в таблице. Они совпадают при любом $y$ — вот почему.
 
@@ -111,10 +111,10 @@ $$V_{\text{кон}}:V_{\text{шара}}:V_{\text{цил}}=1:2:3.$$
 
 Это соотношение нашёл Архимед, и оно не зависит от $R$. По его завещанию на могиле высекли шар, вписанный в цилиндр, — Архимед считал эту теорему своим лучшим результатом.
 
-<RevolLab client:load mode="measure" initialSolid="sphere" initialRadius={3} unit="cm" challenge={true} />
+<RevolLab client:visible mode="measure" initialSolid="sphere" initialRadius={3} unit="cm" challenge={true} />
 
 <QuickCheck
-  client:load
+  client:visible
   id="rev11-volume-sphere"
   question="Диаметр шара равен 6. Чему равен его объём?"
   correctIndex={1}
@@ -176,4 +176,4 @@ $$V_{\text{кон}}:V_{\text{шара}}:V_{\text{цил}}=1:2:3.$$
 
 [← Шар и сфера](/11-klass/tela-vrashcheniya/shar-i-sfera/) · [Дальше: практикум →](/11-klass/tela-vrashcheniya/praktikum/)
 
-<LessonComplete client:load lessonId="11-solids-volumes" />
+<LessonComplete client:visible lessonId="11-solids-volumes" />

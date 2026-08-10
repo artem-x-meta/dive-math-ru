@@ -34,7 +34,7 @@ $$\frac{1}{x}+\frac{1}{x+1}=?$$
 
 ## Эксперимент: можно ли складывать «по этажам»
 
-<AlgFracEquivalenceLab client:load preset="sum-wrong" challenge={true} />
+<AlgFracEquivalenceLab client:visible preset="sum-wrong" challenge={true} />
 
 Расхождение видно сразу: при $x=1$ слева $1+\dfrac{1}{2}=\dfrac{3}{2}$, а справа $\dfrac{2}{3}$. Знаменатели складывать нельзя — ни у чисел, ни у букв.
 
@@ -74,7 +74,7 @@ $$\frac{5}{2x}-\frac{3}{x^2}:\quad 2x=2\cdot x,\quad x^2=x\cdot x\ \Rightarrow\ 
 
 $$\frac{5}{2x}-\frac{3}{x^2}=\frac{5x}{2x^2}-\frac{6}{2x^2}=\frac{5x-6}{2x^2},\qquad x\ne0.$$
 
-<AlgFracEquivalenceLab client:load preset="sum-correct" />
+<AlgFracEquivalenceLab client:visible preset="sum-correct" />
 
 <WorkedExample title="Вычтем 2/(x − 3) − 1/(x + 3)">
   Знаменатели уже разложены, общих множителей у них нет, поэтому общий знаменатель — их произведение:
@@ -103,7 +103,7 @@ $$\frac{1}{x-2}-\frac{1}{2-x}=\frac{1}{x-2}-\frac{-1}{x-2}=\frac{1}{x-2}+\frac{1
 Здесь использовано равенство $2-x=-(x-2)$ из прошлого урока.
 
 <QuickCheck
-  client:load
+  client:visible
   id="afr8-sum-common"
   question="Чему равна сумма 1/(x − 3) + 1/(x + 3)?"
   correctIndex={0}
@@ -156,4 +156,4 @@ $$\frac{1}{x-2}-\frac{1}{2-x}=\frac{1}{x-2}-\frac{-1}{x-2}=\frac{1}{x-2}+\frac{1
 
 [← Сокращение дробей](/8-klass/algebraicheskie-drobi/sokrashchenie/) · [Дальше: умножение, деление и степень →](/8-klass/algebraicheskie-drobi/umnozhenie-i-delenie/)
 
-<LessonComplete client:load lessonId="8-fractions-sum" />
+<LessonComplete client:visible lessonId="8-fractions-sum" />

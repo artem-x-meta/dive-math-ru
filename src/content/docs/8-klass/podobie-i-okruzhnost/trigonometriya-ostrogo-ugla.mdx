@@ -13,7 +13,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 <LessonMeta grade="8 класс · Геометрия" time="55–65 минут" level="База" prerequisites="подобие треугольников, теорема Пифагора, обыкновенные дроби" />
 
-Пандус поднимается под углом $5°$ и имеет длину $12$ м. На какую высоту он поднимает коляску?
+Эскалатор наклонён под углом $30°$ — это стандартный угол — и имеет длину $12$ м. На какую высоту он поднимает пассажира?
 
 Теорема Пифагора здесь не поможет: известна только одна сторона. Зато известен **угол** — и оказывается, этого достаточно.
 
@@ -34,7 +34,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Держи угол $A$ неизменным и меняй гипотенузу. Катеты будут расти, а три числа под чертежом — нет.
 
-<PythSquaresLab client:load mode="ratios" initialHypotenuse={10} initialAngle={30} />
+<PythSquaresLab client:visible mode="ratios" initialHypotenuse={10} initialAngle={30} />
 
 Отношения не сдвинулись ни на сотую. Причина — прошлый урок: два прямоугольных треугольника с равным острым углом подобны по двум углам (прямой угол и угол $\alpha$). А у подобных треугольников сходственные стороны пропорциональны, поэтому их отношения совпадают.
 
@@ -129,8 +129,8 @@ $$\sin(90° - \alpha) = \cos \alpha, \qquad \cos(90° - \alpha) = \sin \alpha.$$
 
 Синус растёт слева направо, косинус убывает. Это удобная проверка: $\sin 60°$ обязан быть больше $\sin 30°$.
 
-<WorkedExample title="Высота подъёма пандуса">
-  Длина пандуса $12$ м, угол подъёма $30°$. Пандус — гипотенуза, высота — противолежащий этому углу катет, поэтому нужен синус:
+<WorkedExample title="Высота подъёма эскалатора">
+  Вернёмся к вопросу из начала урока. Длина эскалатора $12$ м, угол подъёма $30°$. Эскалатор — гипотенуза, высота — противолежащий этому углу катет, поэтому нужен синус:
 
   $$h = 12 \cdot \sin 30° = 12 \cdot \frac{1}{2} = 6 \text{ м}.$$
 
@@ -157,7 +157,7 @@ $$\sin(90° - \alpha) = \cos \alpha, \qquad \cos(90° - \alpha) = \sin \alpha.$$
 
 ## Найди катет по углу
 
-<PythSquaresLab client:load mode="ratios" initialHypotenuse={12} initialAngle={35} challenge={true} />
+<PythSquaresLab client:visible mode="ratios" initialHypotenuse={12} initialAngle={35} challenge={true} />
 
 <Concept type="mistake" title="Где обычно теряют задачу">
   **Путают противолежащий катет с прилежащим.** «Противолежащий» — это тот, который не касается угла $\alpha$. Прежде чем писать формулу, отметь на чертеже угол и найди сторону, лежащую напротив него.
@@ -168,7 +168,7 @@ $$\sin(90° - \alpha) = \cos \alpha, \qquad \cos(90° - \alpha) = \sin \alpha.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="sim8-trig-definition"
   question="В треугольнике ABC угол C прямой, AC = 8, BC = 6, AB = 10. Чему равен sin A?"
   correctIndex={0}
@@ -219,4 +219,4 @@ $$\sin(90° - \alpha) = \cos \alpha, \qquad \cos(90° - \alpha) = \sin \alpha.$$
 
 [← Теорема Пифагора](/8-klass/podobie-i-okruzhnost/teorema-pifagora/) · [Дальше: окружность и касательные →](/8-klass/podobie-i-okruzhnost/okruzhnost-i-kasatelnye/)
 
-<LessonComplete client:load lessonId="8-geometry-trigonometry" />
+<LessonComplete client:visible lessonId="8-geometry-trigonometry" />

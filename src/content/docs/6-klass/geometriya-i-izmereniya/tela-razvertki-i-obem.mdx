@@ -29,7 +29,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 У цилиндра и конуса есть плоские круглые основания и кривые поверхности. **Сфера** — граница круглого тела, **шар** — сама пространственная область вместе с границей.
 
 <SolidLab
-  client:load
+  client:visible
   mode="identify"
   initialSolid="triangular-prism"
   challenge={true}
@@ -44,7 +44,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Развёртка получается, если разрезать поверхность тела по некоторым рёбрам и разложить её на плоскости. Шесть соединённых квадратов ещё не гарантируют куб: после сгиба две грани могут попытаться занять одно место.
 
 <SolidLab
-  client:load
+  client:visible
   mode="net"
   initialSolid="cube"
   initialNet={[
@@ -73,7 +73,7 @@ $$V=abh.$$
 Для куба с ребром $a$ получаем $V=a^3$. Все три размера должны быть выражены в одной единице, а результат записывается в кубических единицах.
 
 <SolidLab
-  client:load
+  client:visible
   mode="volume"
   initialSolid="cuboid"
   initialLength="5"
@@ -94,7 +94,7 @@ $$V=abh.$$
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geometry-cuboid-volume"
   question="Коробка имеет размеры 5 см × 3 см × 2 см. Каков её объём?"
   correctIndex={1}
@@ -147,4 +147,4 @@ $$V=abh.$$
 
 [← Симметрия](/6-klass/geometriya-i-izmereniya/simmetriya/) · [Дальше: практикум →](/6-klass/geometriya-i-izmereniya/praktikum/)
 
-<LessonComplete client:load lessonId="6-geometry-solids" />
+<LessonComplete client:visible lessonId="6-geometry-solids" />

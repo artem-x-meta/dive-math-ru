@@ -31,7 +31,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Прежде чем открывать лабораторию, заполни четыре клетки таблицы на бумаге. Помни: в клетку «есть кот» без собаки попадают не все владельцы кота, а только те, у кого нет собаки.
 
-<CondTableLab client:load mode="table" initialScenario="pets" challenge={true} />
+<CondTableLab client:visible mode="table" initialScenario="pets" challenge={true} />
 
 <WorkedExample title="Из трёх чисел — четыре клетки">
   Дано: $n=250$, $n(\text{кот})=100$, $n(\text{собака})=120$, $n(\text{оба})=60$.
@@ -60,7 +60,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Заболевание встречается у одного человека из $200$. Тест находит $99\%$ больных и не тревожит $99\%$ здоровых.
 
 <CondTableLab
-  client:load
+  client:visible
   mode="screening"
   initialPrevalence="1/200"
   initialSensitivity="0,99"
@@ -76,12 +76,12 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 $X$ — число шестёрок при трёх бросках кубика. Составь таблицу распределения на бумаге, найди $M(X)$, а затем пересчитай распределение при условии «выпала хотя бы одна шестёрка».
 
-<CombBernoulliLab client:load initialMode="bernoulli" initialTrials={3} initialSuccess="1/6" challenge={true} />
+<CombBernoulliLab client:visible initialMode="bernoulli" initialTrials={3} initialSuccess="1/6" challenge={true} />
 
 Удобная проверка: приведи все четыре вероятности к знаменателю $216$ и сложи числители — должно получиться ровно $216$.
 
 <QuickCheck
-  client:load
+  client:visible
   id="cond10-practice-inverse"
   question="В скрининге станции 3 из 20 000 человек тест дал 99 верных и 199 ложных положительных результатов. Какая дробь равна P(болен | тест положительный)?"
   correctIndex={1}
@@ -141,4 +141,4 @@ $X$ — число шестёрок при трёх бросках кубика.
 
 [← Дискретные распределения](/10-klass/uslovnaya-veroyatnost/diskretnye-raspredeleniya/) · [К обзору 10 класса →](/10-klass/)
 
-<LessonComplete client:load lessonId="10-probability-practice" />
+<LessonComplete client:visible lessonId="10-probability-practice" />

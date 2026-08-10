@@ -31,7 +31,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Лаборатория работает с базисом $10$ м. Наша разметка вчетверо больше, поэтому все длины на чертеже нужно умножить на $4$: форма треугольника от масштаба не зависит, а длины меняются пропорционально.
 
-<TriSolveLab client:load mode="asa" initialSideC={10} initialAngleA={60} initialAngleB={75} unit="м" challenge={true} />
+<TriSolveLab client:visible mode="asa" initialSideC={10} initialAngleA={60} initialAngleB={75} unit="м" challenge={true} />
 
 <WorkedExample title="От базиса к ширине реки">
   Третий угол: $\angle C = 180° - 60° - 75° = 45°$.
@@ -53,7 +53,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Навес держат две стропильные ноги длиной $5$ м и $7$ м, сходящиеся в коньке под углом $100°$. Их нижние концы соединяет горизонтальная затяжка. Сколько метров бруса нужно на затяжку?
 
-<TriSolveLab client:load mode="sas" initialSideB={5} initialSideC={7} initialAngleA={100} unit="м" challenge={true} />
+<TriSolveLab client:visible mode="sas" initialSideB={5} initialSideC={7} initialAngleA={100} unit="м" challenge={true} />
 
 <WorkedExample title="Затяжка и площадь фермы">
   Известны две стороны и угол между ними — работает теорема косинусов. Косинус тупого угла отрицателен: $\cos 100° \approx -0{,}1736$.
@@ -71,7 +71,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Клумба имеет форму правильного восьмиугольника со стороной $2$ м. Её обносят бордюром, а внутри засыпают грунтом слоем $15$ см.
 
-<TriSolvePolygonLab client:load mode="polygon" initialVertices={8} initialSide={2} unit="м" challenge={true} />
+<TriSolvePolygonLab client:visible mode="polygon" initialVertices={8} initialSide={2} unit="м" challenge={true} />
 
 <WorkedExample title="Бордюр, грунт и колышки">
   Периметр $P = 8\cdot2 = 16$ м — столько нужно бордюрной ленты.
@@ -90,7 +90,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </Concept>
 
 <QuickCheck
-  client:load
+  client:visible
   id="tri9-practice-choose"
   question="Доступны только два измерения на своём берегу: длина базиса и два угла с его концов на дальний объект. Какой инструмент даст расстояние до объекта?"
   correctIndex={0}
@@ -159,4 +159,4 @@ $$l = \frac{\pi\cdot6\cdot120}{180} = 4\pi \approx 12{,}57 \text{ м}, \qquad S 
 
 [← Правильные многоугольники и круг](/9-klass/geometricheskiy-sintez/pravilnye-mnogougolniki/) · [К обзору 9 класса →](/9-klass/)
 
-<LessonComplete client:load lessonId="9-triangles-practice" />
+<LessonComplete client:visible lessonId="9-triangles-practice" />

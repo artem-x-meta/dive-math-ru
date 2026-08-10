@@ -23,7 +23,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Измерь модель
 
-<ScaleLab client:load initialScale={100} initialMapCm={6} initialRealUnit="m" />
+<ScaleLab client:visible initialScale={100} initialMapCm={6} initialRealUnit="m" />
 
 В нашем примере $6$ м — это $600$ см. Отношение длины на плане к реальной длине:
 
@@ -76,7 +76,7 @@ $$\text{длина на плане}=\text{реальная длина}:n.$$
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="scale-map-distance"
   question="На карте масштаба 1 : 20 000 расстояние равно 3,5 см. Каково реальное расстояние?"
   correctIndex={2}
@@ -152,4 +152,4 @@ $$\text{длина на плане}=\text{реальная длина}:n.$$
 
 Следующий урок сменит масштаб: целое разобьём ровно на сто одинаковых долей и получим язык процентов.
 
-<LessonComplete client:load lessonId="6-ratios-scale" />
+<LessonComplete client:visible lessonId="6-ratios-scale" />

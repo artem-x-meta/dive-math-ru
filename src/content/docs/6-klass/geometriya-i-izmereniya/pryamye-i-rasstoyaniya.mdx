@@ -40,7 +40,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Две различные прямые на плоскости могут пересекаться или быть параллельными. Если при пересечении образуются прямые углы, прямые **перпендикулярны**. Угольник помогает проверить прямой угол, линейка — продолжить направление.
 
 <GeometryGridLab
-  client:load
+  client:visible
   mode="line-relations"
   initialLineA={{ start: { x: -4, y: -2 }, end: { x: 4, y: 2 } }}
   initialLineB={{ start: { x: -2, y: 4 }, end: { x: 2, y: -4 } }}
@@ -59,7 +59,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <GeometryGridLab
-  client:load
+  client:visible
   mode="point-distance"
   initialLineA={{ start: { x: -5, y: -2 }, end: { x: 5, y: -2 } }}
   initialPoint={{ x: 2, y: 3 }}
@@ -78,7 +78,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 </WorkedExample>
 
 <QuickCheck
-  client:load
+  client:visible
   id="geometry-shortest-distance"
   question="Точка A лежит вне прямой l. Какой отрезок от A до l задаёт расстояние между точкой и прямой?"
   correctIndex={1}
@@ -128,4 +128,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Вход в главу](/6-klass/geometriya-i-izmereniya/) · [Дальше: углы и транспортир →](/6-klass/geometriya-i-izmereniya/ugly-i-transportir/)
 
-<LessonComplete client:load lessonId="6-geometry-lines" />
+<LessonComplete client:visible lessonId="6-geometry-lines" />

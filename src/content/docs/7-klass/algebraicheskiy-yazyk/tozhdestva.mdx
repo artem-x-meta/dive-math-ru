@@ -39,7 +39,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 В лаборатории одно и то же выражение считается двумя маршрутами: «целиком» — сначала складываем внутри скобок, потом умножаем; «по частям» — умножаем каждое слагаемое отдельно. Меняй множитель, значение $x$ и число в скобках, в том числе на отрицательные.
 
 <DistributiveLab
-  client:load
+  client:visible
   variable="x"
   initialFactor={3}
   initialValue={4}
@@ -118,7 +118,7 @@ $$a-(b-c)=a-b+c.$$
 Проверка при $a=10$, $b=4$, $c=1$: слева $10-3=7$, справа $10-4+1=7$. Проверка не доказывает, но помогает вовремя заметить потерянный знак.
 
 <QuickCheck
-  client:load
+  client:visible
   id="poly7-identity-proof"
   question="Как доказать, что выражения 2(x + 4) и 2x + 8 тождественно равны?"
   correctIndex={1}
@@ -169,4 +169,4 @@ $$a-(b-c)=a-b+c.$$
 
 [← Вход в тему](/7-klass/algebraicheskiy-yazyk/) · [Дальше: одночлены и многочлены →](/7-klass/algebraicheskiy-yazyk/odnochleny-i-mnogochleny/)
 
-<LessonComplete client:load lessonId="7-algebra-identities" />
+<LessonComplete client:visible lessonId="7-algebra-identities" />

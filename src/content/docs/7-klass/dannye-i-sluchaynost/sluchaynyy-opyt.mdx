@@ -46,7 +46,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Лаборатория проводит серию опытов и показывает две картинки: доли исходов и ломаную накопленной частоты. Увеличивай число опытов и смотри на ломаную.
 
-<StatFrequencyLab client:load mode="experiment" experiment="coin" initialTrials={100} initialSeed={11} />
+<StatFrequencyLab client:visible mode="experiment" experiment="coin" initialTrials={100} initialSeed={11} />
 
 Серия воспроизводима: у неё есть номер, и с тем же номером она повторится в точности. Это удобно для разбора, но настоящую монету не заменяет — брось её сам хотя бы пятьдесят раз, результат стоит того.
 
@@ -128,7 +128,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Частота успокаивается около $0{,}7$. Значит, $P \approx 0{,}7$ — и это единственный доступный ответ: никакая симметрия его не подскажет. Переключи лабораторию на опыт «Кнопка» и проверь сам: сначала оцени долю по ломаной, потом открой ту, что заложена в модель.
 
 <QuickCheck
-  client:load
+  client:visible
   id="stat7-random-stability"
   question="Монету бросили 20 раз, орёл выпал 13 раз. Какой вывод верен?"
   correctIndex={2}
@@ -189,4 +189,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Частоты и диаграммы](/7-klass/dannye-i-sluchaynost/chastoty-i-diagrammy/) · [Дальше: практикум →](/7-klass/dannye-i-sluchaynost/praktikum/)
 
-<LessonComplete client:load lessonId="7-data-random" />
+<LessonComplete client:visible lessonId="7-data-random" />

@@ -27,7 +27,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Запрещённое значение не обязано быть целым — и не обязано быть заметным.
 
-<AlgFracDomainLab client:load preset="half-root" mode="domain" challenge={true} />
+<AlgFracDomainLab client:visible preset="half-root" mode="domain" challenge={true} />
 
 <WorkedExample title="Проверка документов">
   Для дроби $\dfrac{x+5}{2x-1}$ решаем $2x-1=0$: $2x=1$, $x=0{,}5$.
@@ -41,7 +41,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Сокращение меняет запись до неузнаваемости. Проверь, что происходит с запретом.
 
-<AlgFracEquivalenceLab client:load preset="reduce-opposite" challenge={true} />
+<AlgFracEquivalenceLab client:visible preset="reduce-opposite" challenge={true} />
 
 <Concept type="remember" title="Паспорт результата">
   Рядом с каждым ответом запиши: какое действие выполнено, из какой исходной записи взяты запреты, и при каком значении ты выполнил проверку подстановкой. Ответ без условия на переменную — незаконченный ответ.
@@ -49,12 +49,12 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 ## Станция 3. Уравнение и его кандидаты
 
-<AlgFracDomainLab client:load preset="equation-empty" mode="equation" challenge={true} />
+<AlgFracDomainLab client:visible preset="equation-empty" mode="equation" challenge={true} />
 
 Здесь единственный нуль числителя запрещён знаменателем, поэтому уравнение корней не имеет. Это правильный, полный ответ.
 
 <QuickCheck
-  client:load
+  client:visible
   id="afr8-practice-passport"
   question="После сокращения получилось x + 4. Исходная дробь была (x² − 16)/(x − 4). Как записать ответ полностью?"
   correctIndex={0}
@@ -112,4 +112,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Рациональные уравнения](/8-klass/algebraicheskie-drobi/ratsionalnye-uravneniya/) · [К обзору 8 класса →](/8-klass/)
 
-<LessonComplete client:load lessonId="8-fractions-practice" />
+<LessonComplete client:visible lessonId="8-fractions-practice" />

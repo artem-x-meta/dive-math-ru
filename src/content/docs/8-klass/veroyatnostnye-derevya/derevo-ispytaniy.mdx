@@ -52,7 +52,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 Собери мешок, выбери число извлечений и режим — с возвращением или без. Посмотри, как меняются числа на рёбрах второго шага.
 
-<ProbTreeLab client:load preset="urn" initialRed={2} initialBlue={3} initialDraws={2} initialEvent="atLeastOne" />
+<ProbTreeLab client:visible preset="urn" initialRed={2} initialBlue={3} initialDraws={2} initialEvent="atLeastOne" />
 
 Переключи режим на «с возвращением» и сравни числа на рёбрах второго уровня с числами первого: они станут одинаковыми во всех ветвях.
 
@@ -111,7 +111,7 @@ import LessonComplete from '../../../../components/LessonComplete';
 Лаборатория умеет и такой сюжет: переключи её на «Серию выстрелов» и задай вероятность успеха дробью.
 
 <QuickCheck
-  client:load
+  client:visible
   id="prob8-tree-multiplication"
   question="В мешке 3 белых и 2 чёрных шара. Вынимают два шара подряд без возвращения. Какова вероятность, что оба белые?"
   correctIndex={0}
@@ -174,4 +174,4 @@ import LessonComplete from '../../../../components/LessonComplete';
 
 [← Классическая вероятность](/8-klass/veroyatnostnye-derevya/klassicheskaya-veroyatnost/) · [Дальше: рассеивание данных →](/8-klass/veroyatnostnye-derevya/rasseivanie-dannykh/)
 
-<LessonComplete client:load lessonId="8-probability-tree" />
+<LessonComplete client:visible lessonId="8-probability-tree" />
