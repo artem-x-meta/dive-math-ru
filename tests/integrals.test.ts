@@ -242,6 +242,65 @@ describe('накопление величины', () => {
   });
 });
 
+describe('числа из уроков главы «Интеграл»', () => {
+  it('урок 3.2: суммы для параболы на [0; 1] совпадают с таблицей урока', () => {
+    expect(riemannSum(SQUARE, 0, 1, 4, 'left')).toBeCloseTo(0.21875, 12);
+    expect(riemannSum(SQUARE, 0, 1, 4, 'right')).toBeCloseTo(0.46875, 12);
+    expect(riemannSum(SQUARE, 0, 1, 4, 'middle')).toBeCloseTo(0.328125, 12);
+    expect(riemannSum(SQUARE, 0, 1, 10, 'left')).toBeCloseTo(0.285, 12);
+    expect(riemannSum(SQUARE, 0, 1, 10, 'right')).toBeCloseTo(0.385, 12);
+    expect(riemannSum(SQUARE, 0, 1, 100, 'left')).toBeCloseTo(0.32835, 12);
+    // Формула урока: левая сумма равна (n − 1)(2n − 1) / (6n²).
+    for (const parts of [2, 4, 10, 100]) {
+      const expected = ((parts - 1) * (2 * parts - 1)) / (6 * parts * parts);
+      expect(riemannSum(SQUARE, 0, 1, parts, 'left')).toBeCloseTo(expected, 12);
+    }
+  });
+
+  it('урок 3.2: середины точны на линейной функции, а трапеция даёт 10', () => {
+    expect(riemannSum(LINEAR, 1, 3, 4, 'middle')).toBeCloseTo(10, 12);
+    expect(definiteIntegral(LINEAR, 1, 3)).toBeCloseTo(10, 12);
+    expect(riemannSum([4, 0, -1], -2, 2, 4, 'middle')).toBeCloseTo(11, 12);
+    expect(riemannSummary([4, 0, -1], -2, 2, 4, 'middle').error).toBeCloseTo(1 / 3, 12);
+  });
+
+  it('урок 3.3: подстановка пределов и площадь между параболой и прямой', () => {
+    expect(newtonLeibnizReport(SQUARE, 1, 3).result).toBe('26/3');
+    expect(formatExactRussian(definiteIntegralExact([0, -2, 1], 0, 2))).toBe('−4/3');
+    expect(areaBetween([2, 1], SQUARE, -1, 2).area).toBeCloseTo(4.5, 10);
+    expect(areaBetween([0, 1], SQUARE, 0, 1).area).toBeCloseTo(1 / 6, 10);
+    // ∫₀¹ (6x² − 4x) dx = 0, но площадь фигуры равна 16/27.
+    expect(definiteIntegral([0, -4, 6], 0, 1)).toBeCloseTo(0, 12);
+    expect(areaBetween([0, -4, 6], [], 0, 1).area).toBeCloseTo(16 / 27, 8);
+  });
+
+  it('урок 3.4: путь, перемещение, работа и объём', () => {
+    expect(accumulated(LINEAR, 0, 3)).toBeCloseTo(12, 12);
+    expect(accumulated([0, 0, 1], 0, 3)).toBeCloseTo(9, 12);
+    expect(accumulated([12, -3], 0, 4)).toBeCloseTo(24, 12);
+    expect(accumulated([3, -0.5], 0, 6)).toBeCloseTo(9, 12);
+    expect(accumulated([0, 200], 0, 0.1)).toBeCloseTo(1, 12);
+    expect(accumulated([100, 20], 0, 10)).toBeCloseTo(2000, 12);
+    // v(t) = t − 2: перемещение −1,5 м, путь 2,5 м.
+    expect(definiteIntegral([-2, 1], 0, 3)).toBeCloseTo(-1.5, 12);
+    expect(areaBetween([-2, 1], [], 0, 3).area).toBeCloseTo(2.5, 10);
+  });
+
+  it('урок 3.5: станции практикума', () => {
+    expect(riemannSum(CUBIC, 0, 2, 4, 'left')).toBeCloseTo(2.25, 12);
+    expect(riemannSum(CUBIC, 0, 2, 4, 'middle')).toBeCloseTo(3.875, 12);
+    expect(definiteIntegral(CUBIC, 0, 2)).toBeCloseTo(4, 12);
+    expect(crossingPoints([4, 0, -1], [1, 2], -5, 5)).toEqual([-3, 1]);
+    expect(areaBetween([4, 0, -1], [1, 2], -3, 1).area).toBeCloseTo(32 / 3, 10);
+    // Фигура между y = x² − 4 и осью конгруэнтна арке, поэтому площадь та же.
+    expect(areaBetween([], [-4, 0, 1], -2, 2).area).toBeCloseTo(32 / 3, 10);
+    expect(formatExactRussian(constantThroughPoint([0, 0, 3], 2, 5))).toBe('−3');
+    // v(t) = t − 3 на [0; 5]: перемещение −2,5 м, путь 6,5 м.
+    expect(definiteIntegral([-3, 1], 0, 5)).toBeCloseTo(-2.5, 12);
+    expect(areaBetween([-3, 1], [], 0, 5).area).toBeCloseTo(6.5, 10);
+  });
+});
+
 describe('вспомогательные средства лабораторий', () => {
   it('строит точки графика и границы значений', () => {
     const points = samplePolynomial(SQUARE, 0, 2, 5);

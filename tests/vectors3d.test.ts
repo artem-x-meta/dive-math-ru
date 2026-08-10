@@ -33,6 +33,7 @@ import {
   planeNormal,
   point3,
   pointOnPlaneEquation,
+  pointsDefinePlane,
   prismDims,
   projectionLength3,
   regularPrismVertex,
@@ -329,6 +330,104 @@ describe('правильная треугольная призма', () => {
     expect(distanceToPlaneEquation(prism.A, equation)).toBeCloseTo(Math.sqrt(3), PLACES);
     expect(() => prismDims(2, 0)).toThrow('положительными');
     expect(() => regularPrismVertex('D' as never, dims)).toThrow('Неизвестная вершина призмы');
+  });
+});
+
+describe('три точки и плоскость', () => {
+  it('отличает тройку точек, задающую плоскость, от вырожденной', () => {
+    expect(pointsDefinePlane(point3(0, 0, 0), point3(1, 0, 0), point3(0, 1, 0))).toBe(true);
+    // Три точки одного ребра лежат на одной прямой.
+    expect(pointsDefinePlane(
+      boxPoint('A', BOX),
+      boxPoint('M-AB', BOX),
+      boxPoint('B', BOX),
+    )).toBe(false);
+    expect(pointsDefinePlane(point3(1, 2, 3), point3(1, 2, 3), point3(0, 1, 0))).toBe(false);
+    expect(pointsDefinePlane(
+      boxPoint('A1', BOX),
+      boxPoint('B', BOX),
+      boxPoint('D', BOX),
+    )).toBe(true);
+  });
+});
+
+describe('числа из уроков главы', () => {
+  const degrees = (cosine: number) => (Math.acos(cosine) * 180) / Math.PI;
+
+  it('урок 5.3: углы между прямыми куба', () => {
+    const cube = cubeDims(6);
+    // AB₁ и CD₁ перпендикулярны.
+    expect(dot3(boxVector('A', 'B1', cube), boxVector('C', 'D1', cube))).toBe(0);
+    // A₁B и B₁C дают 60°.
+    expect(angleBetweenLinesDegrees(boxVector('A1', 'B', cube), boxVector('B1', 'C', cube)))
+      .toBeCloseTo(60, PLACES);
+  });
+
+  it('урок 5.4: плоскость с нормалью (2; −1; 2) через точку M(1; 3; −1)', () => {
+    const equation = planeEquation(2, -1, 2, 3);
+    expect(pointOnPlaneEquation(equation, point3(1, 3, -1))).toBe(true);
+    expect(formatPlaneEquation(equation)).toBe('2x − y + 2z + 3 = 0');
+    expect(distanceToPlaneEquation(point3(0, 0, 0), equation)).toBeCloseTo(1, PLACES);
+    expect(angleBetweenPlanesDegrees(
+      planeFromEquation(equation),
+      planeFromEquation(planeEquation(0, 0, 1, 0)),
+    )).toBeCloseTo(degrees(2 / 3), PLACES);
+  });
+
+  it('практикум: цех 12 × 9 × 8 метров', () => {
+    const hall = boxDims(12, 9, 8);
+    expect(boxDiagonalLength(hall)).toBeCloseTo(17, PLACES);
+    // Две диагонали цеха почти перпендикулярны, но не перпендикулярны.
+    expect(dot3(boxVector('A', 'C1', hall), boxVector('B', 'D1', hall))).toBe(1);
+    expect(angleBetweenLinesDegrees(boxVector('A', 'C1', hall), boxVector('B', 'D1', hall)))
+      .toBeCloseTo(degrees(1 / 289), PLACES);
+  });
+
+  it('практикум: наклонная кровля через B, D и A₁', () => {
+    const hall = boxDims(12, 9, 8);
+    const roof = planeEquationThroughPoints(
+      boxPoint('B', hall),
+      boxPoint('D', hall),
+      boxPoint('A1', hall),
+    );
+    expect(roof).toEqual({ a: 6, b: 8, c: 9, d: -72 });
+    expect(formatPlaneEquation(roof)).toBe('6x + 8y + 9z − 72 = 0');
+    expect(length3(planeNormal(roof))).toBeCloseTo(Math.sqrt(181), PLACES);
+    expect(distanceToPlaneEquation(boxPoint('A', hall), roof)).toBeCloseTo(72 / Math.sqrt(181), PLACES);
+    expect(distanceToPlaneEquation(boxPoint('A', hall), roof)).toBeCloseTo(5.35, 2);
+    expect(distanceToPlaneEquation(boxPoint('C1', hall), roof)).toBeCloseTo(10.7, 1);
+    expect(angleBetweenPlanesDegrees(planeFromEquation(roof), planeFromEquation(planeEquation(0, 0, 1, 0))))
+      .toBeCloseTo(48.01, 2);
+    // Угол диагонали цеха с кровлей.
+    expect(angleLinePlaneDegrees(
+      lineThroughPoints3(boxPoint('A', hall), boxPoint('C1', hall)),
+      planeFromEquation(roof),
+    )).toBeCloseTo(70.81, 2);
+    // Вершина A и центр потолка лежат по разные стороны от кровли, но равноудалены.
+    expect(planeEquationValue(roof, boxPoint('A', hall))).toBe(-72);
+    expect(planeEquationValue(roof, boxPoint('O-A1B1C1D1', hall))).toBe(72);
+    expect(distanceToPlaneEquation(boxPoint('O-A1B1C1D1', hall), roof))
+      .toBeCloseTo(distanceToPlaneEquation(boxPoint('A', hall), roof), PLACES);
+  });
+
+  it('практикум: опора — правильная призма со стороной 6 и высотой 8', () => {
+    const prism = regularPrismVertices(prismDims(6, 8));
+    const first = vec3(prism.B1.x - prism.A.x, prism.B1.y - prism.A.y, prism.B1.z - prism.A.z);
+    const second = vec3(prism.C1.x - prism.B.x, prism.C1.y - prism.B.y, prism.C1.z - prism.B.z);
+    expect(length3(first)).toBeCloseTo(10, PLACES);
+    expect(length3(second)).toBeCloseTo(10, PLACES);
+    expect(cosineBetween3(first, second)).toBeCloseTo(0.46, PLACES);
+    expect(angleBetweenVectorsDegrees(first, second)).toBeCloseTo(62.61, 2);
+    // Угол диагонали боковой грани с плоскостью основания: sin φ = 8 : 10.
+    expect(angleLinePlaneDegrees(
+      lineThroughPoints3(prism.A, prism.B1),
+      planeFromEquation(planeEquation(0, 0, 1, 0)),
+    )).toBeCloseTo((Math.asin(0.8) * 180) / Math.PI, PLACES);
+    // Расстояние до боковой грани равно высоте основания.
+    expect(distanceToPlaneEquation(
+      prism.A,
+      planeEquationThroughPoints(prism.B, prism.C, prism.B1),
+    )).toBeCloseTo(3 * Math.sqrt(3), PLACES);
   });
 });
 

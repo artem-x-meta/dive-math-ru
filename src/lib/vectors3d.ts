@@ -401,6 +401,18 @@ export function planeEquationOf(plane: Plane3): PlaneEquation {
   });
 }
 
+/**
+ * Три точки задают единственную плоскость только тогда, когда они попарно
+ * различны и не лежат на одной прямой. Проверка нужна интерфейсу: пользователь
+ * может выбрать, например, три точки одного ребра.
+ */
+export function pointsDefinePlane(first: Point3, second: Point3, third: Point3): boolean {
+  const firstEdge = vectorBetween3(first, second);
+  const secondEdge = vectorBetween3(first, third);
+  if (isZeroVec3(firstEdge) || isZeroVec3(secondEdge)) return false;
+  return !areCollinear3(firstEdge, secondEdge);
+}
+
 /** Уравнение плоскости через три точки, не лежащие на одной прямой. */
 export function planeEquationThroughPoints(first: Point3, second: Point3, third: Point3): PlaneEquation {
   return planeEquationOf(planeThroughPoints3(first, second, third));

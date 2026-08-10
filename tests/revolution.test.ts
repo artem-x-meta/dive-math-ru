@@ -388,3 +388,165 @@ describe('честная проекция тела вращения', () => {
     expect(() => revolvePoint({ r: -1, z: 0 }, 0, 30)).toThrow('отрицательным');
   });
 });
+
+describe('числа главы «Тела вращения»', () => {
+  it('проверяет ответы урока про цилиндр', () => {
+    const can = cylinderMetrics(4, 10);
+    expect(exactText(can.lateralArea)).toBe('80π');
+    expect(exactText(can.baseArea)).toBe('16π');
+    expect(exactText(can.totalArea)).toBe('112π');
+
+    expect(exactText(cylinderMetrics(3, 7).lateralArea)).toBe('42π');
+    expect(exactText(cylinderMetrics(3, 7).totalArea)).toBe('60π');
+    expect(exactText(cylinderMetrics(3, 7).axialSection.area)).toBe('42');
+    expect(exactText(cylinderMetrics(5, 6).lateralArea)).toBe('60π');
+    expect(exactText(cylinderMetrics(5, 6).totalArea)).toBe('110π');
+    expect(exactText(cylinderMetrics(5, 4).totalArea)).toBe('90π');
+
+    // Осевое сечение — квадрат: 2r = h.
+    expect(exactText(cylinderMetrics(3, 6).totalArea)).toBe('54π');
+    expect(cylinderMetrics(3, 6).axialSection.special).toBe(true);
+    expect(exactText(cylinderMetrics(4, 8).totalArea)).toBe('96π');
+    expect(exactText(cylinderMetrics(4, 8).volume)).toBe('128π');
+
+    // Открытый бак: боковая стенка и одно дно.
+    const tank = cylinderMetrics(2, 5);
+    expect(tank.lateralArea.value + tank.baseArea.value).toBeCloseTo(24 * Math.PI, 10);
+
+    // Одинаковая боковая поверхность при r = 2, h = 9 и при r = 6, h = 3.
+    expect(exactText(cylinderMetrics(2, 9).lateralArea)).toBe('36π');
+    expect(exactText(cylinderMetrics(6, 3).lateralArea)).toBe('36π');
+
+    // Сечение, параллельное оси, на расстоянии 3 от неё у цилиндра r = 5, h = 8.
+    expect(2 * Math.sqrt(25 - 9) * 8).toBe(64);
+  });
+
+  it('проверяет ответы урока про конус', () => {
+    const funnel = coneMetrics(5, 12);
+    expect(exactText(funnel.slant)).toBe('13');
+    expect(exactText(funnel.lateralArea)).toBe('65π');
+    expect(exactText(funnel.totalArea)).toBe('90π');
+    expect(exactText(funnel.volume)).toBe('100π');
+    expect(funnel.net.sectorAngleDegrees.value).toBeCloseTo(138.46, 2);
+
+    const wide = coneMetrics(6, 8);
+    expect(exactText(wide.slant)).toBe('10');
+    expect(exactText(wide.lateralArea)).toBe('60π');
+    expect(exactText(wide.totalArea)).toBe('96π');
+    expect(exactText(wide.volume)).toBe('96π');
+    expect(exactText(wide.net.sectorAngleDegrees)).toBe('216');
+    expect(exactText(wide.axialSection.area)).toBe('48');
+    expect(exactText(wide.baseArea)).toBe('36π');
+
+    expect(exactText(coneMetrics(4, 3).net.sectorAngleDegrees)).toBe('288');
+    // Один и тот же набор чисел, но радиусы разные.
+    expect(exactText(coneMetrics(3, 4).lateralArea)).toBe('15π');
+    expect(exactText(coneMetrics(4, 3).lateralArea)).toBe('20π');
+    // Сечение, параллельное основанию, на расстоянии 4 от вершины конуса 9 × 12.
+    expect(9 * (4 / 12)).toBe(3);
+
+    // Развёртка задаёт конус: r = l·φ/360.
+    expect(9 * (120 / 360)).toBe(3);
+    expect(Math.PI * 3 * 9).toBeCloseTo(27 * Math.PI, 10);
+    expect(6 * (240 / 360)).toBe(4);
+    expect(Math.sqrt(36 - 16)).toBeCloseTo(4.47, 2);
+    expect(10 * (216 / 360)).toBe(6);
+    expect(Math.sqrt(100 - 36)).toBe(8);
+
+    // Полукруг в развёртке означает l = 2r и равносторонний треугольник в сечении.
+    expect(Math.sqrt(100 - 25)).toBeCloseTo(5 * Math.sqrt(3), 12);
+    expect(Math.sqrt(75)).toBeCloseTo(8.66, 2);
+    // S_бок = 40π при r = 5 отвечает образующей 8 и высоте √39.
+    expect(Math.sqrt(64 - 25)).toBeCloseTo(6.24, 2);
+  });
+
+  it('проверяет ответы урока про шар и сферу', () => {
+    expect(exactText(sphereMetrics(6).surfaceArea)).toBe('144π');
+    expect(exactText(sphereMetrics(6).volume)).toBe('288π');
+    expect(exactText(sphereMetrics(6).greatCircleLength)).toBe('12π');
+    expect(exactText(sphereMetrics(8).greatCircleArea)).toBe('64π');
+    expect(exactText(sphereMetrics(8).greatCircleLength)).toBe('16π');
+
+    expect(exactText(sphereSection(13, 5).sectionRadius)).toBe('12');
+    expect(exactText(sphereSection(13, 5).sectionArea)).toBe('144π');
+    expect(exactText(sphereSection(13, 5).sectionLength)).toBe('24π');
+    expect(exactText(sphereSection(13, 12).sectionRadius)).toBe('5');
+    expect(exactText(sphereSection(25, 7).sectionRadius)).toBe('24');
+    expect(exactText(sphereSection(25, 7).sectionArea)).toBe('576π');
+    expect(exactText(sphereSection(10, 6).sectionArea)).toBe('64π');
+    expect(exactText(sphereSection(10, 8).sectionArea)).toBe('36π');
+    expect(exactText(sphereSection(5, 4).sectionArea)).toBe('9π');
+    expect(exactText(sphereSection(5, 3).sectionRadius)).toBe('4');
+    expect(sphereSection(9, 12).intersects).toBe(false);
+
+    // Сечение на 60 % пути к краю сохраняет 64 % площади большого круга.
+    expect(sphereSection(10, 6).sectionArea.value / sphereMetrics(10).greatCircleArea.value).toBeCloseTo(0.64, 12);
+    // Площадь поверхности Земли при π ≈ 3,14.
+    expect(Math.round(4 * 3.14 * 6370 ** 2)).toBe(509645864);
+  });
+
+  it('проверяет ответы урока про объёмы', () => {
+    expect(exactText(cylinderMetrics(3, 5).volume)).toBe('45π');
+    expect(exactText(coneMetrics(3, 5).volume)).toBe('15π');
+    expect(exactText(cylinderMetrics(4, 9).volume)).toBe('144π');
+    expect(exactText(coneMetrics(6, 10).volume)).toBe('120π');
+    expect(exactText(sphereMetrics(3).volume)).toBe('36π');
+    expect(exactText(sphereMetrics(3).surfaceArea)).toBe('36π');
+    expect(exactText(cylinderMetrics(5, 4).volume)).toBe('100π');
+    expect(exactText(coneMetrics(4, 9).volume)).toBe('48π');
+    // Шар радиуса 3 переплавили в цилиндр радиуса 3 — высота стала равна 4.
+    expect(exactText(cylinderMetrics(3, 4).volume)).toBe('36π');
+    // Бак диаметром 2 м и высотой 1,4 м при π ≈ 3,14.
+    expect(3.14 * 1 * 1.4).toBeCloseTo(4.396, 12);
+
+    const balance = cavalieriBalance(3);
+    expect(exactText(balance.cylinderVolume)).toBe('27π');
+    expect(exactText(balance.coneVolume)).toBe('9π');
+    expect(exactText(balance.hemisphereVolume)).toBe('18π');
+    expect(exactText(balance.sphereVolume)).toBe('36π');
+
+    const floor = cavalieriLevel(3, 2);
+    expect(exactText(floor.hemisphereArea)).toBe('5π');
+    expect(exactText(floor.ringArea)).toBe('5π');
+
+    expect(archimedesTriple(4).ratio).toEqual([1, 2, 3]);
+    expect(formatExactRussian(similarityFactors(2).volume)).toBe('8');
+    expect(formatExactRussian(similarityFactors(3).area)).toBe('9');
+  });
+
+  it('проверяет ответы практикума про комбинированные тела', () => {
+    // Башня: цилиндр 3 × 10 и полусфера радиуса 3.
+    const shaft = cylinderMetrics(3, 10);
+    const dome = sphereMetrics(3);
+    expect(shaft.volume.value + dome.volume.value / 2).toBeCloseTo(108 * Math.PI, 10);
+    expect(shaft.lateralArea.value + dome.surfaceArea.value / 2).toBeCloseTo(78 * Math.PI, 10);
+
+    // Цистерна диаметром 2,4 м и длиной 5 м при π ≈ 3,14.
+    expect(3.14 * 1.2 ** 2 * 5).toBeCloseTo(22.608, 12);
+
+    const archimedes = sphereInscribedInCylinder(7);
+    expect(formatExactRussian(archimedes.volumeRatio)).toBe('2/3');
+    expect(formatExactRussian(archimedes.areaRatio)).toBe('2/3');
+
+    const barrel = cylinderInscribedInSphere(5, 3);
+    expect(exactText(barrel.height)).toBe('8');
+    expect(exactText(barrel.volume)).toBe('72π');
+
+    const ball = sphereInscribedInCone(3, 4);
+    expect(exactText(ball.sphereRadius)).toBe('1,5');
+    expect(exactText(ball.sphereVolume)).toBe('4,5π');
+
+    // Конус 6 × 8, разрезанный посередине высоты.
+    const whole = coneMetrics(6, 8).volume;
+    const small = coneMetrics(3, 4).volume;
+    expect(exactText(whole)).toBe('96π');
+    expect(exactText(small)).toBe('12π');
+    expect(whole.value - small.value).toBeCloseTo(84 * Math.PI, 10);
+
+    // Из шара радиуса 6 выходит 24 заготовки 2 × 3.
+    expect(sphereMetrics(6).volume.value / cylinderMetrics(2, 3).volume.value).toBeCloseTo(24, 10);
+
+    // Мяч в кубе занимает π/6 объёма коробки.
+    expect(sphereMetrics(11).volume.value / 22 ** 3).toBeCloseTo(Math.PI / 6, 12);
+  });
+});

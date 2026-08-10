@@ -625,13 +625,13 @@ export function extremaOnSegment(
         .filter((x) => x > from + EPSILON && x < to - EPSILON);
 
   const candidates: SegmentCandidate[] = [
-    { x: from, y: evaluatePolynomial(polynomial, from), source: 'endpoint' },
+    { x: from, y: evaluatePolynomial(polynomial, from), source: 'endpoint' as CandidateSource },
     ...stationary.map((x) => ({
       x,
       y: evaluatePolynomial(polynomial, x),
       source: 'critical' as CandidateSource,
     })),
-    { x: to, y: evaluatePolynomial(polynomial, to), source: 'endpoint' },
+    { x: to, y: evaluatePolynomial(polynomial, to), source: 'endpoint' as CandidateSource },
   ].sort((left, right) => left.x - right.x);
 
   let minimum = candidates[0]!;
@@ -676,7 +676,7 @@ export interface DerivativeFact {
   readonly probes: readonly number[];
 }
 
-export const DERIVATIVE_FACTS: readonly DerivativeFact[] = Object.freeze([
+export const DERIVATIVE_FACTS: readonly DerivativeFact[] = Object.freeze<DerivativeFact[]>([
   {
     id: 'const',
     functionText: 'y = 7',
