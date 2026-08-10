@@ -95,6 +95,34 @@ export interface PowerTableRow {
   readonly value: ExactRational;
 }
 
+export interface IntegerPowerRow {
+  readonly exponent: number;
+  readonly value: ExactRational;
+  /** Показатель, через который значение записывается дробью 1/a^k; null при неотрицательном показателе. */
+  readonly reciprocalExponent: number | null;
+}
+
+export interface IntegerPowerRuleStep {
+  readonly rule: PowerRuleId;
+  readonly left: number;
+  readonly right: number;
+  readonly resultExponent: number;
+  readonly latex: string;
+}
+
+export interface IntegerPowerRuleCheck {
+  readonly step: IntegerPowerRuleStep;
+  /** Значение первой степени: a^m. */
+  readonly leftValue: ExactRational;
+  /** Значение второй степени: a^n; у степени степени второго множителя нет. */
+  readonly rightValue: ExactRational | null;
+  /** Ответ по свойству: a^(m+n), a^(m−n) или a^(mn). */
+  readonly ruleValue: ExactRational;
+  /** Ответ прямым действием над значениями степеней. */
+  readonly directValue: ExactRational;
+  readonly matches: boolean;
+}
+
 function absoluteBigInt(value: bigint): bigint {
   return value < 0n ? -value : value;
 }
@@ -326,6 +354,156 @@ export function powerTable(base: ExactInput, maxExponent: number): PowerTableRow
     exponent: index + 1,
     value: powerExact(value, index + 1),
   }));
+}
+
+function assertIntegerExponent(exponent: number): void {
+  if (!Number.isSafeInteger(exponent)) {
+    throw new PowerError('invalid-exponent', 'Показатель степени должен быть целым числом.');
+  }
+  if (Math.abs(exponent) > POWER_LIMITS.maxExponent) {
+    throw new PowerError(
+      'limit-exceeded',
+      `Модуль показателя не должен превышать ${POWER_LIMITS.maxExponent}.`,
+    );
+  }
+}
+
+/**
+ * Возводит точное рациональное число в степень с целым показателем.
+ * Основание ноль допустимо только при натуральном показателе: 0^0 не определено,
+ * а 0 в отрицательной степени означал бы деление на ноль.
+ */
+export function powerIntegerExact(base: ExactInput, exponent: number): ExactRational {
+  assertIntegerExponent(exponent);
+  const value = parseExact(base);
+
+  if (value.numerator === 0n) {
+    if (exponent > 0) return parseExact(0);
+    throw new PowerError(
+      'undefined-power',
+      exponent === 0
+        ? 'Выражение 0^0 не определено.'
+        : 'Ноль в отрицательной степени не определён: это деление на ноль.',
+    );
+  }
+
+  if (exponent >= 0) return powerExact(value, exponent);
+  return divideExact(1, powerExact(value, -exponent));
+}
+
+/**
+ * Строит «лестницу» показателей сверху вниз: от большего показателя к меньшему.
+ * Соседние ступени отличаются делением на основание — именно это и заставляет
+ * принять a^0 = 1 и a^(−n) = 1/a^n.
+ */
+export function powerLadder(base: ExactInput, from: number, to: number): IntegerPowerRow[] {
+  assertIntegerExponent(from);
+  assertIntegerExponent(to);
+  if (from < to) {
+    throw new PowerError(
+      'invalid-exponent',
+      'Лестница строится сверху вниз: верхний показатель должен быть не меньше нижнего.',
+    );
+  }
+
+  const rows = from - to + 1;
+  if (rows > POWER_LIMITS.maxExpandedFactors) {
+    throw new PowerError(
+      'limit-exceeded',
+      `Лестница показателей не длиннее ${POWER_LIMITS.maxExpandedFactors} ступеней.`,
+    );
+  }
+
+  const value = parseExact(base);
+  return Array.from({ length: rows }, (_, index) => {
+    const exponent = from - index;
+    return {
+      exponent,
+      value: powerIntegerExact(value, exponent),
+      reciprocalExponent: exponent < 0 ? -exponent : null,
+    };
+  });
+}
+
+/**
+ * Применяет свойство степеней уже без оглядки на знак показателя:
+ * показатели складываются, вычитаются или перемножаются как целые числа.
+ */
+export function applyIntegerPowerRule(
+  rule: PowerRuleId,
+  left: number,
+  right: number,
+  baseLabel = 'a',
+): IntegerPowerRuleStep {
+  assertIntegerExponent(left);
+  assertIntegerExponent(right);
+
+  let resultExponent: number;
+  let operator: string;
+
+  switch (rule) {
+    case 'product':
+      resultExponent = left + right;
+      operator = '\\cdot';
+      break;
+    case 'quotient':
+      resultExponent = left - right;
+      operator = ':';
+      break;
+    case 'power-of-power':
+      resultExponent = left * right;
+      operator = '';
+      break;
+    default:
+      throw new PowerError('invalid-exponent', 'Неизвестное свойство степеней.');
+  }
+
+  assertIntegerExponent(resultExponent);
+
+  const base = needsBrackets(baseLabel) ? `(${baseLabel})` : baseLabel;
+  const latex = rule === 'power-of-power'
+    ? `\\left(${base}^{${left}}\\right)^{${right}} = ${base}^{${resultExponent}}`
+    : `${base}^{${left}} ${operator} ${base}^{${right}} = ${base}^{${resultExponent}}`;
+
+  return { rule, left, right, resultExponent, latex };
+}
+
+/** Проверяет свойство степеней с целыми показателями точной арифметикой. */
+export function checkIntegerPowerRule(
+  rule: PowerRuleId,
+  base: ExactInput,
+  left: number,
+  right: number,
+  baseLabel?: string,
+): IntegerPowerRuleCheck {
+  const value = parseExact(base);
+  if (value.numerator === 0n) {
+    throw new PowerError(
+      'undefined-power',
+      'Свойства степеней с целым показателем требуют основания, отличного от нуля.',
+    );
+  }
+
+  const step = applyIntegerPowerRule(rule, left, right, baseLabel ?? 'a');
+  const leftValue = powerIntegerExact(value, left);
+  const rightValue = rule === 'power-of-power' ? null : powerIntegerExact(value, right);
+  const ruleValue = powerIntegerExact(value, step.resultExponent);
+  // Прямое действие выполняем над значениями степеней: только тогда совпадение
+  // подтверждает правило, а не повторяет его.
+  const directValue = rightValue === null
+    ? powerIntegerExact(leftValue, right)
+    : rule === 'product'
+      ? multiplyExact(leftValue, rightValue)
+      : divideExact(leftValue, rightValue);
+
+  return {
+    step,
+    leftValue,
+    rightValue,
+    ruleValue,
+    directValue,
+    matches: compareExact(ruleValue, directValue) === 0,
+  };
 }
 
 /**

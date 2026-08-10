@@ -16,16 +16,19 @@ import { describe, expect, it } from 'vitest';
 
 import {
   addExponents,
+  checkNthRootDomain,
   exactLog,
   exponentText,
   expValue,
   firstPermanentLead,
   formatExact,
   growthValue,
+  integerNthRootSigned,
   intersectIntervals,
   intervalText,
   logValue,
   multiplyExponents,
+  nthRootValue,
   rationalPowerExact,
   rationalPowerValue,
   solveExponentialEquation,
@@ -131,6 +134,25 @@ const exactText = (measure: Measure): string => {
 
 describe('11 класс · «Экспонента и логарифм»', () => {
   it('урок 1.1: степень с рациональным показателем', () => {
+    // Раздел «Корень n-й степени»: определение и разбор «Семь корней по определению».
+    expect(nthRootValue(27, 3)).toBe(3);
+    expect(nthRootValue(-27, 3)).toBe(-3);
+    expect(nthRootValue(-32, 5)).toBe(-2);
+    expect(nthRootValue(-125, 3)).toBe(-5);
+    expect((-5) ** 3).toBe(-125);
+    expect(nthRootValue(16, 4)).toBe(2);
+    expect((-2) ** 4).toBe(16); // второй кандидат существует, но корнем не обозначается
+    expect((-2) ** 5).toBe(-32);
+    expect(checkNthRootDomain(-16, 4).ok).toBe(false);
+    expect(nthRootValue((-2) ** 4, 4)).toBe(Math.abs(-2));
+    expect(nthRootValue((-2) ** 3, 3)).toBe(-2);
+    expect(nthRootValue(8 * 27, 3)).toBe(6);
+    expect(8 * 27).toBe(216);
+    expect(nthRootValue(8, 3) * nthRootValue(27, 3)).toBe(6);
+    // Ссылка на 8 класс: √9 = 3, а √(−9) и ⁴√(−16) смысла не имеют.
+    expect(nthRootValue(9, 2)).toBe(3);
+    expect(checkNthRootDomain(-9, 2).ok).toBe(false);
+
     // Разбор «Четыре значения в уме».
     expect(power(8, 2, 3)).toBe('4');
     expect(power(16, 3, 4)).toBe('8');
@@ -180,6 +202,21 @@ describe('11 класс · «Экспонента и логарифм»', () => 
 
     // Практика 16: отрицательное основание запрещено.
     expect(() => rationalPowerExact(-4, 1, 2)).toThrow('положительного основания');
+    expect(nthRootValue(-27, 3)).toBe(-3);
+
+    // Практика 17–18: корни n-й степени и модуль при чётном показателе.
+    expect(integerNthRootSigned(-64, 3)).toBe(-4);
+    expect((-4) ** 3).toBe(-64);
+    expect(integerNthRootSigned(81, 4)).toBe(3);
+    expect(3 ** 4).toBe(81);
+    expect(integerNthRootSigned(-32, 5)).toBe(-2);
+    expect(integerNthRootSigned(64, 3)).toBe(4);
+    expect(integerNthRootSigned(32, 5)).toBe(2);
+    expect(checkNthRootDomain(-81, 4).ok).toBe(false);
+    expect((-3) ** 4).toBe(81);
+    expect(nthRootValue((-3) ** 4, 4)).toBe(3);
+    expect((-3) ** 3).toBe(-27);
+    expect(nthRootValue((-3) ** 3, 3)).toBe(-3);
   });
 
   it('урок 1.2: показательная функция', () => {

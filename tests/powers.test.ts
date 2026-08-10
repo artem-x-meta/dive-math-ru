@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { formatExactRussian, parseExact } from '../src/lib/exactRational';
 import {
+  applyIntegerPowerRule,
   applyPowerRule,
+  checkIntegerPowerRule,
   checkPowerRule,
   decimalDivisionSteps,
   decimalExpansion,
@@ -12,6 +14,8 @@ import {
   isTerminatingDecimal,
   periodLength,
   powerExact,
+  powerIntegerExact,
+  powerLadder,
   powerSign,
   powerTable,
   roundExact,
@@ -126,6 +130,87 @@ describe('power table', () => {
 
   it('refuses a table that would not fit on screen', () => {
     expect(() => powerTable(2, 40)).toThrow('не более чем до показателя');
+  });
+});
+
+describe('powerIntegerExact', () => {
+  it('keeps the natural exponents unchanged', () => {
+    expect(show(powerIntegerExact(2, 5))).toBe('32');
+    expect(show(powerIntegerExact(7, 0))).toBe('1');
+    expect(show(powerIntegerExact(0, 3))).toBe('0');
+  });
+
+  it('turns a negative exponent into the reciprocal power', () => {
+    expect(powerIntegerExact(2, -3)).toEqual({ numerator: 1n, denominator: 8n });
+    expect(show(powerIntegerExact(10, -4))).toBe('0,0001');
+    expect(powerIntegerExact('2/3', -2)).toEqual({ numerator: 9n, denominator: 4n });
+    expect(show(powerIntegerExact('0,1', -3))).toBe('1000');
+    expect(powerIntegerExact(5, -1)).toEqual({ numerator: 1n, denominator: 5n });
+  });
+
+  it('leaves the sign to the base', () => {
+    expect(powerIntegerExact(-2, -3)).toEqual({ numerator: -1n, denominator: 8n });
+    expect(powerIntegerExact(-2, -4)).toEqual({ numerator: 1n, denominator: 16n });
+  });
+
+  it('refuses zero whenever the exponent is not natural', () => {
+    expect(() => powerIntegerExact(0, 0)).toThrow('0^0');
+    expect(() => powerIntegerExact(0, -2)).toThrow('деление на ноль');
+  });
+
+  it('rejects exponents that are not integers or are too large', () => {
+    expect(() => powerIntegerExact(2, 1.5)).toThrow('целым числом');
+    expect(() => powerIntegerExact(2, -100_000)).toThrow('не должен превышать');
+  });
+});
+
+describe('ladder of exponents', () => {
+  it('walks down from a natural exponent through zero to negative ones', () => {
+    const ladder = powerLadder(2, 3, -3);
+    expect(ladder.map((row) => row.exponent)).toEqual([3, 2, 1, 0, -1, -2, -3]);
+    expect(ladder.map((row) => show(row.value))).toEqual(['8', '4', '2', '1', '0,5', '0,25', '0,125']);
+    expect(ladder.map((row) => row.reciprocalExponent)).toEqual([null, null, null, null, 1, 2, 3]);
+  });
+
+  it('divides by the base at every step', () => {
+    const ladder = powerLadder(10, 2, -2);
+    expect(ladder.map((row) => show(row.value))).toEqual(['100', '10', '1', '0,1', '0,01']);
+  });
+
+  it('refuses an upside-down or endless ladder', () => {
+    expect(() => powerLadder(2, -1, 3)).toThrow('сверху вниз');
+    expect(() => powerLadder(2, 20, -20)).toThrow('ступеней');
+  });
+});
+
+describe('rules for integer exponents', () => {
+  it('adds, subtracts and multiplies exponents of any sign', () => {
+    expect(applyIntegerPowerRule('product', -2, -3, 'x').latex).toBe('x^{-2} \\cdot x^{-3} = x^{-5}');
+    expect(applyIntegerPowerRule('quotient', 3, 7)).toMatchObject({ resultExponent: -4 });
+    expect(applyIntegerPowerRule('quotient', 3, 7).latex).toBe('a^{3} : a^{7} = a^{-4}');
+    expect(applyIntegerPowerRule('power-of-power', -2, 3).latex).toBe('\\left(a^{-2}\\right)^{3} = a^{-6}');
+  });
+
+  it('confirms every rule by a second, independent computation', () => {
+    const cancelling = checkIntegerPowerRule('product', 2, 5, -5);
+    expect(cancelling.step.resultExponent).toBe(0);
+    expect(show(cancelling.ruleValue)).toBe('1');
+    expect(show(cancelling.directValue)).toBe('1');
+    expect(cancelling.matches).toBe(true);
+
+    const quotient = checkIntegerPowerRule('quotient', '2/3', -1, 2);
+    expect(quotient.step.resultExponent).toBe(-3);
+    expect(quotient.ruleValue).toEqual({ numerator: 27n, denominator: 8n });
+    expect(quotient.matches).toBe(true);
+
+    const tower = checkIntegerPowerRule('power-of-power', 10, -2, -3);
+    expect(tower.rightValue).toBeNull();
+    expect(show(tower.ruleValue)).toBe('1000000');
+    expect(tower.matches).toBe(true);
+  });
+
+  it('does not touch powers of zero', () => {
+    expect(() => checkIntegerPowerRule('product', 0, 2, -3)).toThrow('отличного от нуля');
   });
 });
 

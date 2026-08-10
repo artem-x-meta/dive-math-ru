@@ -3,14 +3,16 @@ import {
   applyTransform,
   fitToBox,
   isFaceVisible,
+  obliquePrismModel,
+  obliquePyramidModel,
   outwardNormal,
   prismCounts,
   projectPoint,
   pyramidCounts,
-  regularPrismModel,
   regularPrismSurface,
-  regularPyramidModel,
+  regularPrismVolume,
   regularPyramidSurface,
+  regularPyramidVolume,
   satisfiesEuler,
   visibleEdges,
   type Point2,
@@ -21,7 +23,7 @@ import {
 } from '../lib/polyhedra';
 
 export type PolyhedronKind = 'prism' | 'pyramid';
-export type PolyhedronLabMode = 'counts' | 'surface';
+export type PolyhedronLabMode = 'counts' | 'surface' | 'volume';
 export type PolyhedronUnit = 'cm' | 'dm' | 'm';
 
 export interface PolyhedronLabProps {
@@ -35,7 +37,7 @@ export interface PolyhedronLabProps {
   challenge?: boolean;
 }
 
-const MODES: readonly PolyhedronLabMode[] = ['counts', 'surface'];
+const MODES: readonly PolyhedronLabMode[] = ['counts', 'surface', 'volume'];
 const KINDS: readonly PolyhedronKind[] = ['prism', 'pyramid'];
 const PROJECTIONS: readonly ProjectionKind[] = ['isometric', 'cabinet'];
 const UNITS: readonly PolyhedronUnit[] = ['cm', 'dm', 'm'];
@@ -44,6 +46,15 @@ const SIDE_CHOICES: readonly number[] = [3, 4, 5, 6, 8];
 const MODE_LABELS: Readonly<Record<PolyhedronLabMode, string>> = {
   counts: 'Элементы и Эйлер',
   surface: 'Площадь поверхности',
+  volume: 'Объём',
+};
+
+/** Наклон: во сколько раз верх сдвинут в сторону относительно стороны основания. */
+const LEAN_CHOICES: readonly number[] = [0, 0.7, 1.6];
+const LEAN_LABELS: Readonly<Record<number, string>> = {
+  0: 'Прямое тело',
+  0.7: 'Наклон',
+  1.6: 'Сильный наклон',
 };
 const KIND_LABELS: Readonly<Record<PolyhedronKind, string>> = {
   prism: 'Призма',
@@ -209,17 +220,27 @@ export default function PolyhedronLab({
   const [height, setHeight] = useState(defaultHeight);
   const [projection, setProjection] = useState(defaultProjection);
   const [showHeights, setShowHeights] = useState(true);
+  const [lean, setLean] = useState(0);
   const [answer, setAnswer] = useState('');
   const [checked, setChecked] = useState(false);
 
+  // Наклон имеет смысл только в режиме объёма: площади поверхности у наклонного тела другие.
+  const leaning = activeMode === 'volume' ? lean : 0;
+  const shift = round(leaning * side, 3);
+
   const model = useMemo<SolidModel>(
-    () => (kind === 'prism' ? regularPrismModel(sides, side, height) : regularPyramidModel(sides, side, height)),
-    [kind, sides, side, height],
+    () => (kind === 'prism'
+      ? obliquePrismModel(sides, side, height, shift)
+      : obliquePyramidModel(sides, side, height, shift)),
+    [kind, sides, side, height, shift],
   );
   const counts: PolyhedronCounts = kind === 'prism' ? prismCounts(sides) : pyramidCounts(sides);
   const prism = useMemo(() => regularPrismSurface(sides, side, height), [sides, side, height]);
   const pyramid = useMemo(() => regularPyramidSurface(sides, side, height), [sides, side, height]);
   const surface = kind === 'prism' ? prism : pyramid;
+  const prismBody = useMemo(() => regularPrismVolume(sides, side, height), [sides, side, height]);
+  const pyramidBody = useMemo(() => regularPyramidVolume(sides, side, height), [sides, side, height]);
+  const body = kind === 'prism' ? prismBody : pyramidBody;
 
   const picture = useMemo(() => {
     const flat = model.vertices.map((point) => projectPoint(point, projection));
@@ -278,7 +299,9 @@ export default function PolyhedronLab({
   }, [model, picture.screen, projection, sides]);
 
   const parsedAnswer = parseDecimal(answer);
-  const target = activeMode === 'counts' ? counts.edges : surface.totalArea;
+  const target = activeMode === 'counts'
+    ? counts.edges
+    : (activeMode === 'volume' ? body.volume : surface.totalArea);
   const tolerance = activeMode === 'counts' ? 0 : 0.06;
   const answerCorrect = parsedAnswer !== null && Math.abs(parsedAnswer - target) <= tolerance;
   const reveal = !challenge || checked;
@@ -292,12 +315,18 @@ export default function PolyhedronLab({
     setHeight(defaultHeight);
     setProjection(defaultProjection);
     setShowHeights(true);
+    setLean(0);
     setAnswer('');
     setChecked(false);
   };
 
-  const solidName = `правильная ${BASE_NAMES[sides] ?? ''} ${kind === 'prism' ? 'призма' : 'пирамида'}`;
-  const badge = activeMode === 'counts' ? 'V − E + F' : `${unitLabel}²`;
+  const baseName = BASE_NAMES[sides] ?? '';
+  const solidName = leaning === 0
+    ? `правильная ${baseName} ${kind === 'prism' ? 'призма' : 'пирамида'}`
+    : `наклонная ${baseName} ${kind === 'prism' ? 'призма' : 'пирамида'}`;
+  const badge = activeMode === 'counts'
+    ? 'V − E + F'
+    : (activeMode === 'volume' ? `${unitLabel}³` : `${unitLabel}²`);
 
   const result = (() => {
     if (activeMode === 'counts') {
@@ -313,6 +342,32 @@ export default function PolyhedronLab({
         symbol: challenge ? (answerCorrect ? '✓' : '×') : '△',
         headline: `V = ${counts.vertices}, E = ${counts.edges}, F = ${counts.faces}.`,
         detail: `${solidName}. Проверка Эйлера: ${eulerText}${satisfiesEuler(counts) ? ' — соотношение выполнено.' : '.'}`,
+      };
+    }
+    if (activeMode === 'volume') {
+      if (challenge && !checked) {
+        return {
+          symbol: '?',
+          headline: 'Вычисли объём тела.',
+          detail: kind === 'prism'
+            ? 'Найди площадь основания и умножь на высоту. Ответ округли до сотых.'
+            : 'Найди площадь основания, умножь на высоту и возьми треть. Ответ округли до сотых.',
+        };
+      }
+      const leanNote = leaning === 0
+        ? 'Тело прямое.'
+        : `Верх сдвинут на ${formatNumber(shift, 1)} ${unitLabel}, но расстояние между основаниями прежнее — по принципу Кавальери объём не изменился.`;
+      if (kind === 'prism') {
+        return {
+          symbol: challenge ? (answerCorrect ? '✓' : '×') : '▦',
+          headline: `V = ${formatNumber(prismBody.volume)} ${unitLabel}³.`,
+          detail: `S_осн = ${formatNumber(prismBody.baseArea)} ${unitLabel}², h = ${formatNumber(height, 1)} ${unitLabel}, V = S_осн·h. ${leanNote}`,
+        };
+      }
+      return {
+        symbol: challenge ? (answerCorrect ? '✓' : '×') : '▲',
+        headline: `V = ${formatNumber(pyramidBody.volume)} ${unitLabel}³.`,
+        detail: `S_осн = ${formatNumber(pyramidBody.baseArea)} ${unitLabel}², h = ${formatNumber(height, 1)} ${unitLabel}, V = ⅓·S_осн·h. Призма с тем же основанием и той же высотой вмещает ${formatNumber(pyramidBody.prismVolume)} ${unitLabel}³ — ровно втрое больше. ${leanNote}`,
       };
     }
     if (challenge && !checked) {
@@ -341,6 +396,9 @@ export default function PolyhedronLab({
   const apexScreen = kind === 'pyramid'
     ? picture.screen[sides] as Point2
     : picture.project({ x: 0, y: 0, z: height });
+  // Высота — расстояние между плоскостями оснований, поэтому она вертикальна
+  // и при наклоне тела: отрезок идёт из центра основания строго вверх.
+  const heightTopScreen = picture.project({ x: 0, y: 0, z: height });
   const centerScreen = picture.project({ x: 0, y: 0, z: 0 });
   const apothemFoot = picture.project(frontEdge.midpoint);
 
@@ -418,13 +476,33 @@ export default function PolyhedronLab({
           </div>
         </div>
 
+        {activeMode === 'volume' && (
+          <div className="dm-geometry-example-switch">
+            <span>Наклон тела</span>
+            <div className="dm-geometry-preset-buttons" role="group" aria-label="Наклон тела при неизменной высоте">
+              {LEAN_CHOICES.map((item) => (
+                <button
+                  type="button"
+                  key={item}
+                  aria-pressed={lean === item}
+                  className={lean === item ? 'dm-geometry-preset-button dm-geometry-preset-button--active' : 'dm-geometry-preset-button'}
+                  onClick={() => { setLean(item); invalidate(); }}
+                >{LEAN_LABELS[item]}</button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="dm-geometry-visual-wrap" role="region" aria-label="Прокручиваемый чертёж многогранника" tabIndex={0}>
           <svg className="dm-geometry-solid" viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`} role="img" aria-labelledby={`${labId}-svg-title ${labId}-svg-desc`}>
             <title id={`${labId}-svg-title`}>Чертёж: {solidName}</title>
             <desc id={`${labId}-svg-desc`}>
               {`Сторона основания ${formatNumber(side, 1)} ${unitLabel}, высота ${formatNumber(height, 1)} ${unitLabel}. `}
               {`Изображение построено ${projection === 'isometric' ? 'изометрической' : 'кабинетной'} параллельной проекцией: параллельные рёбра остаются параллельными, но углы и длины на экране искажены и измерять их линейкой нельзя. `}
-              {`Штриховые линии — невидимые рёбра. У тела ${counts.vertices} вершин, ${counts.edges} рёбер и ${counts.faces} граней.`}
+              {`Штриховые линии — невидимые рёбра. У тела ${counts.vertices} вершин, ${counts.edges} рёбер и ${counts.faces} граней. `}
+              {leaning === 0
+                ? 'Верхняя часть тела стоит над центром основания.'
+                : `Верхняя часть сдвинута в сторону на ${formatNumber(shift, 1)} ${unitLabel}; расстояние между плоскостями оснований осталось прежним, поэтому объём не изменился.`}
             </desc>
             <g className="dm-geometry-solid__body">
               {picture.faces.map((face) => (
@@ -451,16 +529,21 @@ export default function PolyhedronLab({
             </g>
             {showHeights && (
               <g className="dm-geometry-figure__construction" aria-hidden="true">
-                <line x1={centerScreen.x} y1={centerScreen.y} x2={apexScreen.x} y2={apexScreen.y} />
+                <line x1={centerScreen.x} y1={centerScreen.y} x2={heightTopScreen.x} y2={heightTopScreen.y} />
                 <line x1={centerScreen.x} y1={centerScreen.y} x2={apothemFoot.x} y2={apothemFoot.y} />
-                {kind === 'pyramid' && <line x1={apexScreen.x} y1={apexScreen.y} x2={apothemFoot.x} y2={apothemFoot.y} />}
+                {kind === 'pyramid' && leaning === 0 && (
+                  <line x1={apexScreen.x} y1={apexScreen.y} x2={apothemFoot.x} y2={apothemFoot.y} />
+                )}
+                {kind === 'pyramid' && leaning !== 0 && (
+                  <line x1={heightTopScreen.x} y1={heightTopScreen.y} x2={apexScreen.x} y2={apexScreen.y} />
+                )}
               </g>
             )}
             <g className="dm-geometry-solid__dimensions">
               <text x={round((frontEdge.screenFrom.x + frontEdge.screenTo.x) / 2, 1)} y={round((frontEdge.screenFrom.y + frontEdge.screenTo.y) / 2 + 26, 1)}>
                 a = {formatNumber(side, 1)} {unitLabel}
               </text>
-              <text x={round(centerScreen.x - 52, 1)} y={round((centerScreen.y + apexScreen.y) / 2, 1)}>
+              <text x={round(centerScreen.x - 52, 1)} y={round((centerScreen.y + heightTopScreen.y) / 2, 1)}>
                 h = {formatNumber(height, 1)} {unitLabel}
               </text>
             </g>
@@ -470,16 +553,30 @@ export default function PolyhedronLab({
         {reveal && (
           <div className="dm-table-wrap">
             <table className="dm-ratio-table">
-              <caption>{activeMode === 'counts' ? 'Элементы многогранника' : `Разбор площади, ${unitLabel}²`}</caption>
+              <caption>
+                {activeMode === 'counts' && 'Элементы многогранника'}
+                {activeMode === 'surface' && `Разбор площади, ${unitLabel}²`}
+                {activeMode === 'volume' && `Разбор объёма, ${unitLabel}³`}
+              </caption>
               <tbody>
-                {activeMode === 'counts' ? (
+                {activeMode === 'counts' && (
                   <>
                     <tr><th scope="row">Вершины V</th><td>{counts.vertices}</td></tr>
                     <tr><th scope="row">Рёбра E</th><td>{counts.edges}</td></tr>
                     <tr><th scope="row">Грани F</th><td>{counts.faces}</td></tr>
                     <tr className="dm-ratio-table__answer"><th scope="row">V − E + F</th><td>{counts.vertices - counts.edges + counts.faces}</td></tr>
                   </>
-                ) : (
+                )}
+                {activeMode === 'volume' && (
+                  <>
+                    <tr><th scope="row">Площадь основания S<sub>осн</sub></th><td>{formatNumber(body.baseArea)} {unitLabel}²</td></tr>
+                    <tr><th scope="row">Высота h</th><td>{formatNumber(height, 1)} {unitLabel}</td></tr>
+                    <tr><th scope="row">Сдвиг верха</th><td>{formatNumber(shift, 1)} {unitLabel}</td></tr>
+                    <tr><th scope="row">Призма S<sub>осн</sub>·h</th><td>{formatNumber(body.prismVolume)}</td></tr>
+                    <tr className="dm-ratio-table__answer"><th scope="row">Объём V</th><td>{formatNumber(body.volume)}</td></tr>
+                  </>
+                )}
+                {activeMode === 'surface' && (
                   <>
                     <tr><th scope="row">Периметр основания P</th><td>{formatNumber(surface.basePerimeter)} {unitLabel}</td></tr>
                     <tr><th scope="row">Площадь основания</th><td>{formatNumber(surface.baseArea)}</td></tr>
@@ -496,7 +593,9 @@ export default function PolyhedronLab({
         {challenge && (
           <div className="dm-geometry-answer">
             <label htmlFor={`${labId}-answer`}>
-              {activeMode === 'counts' ? 'Сколько рёбер' : `Полная поверхность, ${unitLabel}²`}
+              {activeMode === 'counts' && 'Сколько рёбер'}
+              {activeMode === 'surface' && `Полная поверхность, ${unitLabel}²`}
+              {activeMode === 'volume' && `Объём, ${unitLabel}³`}
             </label>
             <input
               id={`${labId}-answer`}

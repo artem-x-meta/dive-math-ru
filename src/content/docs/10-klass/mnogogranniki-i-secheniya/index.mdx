@@ -1,6 +1,6 @@
 ---
 title: 'Многогранники и сечения'
-description: Вход в главу о призме и пирамиде, правильных многогранниках, формуле Эйлера, построении сечений и площадях поверхностей.
+description: Вход в главу о призме и пирамиде, правильных многогранниках, формуле Эйлера, построении сечений, площадях поверхностей и объёмах.
 ---
 
 import LessonMeta from '../../../../components/LessonMeta.astro';
@@ -20,6 +20,7 @@ import CourseProgress from '../../../../components/CourseProgress';
   'объяснять, почему правильных многогранников ровно пять',
   'строить сечения куба методом следов и определять вид многоугольника сечения',
   'вычислять площади боковой и полной поверхности призмы и пирамиды',
+  'находить объёмы призмы и пирамиды и объяснять, откуда берётся множитель ⅓',
 ]} />
 
 <Concept type="remember" title="Чертёж честный, но не измеримый">
@@ -71,7 +72,8 @@ import CourseProgress from '../../../../components/CourseProgress';
 2. [**Правильные многогранники и формула Эйлера**](/10-klass/mnogogranniki-i-secheniya/pravilnye-mnogogranniki/) — соотношение $V-E+F=2$ и ответ на вопрос, почему правильных тел ровно пять.
 3. [**Построение сечений**](/10-klass/mnogogranniki-i-secheniya/postroenie-secheniy/) — метод следов на кубе и вид многоугольника сечения.
 4. [**Площадь поверхности**](/10-klass/mnogogranniki-i-secheniya/ploshchad-poverkhnosti/) — развёртка, боковая и полная поверхность призмы и пирамиды.
-5. [**Практикум**](/10-klass/mnogogranniki-i-secheniya/praktikum/) — проектируем павильон и согласуем каркас, обшивку и разрез.
+5. [**Объёмы многогранников**](/10-klass/mnogogranniki-i-secheniya/obyomy-mnogogrannikov/) — $V=S_{\text{осн}}h$, принцип Кавальери и честный вывод одной трети у пирамиды.
+6. [**Практикум**](/10-klass/mnogogranniki-i-secheniya/praktikum/) — проектируем павильон и согласуем каркас, обшивку и разрез.
 
 <CourseProgress
   client:visible
@@ -81,6 +83,7 @@ import CourseProgress from '../../../../components/CourseProgress';
     { id: '10-polyhedra-regular', title: 'Правильные многогранники', href: '/10-klass/mnogogranniki-i-secheniya/pravilnye-mnogogranniki/' },
     { id: '10-polyhedra-sections', title: 'Построение сечений', href: '/10-klass/mnogogranniki-i-secheniya/postroenie-secheniy/' },
     { id: '10-polyhedra-surface', title: 'Площадь поверхности', href: '/10-klass/mnogogranniki-i-secheniya/ploshchad-poverkhnosti/' },
+    { id: '10-polyhedra-volume', title: 'Объёмы многогранников', href: '/10-klass/mnogogranniki-i-secheniya/obyomy-mnogogrannikov/' },
     { id: '10-polyhedra-practice', title: 'Практикум', href: '/10-klass/mnogogranniki-i-secheniya/praktikum/' },
   ]}
 />

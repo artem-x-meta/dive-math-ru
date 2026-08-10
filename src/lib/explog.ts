@@ -2,7 +2,8 @@
  * Вычислительное ядро главы «Экспонента и логарифм» (11 класс).
  *
  * Четыре независимые части:
- *   1) степень с рациональным показателем: сокращение показателя, точный корень
+ *   1) корень n-й степени (с разбором чётного и нечётного показателя) и степень
+ *      с рациональным показателем: сокращение показателя, точный корень
  *      n-й степени и точное значение a^(p/q), когда оно рационально;
  *   2) рост показательной функции против степенной и линейной: таблица значений,
  *      честное окно рисунка и номер, начиная с которого экспонента впереди навсегда;
@@ -213,6 +214,83 @@ export function integerNthRoot(value: number, degree: number): number | null {
 
   const root = bigNthRootFloor(BigInt(value), degree);
   return root ** BigInt(degree) === BigInt(value) ? Number(root) : null;
+}
+
+/** Чётный ли показатель корня: от этого зависит и область определения, и знак. */
+export function isEvenDegree(degree: number): boolean {
+  assertRootDegree(degree);
+  return degree % 2 === 0;
+}
+
+/**
+ * Определён ли корень degree-й степени из value.
+ * Чётный показатель требует неотрицательного подкоренного выражения,
+ * нечётный не требует ничего.
+ */
+export function checkNthRootDomain(value: number, degree: number): DomainCheck {
+  assertRootDegree(degree);
+  if (!Number.isFinite(value)) {
+    return { ok: false, reason: 'Подкоренное выражение должно быть числом.' };
+  }
+  if (isEvenDegree(degree) && value < 0) {
+    return {
+      ok: false,
+      reason: 'Корень чётной степени из отрицательного числа не определён: чётная степень любого числа неотрицательна.',
+    };
+  }
+  return {
+    ok: true,
+    reason: isEvenDegree(degree)
+      ? 'Подкоренное выражение неотрицательно, поэтому корень чётной степени определён; его значение тоже неотрицательно.'
+      : 'Корень нечётной степени определён при любом подкоренном выражении, а его знак совпадает со знаком подкоренного.',
+  };
+}
+
+/**
+ * Корень degree-й степени как действительное число.
+ * При чётном показателе значение неотрицательно, при нечётном знак корня
+ * совпадает со знаком подкоренного выражения. Если корень извлекается нацело,
+ * возвращается ровно целое число, а не ближайшее к нему приближение.
+ */
+export function nthRootValue(value: number, degree: number): number {
+  const domain = checkNthRootDomain(value, degree);
+  if (!domain.ok) throw new ExpLogError('invalid-argument', domain.reason);
+
+  const size = Math.abs(value);
+  let magnitude = Math.pow(size, 1 / degree);
+  const rounded = Math.round(magnitude);
+  // Math.pow(27, 1/3) даёт 3,0000000000000004 — целый корень возвращаем точно.
+  if (Math.abs(Math.pow(rounded, degree) - size) <= TOLERANCE * Math.max(1, size)) {
+    magnitude = rounded;
+  }
+  return value < 0 ? -magnitude : magnitude;
+}
+
+/**
+ * Точный целый корень degree-й степени со знаком; null, если корень не целый.
+ * Для нечётного показателя допускает отрицательное подкоренное число.
+ */
+export function integerNthRootSigned(value: number, degree: number): number | null {
+  const domain = checkNthRootDomain(value, degree);
+  if (!domain.ok) throw new ExpLogError('invalid-argument', domain.reason);
+  if (!Number.isSafeInteger(value)) {
+    throw new ExpLogError('invalid-argument', 'Подкоренное число должно быть целым.');
+  }
+  if (value >= 0) return integerNthRoot(value, degree);
+  const root = integerNthRoot(-value, degree);
+  return root === null ? null : -root;
+}
+
+/**
+ * Тождество «корень из степени с тем же показателем»:
+ * ⁿ√(aⁿ) равно |a| при чётном n и самому a при нечётном.
+ */
+export function rootOfSamePower(value: number, degree: number): number {
+  assertRootDegree(degree);
+  if (!Number.isFinite(value)) {
+    throw new ExpLogError('invalid-argument', 'Основание степени должно быть числом.');
+  }
+  return isEvenDegree(degree) ? Math.abs(value) : value;
 }
 
 /** Точный корень degree-й степени из положительного рационального числа. */

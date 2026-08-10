@@ -217,7 +217,8 @@ export default defineConfig({
                 { label: '1.2 Иррациональные числа', slug: '8-klass/deystvitelnye-chisla/irratsionalnye-chisla' },
                 { label: '1.3 Оценка и приближения', slug: '8-klass/deystvitelnye-chisla/otsenka-i-priblizheniya' },
                 { label: '1.4 Свойства корня', slug: '8-klass/deystvitelnye-chisla/svoystva-kornya' },
-                { label: '1.5 Практикум', slug: '8-klass/deystvitelnye-chisla/praktikum' },
+                { label: '1.5 Степень с целым показателем', slug: '8-klass/deystvitelnye-chisla/stepen-s-tselym-pokazatelem' },
+                { label: '1.6 Практикум', slug: '8-klass/deystvitelnye-chisla/praktikum' },
               ],
             },
             {
@@ -427,7 +428,8 @@ export default defineConfig({
                 { label: '5.2 Правильные многогранники', slug: '10-klass/mnogogranniki-i-secheniya/pravilnye-mnogogranniki' },
                 { label: '5.3 Построение сечений', slug: '10-klass/mnogogranniki-i-secheniya/postroenie-secheniy' },
                 { label: '5.4 Площадь поверхности', slug: '10-klass/mnogogranniki-i-secheniya/ploshchad-poverkhnosti' },
-                { label: '5.5 Практикум', slug: '10-klass/mnogogranniki-i-secheniya/praktikum' },
+                { label: '5.5 Объёмы многогранников', slug: '10-klass/mnogogranniki-i-secheniya/obyomy-mnogogrannikov' },
+                { label: '5.6 Практикум', slug: '10-klass/mnogogranniki-i-secheniya/praktikum' },
               ],
             },
             {

@@ -6,6 +6,7 @@ import {
   checkLogBase,
   checkLogDomain,
   checkLogRule,
+  checkNthRootDomain,
   checkRationalPowerRule,
   exactLog,
   exponentText,
@@ -19,15 +20,19 @@ import {
   growthTable,
   growthValue,
   integerNthRoot,
+  integerNthRootSigned,
   intersectIntervals,
   intervalContains,
   intervalText,
+  isEvenDegree,
   logIdentityValue,
   logValue,
   logarithmSegments,
   mirrorPairs,
   multiplyExponents,
+  nthRootValue,
   radicalText,
+  rootOfSamePower,
   rationalPowerExact,
   rationalPowerValue,
   reduceExponent,
@@ -40,6 +45,76 @@ import {
   type GrowthModel,
 } from '../src/lib/explog';
 import type { Box } from '../src/lib/functionsCore';
+
+describe('nth root', () => {
+  it('tells an even degree from an odd one', () => {
+    expect(isEvenDegree(2)).toBe(true);
+    expect(isEvenDegree(4)).toBe(true);
+    expect(isEvenDegree(3)).toBe(false);
+    expect(isEvenDegree(5)).toBe(false);
+    expect(() => isEvenDegree(0)).toThrow('натуральным числом');
+    expect(() => isEvenDegree(2.5)).toThrow('натуральным числом');
+  });
+
+  it('allows a negative radicand only under an odd degree', () => {
+    expect(checkNthRootDomain(16, 4).ok).toBe(true);
+    expect(checkNthRootDomain(0, 4).ok).toBe(true);
+    expect(checkNthRootDomain(-16, 4).ok).toBe(false);
+    expect(checkNthRootDomain(-16, 4).reason).toContain('чётная степень любого числа неотрицательна');
+    expect(checkNthRootDomain(-27, 3).ok).toBe(true);
+    expect(checkNthRootDomain(-27, 5).ok).toBe(true);
+  });
+
+  it('keeps the value of an even root non-negative', () => {
+    expect(nthRootValue(16, 4)).toBe(2);
+    expect(nthRootValue(81, 4)).toBe(3);
+    expect(nthRootValue(9, 2)).toBe(3);
+    expect(nthRootValue(0, 6)).toBe(0);
+    // Второе решение уравнения b⁴ = 16 существует, но знаком корня не обозначается.
+    expect((-2) ** 4).toBe(16);
+    expect(nthRootValue(16, 4)).not.toBe(-2);
+    expect(() => nthRootValue(-16, 4)).toThrow('чётной степени');
+  });
+
+  it('gives an odd root the sign of the radicand', () => {
+    expect(nthRootValue(27, 3)).toBe(3);
+    expect(nthRootValue(-27, 3)).toBe(-3);
+    expect(nthRootValue(-125, 3)).toBe(-5);
+    expect(nthRootValue(-32, 5)).toBe(-2);
+    expect(nthRootValue(-8, 3)).toBe(-2);
+    for (const [value, degree] of [[-27, 3], [-125, 3], [-32, 5], [64, 6]] as const) {
+      expect(nthRootValue(value, degree) ** degree).toBeCloseTo(value, 9);
+    }
+  });
+
+  it('extracts an exact signed integer root', () => {
+    expect(integerNthRootSigned(-64, 3)).toBe(-4);
+    expect(integerNthRootSigned(-32, 5)).toBe(-2);
+    expect(integerNthRootSigned(81, 4)).toBe(3);
+    expect(integerNthRootSigned(-10, 3)).toBeNull();
+    expect(() => integerNthRootSigned(-81, 4)).toThrow('чётной степени');
+  });
+
+  it('multiplies under one root sign', () => {
+    expect(nthRootValue(8 * 27, 3)).toBe(6);
+    expect(nthRootValue(8, 3) * nthRootValue(27, 3)).toBe(6);
+    expect(nthRootValue(16 * 81, 4)).toBe(6);
+    expect(nthRootValue(16, 4) * nthRootValue(81, 4)).toBe(6);
+    expect(nthRootValue(-8 * 27, 3)).toBe(-6);
+  });
+
+  it('needs the modulus only for an even degree', () => {
+    expect(rootOfSamePower(-3, 4)).toBe(3);
+    expect(rootOfSamePower(-3, 3)).toBe(-3);
+    expect(rootOfSamePower(-2, 4)).toBe(2);
+    expect(rootOfSamePower(-2, 3)).toBe(-2);
+    // Тождество проверено прямым вычислением, а не только формулой.
+    expect(nthRootValue((-2) ** 4, 4)).toBe(Math.abs(-2));
+    expect(nthRootValue((-2) ** 3, 3)).toBe(-2);
+    expect(nthRootValue((-3) ** 4, 4)).toBe(3);
+    expect(nthRootValue((-3) ** 3, 3)).toBe(-3);
+  });
+});
 
 describe('rational exponents', () => {
   it('reduces the exponent and keeps the sign in the numerator', () => {

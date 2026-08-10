@@ -63,6 +63,11 @@ import {
   exteriorAngleFromRemote,
   isoscelesApexAngle,
   isoscelesBaseAngle,
+  parallelogramLayout,
+  polygonFanCut,
+  polygonVerticesFromAngleSum,
+  regularPolygonAngle,
+  segmentMidpoint,
   thirdTriangleAngle,
   transversalPairAngle,
   verticalAngle,
@@ -790,6 +795,24 @@ describe('7 класс · Язык доказательства: числа из
     expect(transversalPairAngle('corresponding', 90)).toBe(90);
     // Практика 10: равные односторонние углы возможны только при 90°.
     expect(transversalPairAngle('co-interior', 90)).toBe(90);
+    // Параллелограмм ABCD чертежа и разобранного примера: AB = 9, BC = 5, ∠A = 58°.
+    const parallelogram = parallelogramLayout(9, 5, 58);
+    expect(parallelogram.angles).toEqual([58, 122, 58, 122]);
+    expect(parallelogram.sides).toEqual([9, 5, 9, 5]);
+    expect(parallelogram.perimeter).toBe(28);
+    expect(transversalPairAngle('co-interior', 58)).toBe(122);
+    expect(58 + 122 + 58 + 122).toBe(360);
+    expect(180 + 180).toBe(360);
+    expect(2 * (9 + 5)).toBe(28);
+    // Диагональ AC делит параллелограмм пополам: диагонали пересекаются в общей середине.
+    expect(parallelogram.centre.x).toBeCloseTo(segmentMidpoint(parallelogram.b, parallelogram.d).x, 12);
+    expect(parallelogram.centre.y).toBeCloseTo(segmentMidpoint(parallelogram.b, parallelogram.d).y, 12);
+    // Практика 11–12.
+    expect(adjacentAngle(58)).toBe(122);
+    expect(root([2, 3], [0, 17])).toBe(7);
+    expect(7 + 3).toBe(10);
+    expect(2 * (7 + 10)).toBe(34);
+    expect(parallelogramLayout(10, 7, 72).perimeter).toBe(34);
   });
 
   it('4.5 Сумма углов треугольника', () => {
@@ -817,6 +840,28 @@ describe('7 класс · Язык доказательства: числа из
     expect(adjacentAngle(180 - 100)).toBe(100);
     expect(convexPolygonAngleSum(4)).toBe(360);
     expect(3 * 180 - 180).toBe(360);
+    // Раздел «От треугольника к любому многоугольнику»: разрезание шестиугольника
+    // на чертеже — 3 диагонали и 4 треугольника, сумма углов 720°.
+    expect(polygonFanCut(6)).toEqual({ vertices: 6, diagonals: 3, triangles: 4, angleSum: 720 });
+    // Таблица проверки: n = 3, 4, 5, 6, 8, 12.
+    const table = [3, 4, 5, 6, 8, 12];
+    expect(table.map((n) => polygonFanCut(n).diagonals)).toEqual([0, 1, 2, 3, 5, 9]);
+    expect(table.map((n) => polygonFanCut(n).triangles)).toEqual([1, 2, 3, 4, 6, 10]);
+    expect(table.map(convexPolygonAngleSum)).toEqual([180, 360, 540, 720, 1080, 1800]);
+    // Угол правильного многоугольника: шестиугольник 120°, квадрат 90°, треугольник 60°.
+    expect(regularPolygonAngle(6)).toBe(120);
+    expect(regularPolygonAngle(4)).toBe(90);
+    expect(regularPolygonAngle(3)).toBe(60);
+    // Типичная ошибка: у четырёхугольника не 4 · 180° = 720°, а 2 · 180° = 360°.
+    expect(4 * 180).toBe(720);
+    expect(convexPolygonAngleSum(4)).toBe(360);
+    // Практика 11: сумма углов восьмиугольника 1080°, угол правильного — 135°.
+    expect(convexPolygonAngleSum(8)).toBe(1080);
+    expect(regularPolygonAngle(8)).toBe(135);
+    expect(regularPolygonAngle(8)).toBeLessThan(180);
+    // Практика 12: сумма 1440° бывает у десятиугольника.
+    expect(polygonVerticesFromAngleSum(1440)).toBe(10);
+    expect(convexPolygonAngleSum(10)).toBe(1440);
   });
 
   it('4.6 Практикум: собираем доказательство', () => {

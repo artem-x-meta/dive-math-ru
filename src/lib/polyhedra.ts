@@ -322,6 +322,100 @@ export function cuboidSurface(a: number, b: number, c: number): number {
   return 2 * (a * b + b * c + c * a);
 }
 
+// ───────────────────────────── объёмы ─────────────────────────────
+
+/** Объём прямоугольного параллелепипеда: $V=abc$. */
+export function cuboidVolume(a: number, b: number, c: number): number {
+  assertPositive(a, 'Первое измерение');
+  assertPositive(b, 'Второе измерение');
+  assertPositive(c, 'Третье измерение');
+  return a * b * c;
+}
+
+/**
+ * Объём призмы: $V=S_{\text{осн}}h$.
+ *
+ * Высота — расстояние между плоскостями оснований, поэтому формула верна
+ * и для наклонной призмы: по принципу Кавальери сечения на каждом уровне
+ * равны основанию, а значит равны и объёмы прямой и наклонной призм.
+ */
+export function prismVolume(baseArea: number, height: number): number {
+  assertPositive(baseArea, 'Площадь основания');
+  assertPositive(height, 'Высота');
+  return baseArea * height;
+}
+
+/** Объём пирамиды: $V=\tfrac13 S_{\text{осн}}h$ — треть призмы с тем же основанием и той же высотой. */
+export function pyramidVolume(baseArea: number, height: number): number {
+  assertPositive(baseArea, 'Площадь основания');
+  assertPositive(height, 'Высота');
+  return (baseArea * height) / 3;
+}
+
+export interface SolidVolume {
+  readonly baseArea: number;
+  readonly basePerimeter: number;
+  readonly height: number;
+  readonly volume: number;
+  /** Объём призмы с тем же основанием и той же высотой — эталон для сравнения. */
+  readonly prismVolume: number;
+  /** Доля от этой призмы: $1$ для призмы и $\tfrac13$ для пирамиды. */
+  readonly share: number;
+}
+
+/** Объём правильной $n$-угольной призмы. */
+export function regularPrismVolume(n: number, side: number, height: number): SolidVolume {
+  assertBaseSides(n);
+  assertPositive(side, 'Сторона основания');
+  assertPositive(height, 'Высота');
+  const baseArea = regularPolygonArea(n, side);
+  const reference = prismVolume(baseArea, height);
+  return {
+    baseArea,
+    basePerimeter: n * side,
+    height,
+    volume: reference,
+    prismVolume: reference,
+    share: 1,
+  };
+}
+
+/** Объём правильной $n$-угольной пирамиды. */
+export function regularPyramidVolume(n: number, side: number, height: number): SolidVolume {
+  assertBaseSides(n);
+  assertPositive(side, 'Сторона основания');
+  assertPositive(height, 'Высота');
+  const baseArea = regularPolygonArea(n, side);
+  const reference = prismVolume(baseArea, height);
+  return {
+    baseArea,
+    basePerimeter: n * side,
+    height,
+    volume: pyramidVolume(baseArea, height),
+    prismVolume: reference,
+    share: 1 / 3,
+  };
+}
+
+/**
+ * Площадь сечения пирамиды плоскостью, параллельной основанию, на высоте `level`.
+ *
+ * Сечение подобно основанию с коэффициентом $\dfrac{h-\ell}{h}$, поэтому площадь
+ * умножается на квадрат этого коэффициента. Две пирамиды с равными основаниями
+ * и равными высотами дают на каждом уровне равные площади — это и есть условие
+ * принципа Кавальери.
+ */
+export function pyramidCrossSectionArea(baseArea: number, height: number, level: number): number {
+  assertPositive(baseArea, 'Площадь основания');
+  assertPositive(height, 'Высота');
+  assertFinite(level, 'Уровень сечения');
+  if (level < 0 || level > height) {
+    throw new RangeError('Уровень сечения должен лежать между 0 и высотой');
+  }
+  const ratio = (height - level) / height;
+  return baseArea * ratio * ratio;
+}
+
 // ───────────────────── модели многогранников ─────────────────────
 
 export interface SolidModel {
@@ -340,13 +434,27 @@ function regularBase(n: number, side: number): Vec3[] {
   });
 }
 
-/** Правильная $n$-угольная призма: основание в плоскости $z=0$, второе — в $z=h$. */
-export function regularPrismModel(n: number, side: number, height: number): SolidModel {
+/**
+ * Призма с правильным $n$-угольником в основании: нижнее основание в плоскости $z=0$,
+ * верхнее — в плоскости $z=h$, сдвинутое на вектор $(s_x, s_y)$.
+ *
+ * При нулевом сдвиге получается прямая призма, при ненулевом — наклонная.
+ * Расстояние между плоскостями оснований, то есть высота, от сдвига не зависит.
+ */
+export function obliquePrismModel(
+  n: number,
+  side: number,
+  height: number,
+  shiftX = 0,
+  shiftY = 0,
+): SolidModel {
   assertBaseSides(n);
   assertPositive(side, 'Сторона основания');
   assertPositive(height, 'Высота');
+  assertFinite(shiftX, 'Сдвиг вдоль x');
+  assertFinite(shiftY, 'Сдвиг вдоль y');
   const bottom = regularBase(n, side);
-  const top = bottom.map((point) => ({ ...point, z: height }));
+  const top = bottom.map((point) => ({ x: point.x + shiftX, y: point.y + shiftY, z: height }));
   const vertices = [...bottom, ...top];
   const edges: [number, number][] = [];
   for (let index = 0; index < n; index += 1) {
@@ -368,13 +476,29 @@ export function regularPrismModel(n: number, side: number, height: number): Soli
   return { vertices, edges, faces, labels };
 }
 
-/** Правильная $n$-угольная пирамида: основание в $z=0$, вершина на оси в $z=h$. */
-export function regularPyramidModel(n: number, side: number, height: number): SolidModel {
+/** Правильная $n$-угольная призма: основание в плоскости $z=0$, второе — в $z=h$. */
+export function regularPrismModel(n: number, side: number, height: number): SolidModel {
+  return obliquePrismModel(n, side, height, 0, 0);
+}
+
+/**
+ * Пирамида с правильным $n$-угольником в основании; вершина поднята на высоту $h$
+ * и сдвинута на вектор $(s_x, s_y)$ от оси. Нулевой сдвиг даёт правильную пирамиду.
+ */
+export function obliquePyramidModel(
+  n: number,
+  side: number,
+  height: number,
+  shiftX = 0,
+  shiftY = 0,
+): SolidModel {
   assertBaseSides(n);
   assertPositive(side, 'Сторона основания');
   assertPositive(height, 'Высота');
+  assertFinite(shiftX, 'Сдвиг вдоль x');
+  assertFinite(shiftY, 'Сдвиг вдоль y');
   const base = regularBase(n, side);
-  const vertices = [...base, { x: 0, y: 0, z: height }];
+  const vertices = [...base, { x: shiftX, y: shiftY, z: height }];
   const edges: [number, number][] = [];
   for (let index = 0; index < n; index += 1) {
     edges.push([index, (index + 1) % n], [index, n]);
@@ -385,6 +509,11 @@ export function regularPyramidModel(n: number, side: number, height: number): So
   }
   const labels = [...Array.from({ length: n }, (_, index) => `P${index + 1}`), 'S'];
   return { vertices, edges, faces, labels };
+}
+
+/** Правильная $n$-угольная пирамида: основание в $z=0$, вершина на оси в $z=h$. */
+export function regularPyramidModel(n: number, side: number, height: number): SolidModel {
+  return obliquePyramidModel(n, side, height, 0, 0);
 }
 
 export const CUBE_VERTEX_LABELS: readonly string[] = ['A', 'B', 'C', 'D', 'A₁', 'B₁', 'C₁', 'D₁'];
@@ -448,6 +577,61 @@ export function pointOnCubeEdge(edgeId: string, t: number, size = 1): Vec3 {
   const from = vertices[edge.from] as Vec3;
   const to = vertices[edge.to] as Vec3;
   return add(from, scale(subtract(to, from), t));
+}
+
+/** Объём тетраэдра по четырём вершинам: $\tfrac16\left|\left(\vec{ab}\times\vec{ac}\right)\cdot\vec{ad}\right|$. */
+export function tetrahedronVolume(a: Vec3, b: Vec3, c: Vec3, d: Vec3): number {
+  return Math.abs(dot(cross(subtract(b, a), subtract(c, a)), subtract(d, a))) / 6;
+}
+
+/**
+ * Объём пирамиды с плоским выпуклым основанием: основание разбивается на треугольники
+ * веером из первой вершины, и объёмы полученных тетраэдров складываются.
+ */
+export function pyramidVolumeFromBase(base: readonly Vec3[], apex: Vec3): number {
+  if (base.length < 3) {
+    throw new RangeError('В основании должно быть не меньше трёх вершин');
+  }
+  let total = 0;
+  for (let index = 1; index < base.length - 1; index += 1) {
+    total += tetrahedronVolume(
+      base[0] as Vec3,
+      base[index] as Vec3,
+      base[index + 1] as Vec3,
+      apex,
+    );
+  }
+  return total;
+}
+
+export interface CornerPyramid {
+  /** Общая вершина всех трёх пирамид — вершина $A$ куба. */
+  readonly apex: Vec3;
+  readonly base: readonly Vec3[];
+  readonly baseName: string;
+  readonly volume: number;
+}
+
+/**
+ * Разрезание куба на три равные пирамиды с общей вершиной $A$.
+ *
+ * Основаниями служат ровно те три грани, которые не содержат $A$. Пирамиды
+ * не перекрываются и вместе дают весь куб, поэтому объём каждой равен $\tfrac13 a^3$ —
+ * отсюда и берётся множитель $\tfrac13$ в формуле объёма пирамиды.
+ */
+export function cubeThirdPyramids(size = 1): readonly CornerPyramid[] {
+  assertPositive(size, 'Ребро куба');
+  const { vertices } = cubeModel(size);
+  const apex = vertices[0] as Vec3;
+  const definitions: readonly (readonly [readonly number[], string])[] = [
+    [[1, 2, 6, 5], 'BCC₁B₁'],
+    [[2, 3, 7, 6], 'CDD₁C₁'],
+    [[4, 5, 6, 7], 'A₁B₁C₁D₁'],
+  ];
+  return definitions.map(([indices, baseName]) => {
+    const base = indices.map((index) => vertices[index] as Vec3);
+    return { apex, base, baseName, volume: pyramidVolumeFromBase(base, apex) };
+  });
 }
 
 // ───────────────────────── проекции ─────────────────────────

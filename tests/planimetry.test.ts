@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   adjacentAngle,
   anglesImplyParallel,
+  canFormTriangle,
   convexPolygonAngleSum,
   crossingAngles,
   exteriorAngle,
@@ -10,11 +11,18 @@ import {
   isoscelesApexAngle,
   isoscelesBaseAngle,
   isoscelesLayout,
+  parallelogramFourthVertex,
+  parallelogramLayout,
+  polygonFanCut,
+  polygonVerticesFromAngleSum,
+  regularPolygonAngle,
   rotatePoint,
   segmentMidpoint,
+  thirdSideRange,
   thirdTriangleAngle,
   transversalPairAngle,
   triangleApexPoint,
+  triangleInequality,
   triangleLayout,
   triangleSidesFromBase,
   verticalAngle,
@@ -174,6 +182,55 @@ describe('sum of angles of a convex polygon', () => {
     expect(() => convexPolygonAngleSum(2)).toThrow('не меньше трёх');
     expect(() => convexPolygonAngleSum(4.5)).toThrow('не меньше трёх');
   });
+
+  it('counts the diagonals and the triangles of the fan cut', () => {
+    expect(polygonFanCut(3)).toEqual({ vertices: 3, diagonals: 0, triangles: 1, angleSum: 180 });
+    expect(polygonFanCut(4)).toEqual({ vertices: 4, diagonals: 1, triangles: 2, angleSum: 360 });
+    expect(polygonFanCut(5)).toEqual({ vertices: 5, diagonals: 2, triangles: 3, angleSum: 540 });
+    expect(polygonFanCut(6)).toEqual({ vertices: 6, diagonals: 3, triangles: 4, angleSum: 720 });
+  });
+
+  it('always makes the triangle count exceed the diagonal count by one', () => {
+    for (const n of [3, 4, 5, 6, 8, 12, 100]) {
+      const cut = polygonFanCut(n);
+      expect(cut.triangles).toBe(cut.diagonals + 1);
+      expect(cut.angleSum).toBe(convexPolygonAngleSum(n));
+    }
+  });
+
+  it('splits the sum evenly between the vertices of a regular polygon', () => {
+    expect(regularPolygonAngle(3)).toBe(60);
+    expect(regularPolygonAngle(4)).toBe(90);
+    expect(regularPolygonAngle(5)).toBe(108);
+    expect(regularPolygonAngle(6)).toBe(120);
+    expect(regularPolygonAngle(8)).toBe(135);
+    expect(regularPolygonAngle(12)).toBe(150);
+    // Не всякий угол целый: у семиугольника 900/7 = 128,571…
+    expect(regularPolygonAngle(7)).toBeCloseTo(900 / 7, 12);
+  });
+
+  it('keeps every angle of a convex polygon below a straight angle', () => {
+    for (const n of [3, 4, 5, 6, 7, 8, 12, 100]) {
+      expect(regularPolygonAngle(n)).toBeLessThan(180);
+      expect(regularPolygonAngle(n) * n).toBeCloseTo(convexPolygonAngleSum(n), 9);
+    }
+  });
+
+  it('recovers the number of sides from the angle sum', () => {
+    expect(polygonVerticesFromAngleSum(180)).toBe(3);
+    expect(polygonVerticesFromAngleSum(360)).toBe(4);
+    expect(polygonVerticesFromAngleSum(1080)).toBe(8);
+    expect(polygonVerticesFromAngleSum(1440)).toBe(10);
+    expect(polygonVerticesFromAngleSum(convexPolygonAngleSum(17))).toBe(17);
+  });
+
+  it('rejects angle sums that no convex polygon can have', () => {
+    expect(() => polygonVerticesFromAngleSum(500)).toThrow('кратна 180');
+    expect(() => polygonVerticesFromAngleSum(0)).toThrow('кратна 180');
+    expect(() => polygonVerticesFromAngleSum(Number.NaN)).toThrow('конечным числом');
+    expect(() => polygonFanCut(2)).toThrow('не меньше трёх');
+    expect(() => regularPolygonAngle(2.5)).toThrow('не меньше трёх');
+  });
 });
 
 describe('triangle layout for drawings', () => {
@@ -241,5 +298,131 @@ describe('point helpers used by the drawings', () => {
     expect(() => segmentMidpoint({ x: Number.NaN, y: 0 }, { x: 1, y: 1 })).toThrow('конечными координатами');
     expect(() => extendSegment({ x: 1, y: 1 }, { x: 1, y: 1 }, 2)).toThrow('не должны совпадать');
     expect(() => extendSegment({ x: 0, y: 0 }, { x: 1, y: 0 }, 0)).toThrow('положительным');
+  });
+});
+
+describe('triangle inequality', () => {
+  it('rejects a set whose two shorter sides do not reach', () => {
+    const check = triangleInequality(2, 3, 10);
+    expect(check.sorted).toEqual([2, 3, 10]);
+    expect(check.shorterSum).toBe(5);
+    expect(check.longest).toBe(10);
+    expect(check.possible).toBe(false);
+    expect(check.degenerate).toBe(false);
+  });
+
+  it('accepts a set whose two shorter sides overshoot', () => {
+    const check = triangleInequality(5, 5, 8);
+    expect(check.shorterSum).toBe(10);
+    expect(check.longest).toBe(8);
+    expect(check.possible).toBe(true);
+    expect(canFormTriangle(5, 6, 9)).toBe(true);
+    expect(canFormTriangle(6, 7, 12)).toBe(true);
+    expect(canFormTriangle(3, 4, 5)).toBe(true);
+  });
+
+  it('marks the boundary case as degenerate rather than possible', () => {
+    const check = triangleInequality(4, 5, 9);
+    expect(check.shorterSum).toBe(9);
+    expect(check.longest).toBe(9);
+    expect(check.degenerate).toBe(true);
+    expect(check.possible).toBe(false);
+    expect(canFormTriangle(4, 5, 9)).toBe(false);
+  });
+
+  it('does not depend on the order of the sides', () => {
+    for (const [first, second, third] of [[10, 2, 3], [3, 10, 2], [2, 10, 3]]) {
+      expect(triangleInequality(first!, second!, third!).sorted).toEqual([2, 3, 10]);
+      expect(canFormTriangle(first!, second!, third!)).toBe(false);
+    }
+  });
+
+  it('compares decimal lengths exactly', () => {
+    expect(canFormTriangle(0.1, 0.2, 0.3)).toBe(false);
+    expect(triangleInequality(0.1, 0.2, 0.3).degenerate).toBe(true);
+    expect(canFormTriangle(2.5, 2.5, 4.9)).toBe(true);
+  });
+
+  it('reports the open range for the third side', () => {
+    expect(thirdSideRange(5, 8)).toEqual({ greaterThan: 3, lessThan: 13 });
+    expect(thirdSideRange(8, 5)).toEqual({ greaterThan: 3, lessThan: 13 });
+    expect(thirdSideRange(6, 6)).toEqual({ greaterThan: 0, lessThan: 12 });
+    const { greaterThan, lessThan } = thirdSideRange(5, 8);
+    expect(canFormTriangle(5, 8, greaterThan)).toBe(false);
+    expect(canFormTriangle(5, 8, lessThan)).toBe(false);
+    expect(canFormTriangle(5, 8, (greaterThan + lessThan) / 2)).toBe(true);
+  });
+
+  it('rejects non-positive and non-finite lengths', () => {
+    expect(() => triangleInequality(0, 3, 4)).toThrow('положительным');
+    expect(() => triangleInequality(3, -1, 4)).toThrow('положительным');
+    expect(() => thirdSideRange(5, Number.NaN)).toThrow('положительным');
+  });
+});
+
+describe('parallelogram layout', () => {
+  it('keeps opposite sides equal and parallel by construction', () => {
+    const layout = parallelogramLayout(9, 5, 58);
+    expect(layout.sides).toEqual([9, 5, 9, 5]);
+    expect(layout.perimeter).toBe(28);
+    expect(Math.hypot(layout.b.x - layout.a.x, layout.b.y - layout.a.y)).toBeCloseTo(9, 9);
+    expect(Math.hypot(layout.c.x - layout.d.x, layout.c.y - layout.d.y)).toBeCloseTo(9, 9);
+    expect(Math.hypot(layout.d.x - layout.a.x, layout.d.y - layout.a.y)).toBeCloseTo(5, 9);
+    expect(Math.hypot(layout.c.x - layout.b.x, layout.c.y - layout.b.y)).toBeCloseTo(5, 9);
+    // AB и DC — один и тот же вектор, значит стороны параллельны.
+    expect(layout.b.x - layout.a.x).toBeCloseTo(layout.c.x - layout.d.x, 9);
+    expect(layout.b.y - layout.a.y).toBeCloseTo(layout.c.y - layout.d.y, 9);
+  });
+
+  it('makes neighbouring angles supplementary and opposite angles equal', () => {
+    expect(parallelogramLayout(9, 5, 58).angles).toEqual([58, 122, 58, 122]);
+    expect(parallelogramLayout(6, 5, 90).angles).toEqual([90, 90, 90, 90]);
+    const [a, b, c, d] = parallelogramLayout(7, 4, 63.5).angles;
+    expect(a).toBe(c);
+    expect(b).toBe(d);
+    expect(a + b).toBe(180);
+    expect(a + b + c + d).toBe(360);
+  });
+
+  it('puts the intersection of the diagonals at their common midpoint', () => {
+    const layout = parallelogramLayout(9, 5, 58);
+    const other = segmentMidpoint(layout.b, layout.d);
+    expect(layout.centre.x).toBeCloseTo(other.x, 9);
+    expect(layout.centre.y).toBeCloseTo(other.y, 9);
+  });
+
+  it('degenerates into a rectangle exactly at 90°', () => {
+    const rectangle = parallelogramLayout(8, 3, 90);
+    expect(rectangle.a).toEqual({ x: 0, y: 0 });
+    expect(rectangle.b).toEqual({ x: 8, y: 0 });
+    expect(rectangle.d.x).toBeCloseTo(0, 12);
+    expect(rectangle.d.y).toBeCloseTo(3, 12);
+    expect(rectangle.c.x).toBeCloseTo(8, 12);
+    expect(rectangle.c.y).toBeCloseTo(3, 12);
+    // У прямоугольника диагонали равны, а у наклонного параллелограмма — нет.
+    const diagonals = (layout: ReturnType<typeof parallelogramLayout>) => [
+      Math.hypot(layout.c.x - layout.a.x, layout.c.y - layout.a.y),
+      Math.hypot(layout.d.x - layout.b.x, layout.d.y - layout.b.y),
+    ];
+    const [first, second] = diagonals(rectangle);
+    expect(first).toBeCloseTo(second!, 9);
+    const [long, short] = diagonals(parallelogramLayout(8, 3, 60));
+    expect(long!).toBeGreaterThan(short!);
+  });
+
+  it('finds the fourth vertex from the other three', () => {
+    expect(parallelogramFourthVertex({ x: 0, y: 0 }, { x: 6, y: 0 }, { x: 9, y: 4 }))
+      .toEqual({ x: 3, y: 4 });
+    const layout = parallelogramLayout(9, 5, 58);
+    const restored = parallelogramFourthVertex(layout.a, layout.b, layout.c);
+    expect(restored.x).toBeCloseTo(layout.d.x, 9);
+    expect(restored.y).toBeCloseTo(layout.d.y, 9);
+  });
+
+  it('rejects impossible parallelogram data', () => {
+    expect(() => parallelogramLayout(0, 5, 60)).toThrow('положительным');
+    expect(() => parallelogramLayout(9, 5, 180)).toThrow('строго между');
+    expect(() => parallelogramFourthVertex({ x: 0, y: 0 }, { x: 1, y: Number.NaN }, { x: 2, y: 2 }))
+      .toThrow('конечными координатами');
   });
 });

@@ -38,10 +38,18 @@ import {
   classifyAngle,
   convertMetricValue,
   cuboidMetrics,
+  inspectQuadrilateral,
   orthogonalPerimeter,
   polygonArea,
   rectangleMetrics,
 } from '../src/lib/geometry';
+import {
+  canFormTriangle,
+  parallelogramFourthVertex,
+  parallelogramLayout,
+  segmentMidpoint,
+  triangleInequality,
+} from '../src/lib/planimetry';
 import {
   arithmeticMean,
   axisScale,
@@ -1047,6 +1055,43 @@ describe('глава 6 «Фигуры, меры и пространство»', 
     expect(40 + 60 + 80).toBe(180);
     expect(25 + 65 + 90).toBe(180);
     expect(30 + 35 + 115).toBe(180);
+    // Неравенство треугольника: набор 2, 3 и 10 см и зазор 5 см на чертеже.
+    expect(triangleInequality(2, 3, 10).shorterSum).toBe(5);
+    expect(triangleInequality(2, 3, 10).longest).toBe(10);
+    expect(canFormTriangle(2, 3, 10)).toBe(false);
+    expect(10 - 2 - 3).toBe(5);
+    // Таблица проверок: 5+5=10>8; 6+7=13>12; 4+5=9=9; 2+3=5<10.
+    expect(triangleInequality(5, 5, 8)).toMatchObject({ shorterSum: 10, longest: 8, possible: true });
+    expect(triangleInequality(6, 7, 12)).toMatchObject({ shorterSum: 13, longest: 12, possible: true });
+    expect(triangleInequality(4, 5, 9)).toMatchObject({ shorterSum: 9, longest: 9, degenerate: true });
+    // QuickCheck: треугольник складывается только из 5, 6 и 9 см.
+    expect([canFormTriangle(4, 5, 9), canFormTriangle(5, 6, 9), canFormTriangle(2, 3, 10)])
+      .toEqual([false, true, false]);
+    expect(5 + 6).toBe(11);
+    // Чертёж параллелограмма: A(0;0), B(6;0), C(9;4), D(3;4).
+    const parallelogram = [
+      { x: 0, y: 0 }, { x: 6, y: 0 }, { x: 9, y: 4 }, { x: 3, y: 4 },
+    ] as const;
+    expect(parallelogramFourthVertex(parallelogram[0], parallelogram[1], parallelogram[2]))
+      .toEqual(parallelogram[3]);
+    const parallelogramFacts = inspectQuadrilateral(parallelogram);
+    expect(parallelogramFacts.parallelPairs).toBe(2);
+    expect(parallelogramFacts.rightAngles).toBe(0);
+    expect(parallelogramFacts.diagonalsBisectEachOther).toBe(true);
+    expect(parallelogramFacts.equalDiagonals).toBe(false);
+    // Противоположные стороны 6 см и 5 см; диагонали пересекаются в (4,5; 2).
+    expect(Math.hypot(6 - 0, 0 - 0)).toBe(6);
+    expect(Math.hypot(9 - 3, 4 - 4)).toBe(6);
+    expect(Math.hypot(3 - 0, 4 - 0)).toBe(5);
+    expect(Math.hypot(9 - 6, 4 - 0)).toBe(5);
+    expect(segmentMidpoint(parallelogram[0], parallelogram[2])).toEqual({ x: 4.5, y: 2 });
+    expect(segmentMidpoint(parallelogram[1], parallelogram[3])).toEqual({ x: 4.5, y: 2 });
+    // Практика 12–13.
+    expect([canFormTriangle(2, 3, 10), canFormTriangle(5, 5, 8), canFormTriangle(4, 5, 9)])
+      .toEqual([false, true, false]);
+    expect(parallelogramLayout(7, 4, 65).sides).toEqual([7, 4, 7, 4]);
+    expect(parallelogramLayout(7, 4, 65).perimeter).toBe(22);
+    expect(2 * (7 + 4)).toBe(22);
   });
 
   it('урок 6.4: периметр и площадь', () => {

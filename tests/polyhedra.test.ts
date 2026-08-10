@@ -8,27 +8,38 @@ import {
   cubeModel,
   cubeSection,
   cubeSectionFromEdges,
+  cubeThirdPyramids,
   cuboidSurface,
+  cuboidVolume,
   eulerCharacteristic,
   fitToBox,
   isFaceVisible,
+  obliquePrismModel,
+  obliquePyramidModel,
   planeThroughPoints,
   platonicSolid,
   pointOnCubeEdge,
   polygonArea,
   polygonPerimeter,
   prismCounts,
+  prismVolume,
   projectPoint,
   pyramidCounts,
+  pyramidCrossSectionArea,
+  pyramidVolume,
+  pyramidVolumeFromBase,
   regularPolygonArea,
   regularPolygonCircumradius,
   regularPolygonInradius,
   regularPrismModel,
   regularPrismSurface,
+  regularPrismVolume,
   regularPyramidModel,
   regularPyramidSurface,
+  regularPyramidVolume,
   roundTo,
   satisfiesEuler,
+  tetrahedronVolume,
   viewerDirection,
   visibleEdges,
   type Vec3,
@@ -154,6 +165,159 @@ describe('ploshchad poverkhnosti', () => {
     expect(() => regularPyramidSurface(4, 5, -1)).toThrow('положительным');
     expect(() => cuboidSurface(1, 2, 0)).toThrow('положительным');
     expect(() => regularPolygonArea(6, Number.NaN)).toThrow('конечным');
+  });
+});
+
+/**
+ * Независимая проверка объёма любой выпуклой модели: тело разрезается на пирамиды
+ * с общей вершиной во внутренней точке, основаниями служат грани.
+ */
+function modelVolume(model: { vertices: readonly Vec3[]; faces: readonly (readonly number[])[] }): number {
+  const inner = model.vertices.reduce(
+    (sum, point) => ({ x: sum.x + point.x, y: sum.y + point.y, z: sum.z + point.z }),
+    { x: 0, y: 0, z: 0 },
+  );
+  const center: Vec3 = {
+    x: inner.x / model.vertices.length,
+    y: inner.y / model.vertices.length,
+    z: inner.z / model.vertices.length,
+  };
+  return model.faces.reduce(
+    (sum, face) => sum + pyramidVolumeFromBase(face.map((index) => model.vertices[index] as Vec3), center),
+    0,
+  );
+}
+
+describe('obyomy mnogogrannikov', () => {
+  it('measures the box by three edges', () => {
+    expect(cuboidVolume(3, 4, 5)).toBe(60);
+    expect(cuboidVolume(4, 4, 4)).toBe(64);
+    // Кубический дециметр — это литр: 10 см × 10 см × 10 см.
+    expect(cuboidVolume(10, 10, 10)).toBe(1000);
+    expect(() => cuboidVolume(3, 0, 5)).toThrow('положительным');
+  });
+
+  it('multiplies base area by height for a prism', () => {
+    expect(prismVolume(12, 5)).toBe(60);
+
+    const square = regularPrismVolume(4, 3, 5);
+    expect(square.baseArea).toBeCloseTo(9, 10);
+    expect(square.volume).toBeCloseTo(45, 10);
+    expect(square.volume).toBeCloseTo(cuboidVolume(3, 3, 5), 10);
+    expect(square.share).toBe(1);
+
+    const hexagonal = regularPrismVolume(6, 4, 10);
+    expect(hexagonal.baseArea).toBeCloseTo(24 * SQRT3, 10);
+    expect(hexagonal.volume).toBeCloseTo(240 * SQRT3, 10);
+  });
+
+  it('gives the pyramid exactly one third of its prism', () => {
+    expect(pyramidVolume(12, 5)).toBeCloseTo(20, 10);
+
+    const pyramid = regularPyramidVolume(4, 6, 9);
+    expect(pyramid.baseArea).toBeCloseTo(36, 10);
+    expect(pyramid.volume).toBeCloseTo(108, 10);
+    expect(pyramid.prismVolume).toBeCloseTo(324, 10);
+    expect(pyramid.share).toBeCloseTo(1 / 3, 12);
+    expect(pyramid.volume * 3).toBeCloseTo(regularPrismVolume(4, 6, 9).volume, 10);
+
+    const triangular = regularPyramidVolume(3, 6, 5);
+    expect(triangular.baseArea).toBeCloseTo(9 * SQRT3, 10);
+    expect(triangular.volume).toBeCloseTo(15 * SQRT3, 10);
+  });
+
+  it('cuts the cube into three pyramids of equal volume', () => {
+    const pieces = cubeThirdPyramids(3);
+    expect(pieces).toHaveLength(3);
+    for (const piece of pieces) {
+      expect(piece.base).toHaveLength(4);
+      expect(piece.volume).toBeCloseTo(9, 10);
+      expect(piece.volume).toBeCloseTo(cuboidVolume(3, 3, 3) / 3, 10);
+      // Каждый кусок — пирамида с площадью основания 9 и высотой 3.
+      expect(piece.volume).toBeCloseTo(pyramidVolume(9, 3), 10);
+    }
+    const total = pieces.reduce((sum, piece) => sum + piece.volume, 0);
+    expect(total).toBeCloseTo(cuboidVolume(3, 3, 3), 10);
+    expect(pieces.map((piece) => piece.baseName)).toEqual(['BCC₁B₁', 'CDD₁C₁', 'A₁B₁C₁D₁']);
+    expect(cubeThirdPyramids(1)[0]?.volume).toBeCloseTo(1 / 3, 12);
+  });
+
+  it('computes volumes straight from the vertices', () => {
+    // Угловой тетраэдр единичного куба: 1/3 · (1/2) · 1 = 1/6.
+    expect(tetrahedronVolume(
+      { x: 0, y: 0, z: 0 },
+      { x: 1, y: 0, z: 0 },
+      { x: 0, y: 1, z: 0 },
+      { x: 0, y: 0, z: 1 },
+    )).toBeCloseTo(1 / 6, 12);
+
+    const base: Vec3[] = [
+      { x: -3, y: -3, z: 0 },
+      { x: 3, y: -3, z: 0 },
+      { x: 3, y: 3, z: 0 },
+      { x: -3, y: 3, z: 0 },
+    ];
+    expect(pyramidVolumeFromBase(base, { x: 0, y: 0, z: 4 })).toBeCloseTo(48, 10);
+    // Сдвиг вершины в сторону не меняет объём: основание и высота те же.
+    expect(pyramidVolumeFromBase(base, { x: 9, y: 0, z: 4 })).toBeCloseTo(48, 10);
+    expect(() => pyramidVolumeFromBase(base.slice(0, 2), { x: 0, y: 0, z: 4 })).toThrow('не меньше трёх');
+  });
+
+  it('keeps sections equal in area for the Cavalieri argument', () => {
+    expect(pyramidCrossSectionArea(36, 6, 0)).toBeCloseTo(36, 10);
+    expect(pyramidCrossSectionArea(36, 6, 3)).toBeCloseTo(9, 10);
+    expect(pyramidCrossSectionArea(36, 6, 6)).toBeCloseTo(0, 12);
+
+    // Пирамиды с разными основаниями, но равными площадью основания и высотой
+    // дают на каждом уровне равные площади сечений — условие принципа Кавальери.
+    const square = regularPyramidVolume(4, 6, 6);
+    const hexagonSide = 6 / Math.sqrt(regularPolygonArea(6, 1));
+    const hexagonal = regularPyramidVolume(6, hexagonSide, 6);
+    expect(hexagonal.baseArea).toBeCloseTo(square.baseArea, 10);
+    for (const level of [0, 1.5, 3, 4.5]) {
+      expect(pyramidCrossSectionArea(hexagonal.baseArea, hexagonal.height, level)).toBeCloseTo(
+        pyramidCrossSectionArea(square.baseArea, square.height, level),
+        10,
+      );
+    }
+    expect(hexagonal.volume).toBeCloseTo(square.volume, 10);
+    expect(() => pyramidCrossSectionArea(36, 6, 7)).toThrow('между 0 и высотой');
+  });
+
+  it('does not change the volume when the top is shifted sideways', () => {
+    const straight = regularPrismModel(6, 4, 10);
+    const leaning = obliquePrismModel(6, 4, 10, 5, -2);
+    expect(leaning.vertices).toHaveLength(straight.vertices.length);
+    expect(leaning.edges).toHaveLength(18);
+    expect(leaning.faces).toHaveLength(8);
+    expect(modelVolume(straight)).toBeCloseTo(240 * SQRT3, 8);
+    expect(modelVolume(leaning)).toBeCloseTo(modelVolume(straight), 8);
+    expect(modelVolume(leaning)).toBeCloseTo(regularPrismVolume(6, 4, 10).volume, 8);
+
+    const cone = regularPyramidModel(4, 6, 9);
+    const leaningCone = obliquePyramidModel(4, 6, 9, 7, 4);
+    expect(modelVolume(cone)).toBeCloseTo(108, 8);
+    expect(modelVolume(leaningCone)).toBeCloseTo(108, 8);
+    // Наклонное тело остаётся выпуклым, поэтому чертёж строится без ошибок.
+    for (const model of [leaning, leaningCone]) {
+      const flags = visibleEdges(model, 'isometric');
+      expect(flags).toHaveLength(model.edges.length);
+      expect(flags.some(Boolean)).toBe(true);
+      expect(flags.every(Boolean)).toBe(false);
+      expect(model.faces.some((_, index) => isFaceVisible(model, index, 'cabinet'))).toBe(true);
+    }
+
+    // Прямая призма — частный случай наклонной с нулевым сдвигом.
+    expect(obliquePrismModel(5, 3, 4)).toEqual(regularPrismModel(5, 3, 4));
+    expect(obliquePyramidModel(5, 3, 4)).toEqual(regularPyramidModel(5, 3, 4));
+    expect(() => obliquePrismModel(6, 4, 10, Number.NaN)).toThrow('конечным');
+  });
+
+  it('rejects impossible measurements', () => {
+    expect(() => prismVolume(0, 5)).toThrow('положительным');
+    expect(() => pyramidVolume(12, -3)).toThrow('положительным');
+    expect(() => regularPrismVolume(2, 3, 4)).toThrow('от 3 до 24');
+    expect(() => regularPyramidVolume(4, 3, 0)).toThrow('положительным');
   });
 });
 
