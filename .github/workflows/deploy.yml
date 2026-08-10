@@ -52,8 +52,11 @@ jobs:
       - run: npm ci
 
       # Даёт адрес и подпуть, по которым Pages отдаёт этот репозиторий.
+      # enablement включает Pages, если в настройках он ещё не включён.
       - uses: actions/configure-pages@v5
         id: pages
+        with:
+          enablement: true
 
       - name: Сборка
         env:
