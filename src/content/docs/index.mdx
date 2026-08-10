@@ -19,7 +19,6 @@ hero:
 
 import CourseGrid from '../../components/CourseGrid.astro';
 import BookFeatures from '../../components/BookFeatures.astro';
-import CourseProgress from '../../components/CourseProgress';
 
 ## Не запоминай вслепую — исследуй
 
@@ -33,81 +32,17 @@ import CourseProgress from '../../components/CourseProgress';
 
 <CourseGrid />
 
-## Уже можно пройти
+## Книга открыта целиком
 
-У 6 класса готовы шесть последовательных маршрутов: **«У чисел есть устройство»**, **«Дроби без страха»**, **«Отношения и проценты»**, **«Числа со знаком»**, **«Буквы, выражения и формулы»** и **«Фигуры, меры и пространство»**. В них есть точные объяснения, интерактивные модели, вопросы с обратной связью и итоговые практикумы.
+Все шесть лет написаны и связаны между собой: **33 главы**, больше двухсот уроков, в каждом — эксперимент, точное правило, разбор, самопроверка и практика с ответами.
 
-<CourseProgress
-  client:load
-  eyebrow="Глава 1 · У чисел есть устройство"
-  lessons={[
-    { id: '6-numbers-divisors', title: 'Делители и кратные', href: '/6-klass/delimost/deliteli/' },
-    { id: '6-numbers-remainder', title: 'Что рассказывает остаток', href: '/6-klass/delimost/ostatok/' },
-    { id: '6-numbers-tests', title: 'Признаки делимости', href: '/6-klass/delimost/priznaki/' },
-    { id: '6-numbers-primes', title: 'Простые числа', href: '/6-klass/delimost/prostye/' },
-    { id: '6-numbers-gcd', title: 'Наибольший общий делитель', href: '/6-klass/delimost/nod/' },
-    { id: '6-numbers-lcm', title: 'Наименьшее общее кратное', href: '/6-klass/delimost/nok/' },
-    { id: '6-numbers-practice', title: 'Практикум', href: '/6-klass/delimost/praktikum/' },
-  ]}
-/>
+- **6 класс** — делимость, дроби, отношения и проценты, числа со знаком, формулы, наглядная геометрия, данные и перебор.
+- **7 класс** — степени, алгебраический язык, линейные модели, первые доказательства, случайные опыты.
+- **8 класс** — корни, алгебраические дроби, квадратные уравнения, неравенства, подобие, вероятностные деревья.
+- **9 класс** — системы, парабола, прогрессии, решение треугольников, векторы, комбинаторика.
+- **10 класс** — язык функций, тригонометрия, логика, стереометрия, многогранники, условная вероятность.
+- **11 класс** — логарифмы, производная, интеграл, тела вращения, векторы в пространстве, статистика.
 
-<CourseProgress client:load eyebrow="Глава 2 · Дроби без страха" />
+Прогресс отмечается прямо в уроке и хранится в браузере — регистрация не нужна.
 
-<CourseProgress
-  client:load
-  eyebrow="Глава 3 · Отношения и проценты"
-  lessons={[
-    { id: '6-ratios-meaning', title: 'Смысл отношения', href: '/6-klass/otnosheniya/smysl/' },
-    { id: '6-ratios-proportions', title: 'Равные отношения и пропорции', href: '/6-klass/otnosheniya/proportsii/' },
-    { id: '6-ratios-rate', title: 'Прямая пропорциональность', href: '/6-klass/otnosheniya/pryamaya-proportsionalnost/' },
-    { id: '6-ratios-scale', title: 'Масштаб', href: '/6-klass/otnosheniya/masshtab/' },
-    { id: '6-ratios-percent', title: 'Процент — доля из ста', href: '/6-klass/otnosheniya/protsenty/' },
-    { id: '6-ratios-change', title: 'Процентные задачи и изменения', href: '/6-klass/otnosheniya/izmeneniya/' },
-    { id: '6-ratios-practice', title: 'Практикум', href: '/6-klass/otnosheniya/praktikum/' },
-  ]}
-/>
-
-<CourseProgress
-  client:load
-  eyebrow="Глава 4 · Числа со знаком"
-  lessons={[
-    { id: '6-signed-line', title: 'Координатная прямая', href: '/6-klass/otricatelnye-chisla/koordinatnaya-pryamaya/' },
-    { id: '6-signed-absolute', title: 'Модуль и сравнение', href: '/6-klass/otricatelnye-chisla/modul-i-sravnenie/' },
-    { id: '6-signed-addition', title: 'Сложение чисел со знаком', href: '/6-klass/otricatelnye-chisla/slozhenie/' },
-    { id: '6-signed-subtraction', title: 'Вычитание чисел со знаком', href: '/6-klass/otricatelnye-chisla/vychitanie/' },
-    { id: '6-signed-multiply-divide', title: 'Умножение и деление', href: '/6-klass/otricatelnye-chisla/umnozhenie-i-delenie/' },
-    { id: '6-signed-plane', title: 'Координатная плоскость', href: '/6-klass/otricatelnye-chisla/koordinatnaya-ploskost/' },
-    { id: '6-signed-practice', title: 'Практикум', href: '/6-klass/otricatelnye-chisla/praktikum/' },
-  ]}
-/>
-
-<CourseProgress
-  client:load
-  eyebrow="Глава 5 · Буквы, выражения и формулы"
-  lessons={[
-    { id: '6-algebra-variables', title: 'Буква хранит число', href: '/6-klass/bukvy-i-formuly/bukva-kak-chislo/' },
-    { id: '6-algebra-expressions', title: 'Выражение — план вычислений', href: '/6-klass/bukvy-i-formuly/vyrazhenie-kak-plan/' },
-    { id: '6-algebra-substitution', title: 'Подстановка и таблица значений', href: '/6-klass/bukvy-i-formuly/podstanovka-i-tablitsa/' },
-    { id: '6-algebra-distributive', title: 'Распределительное свойство', href: '/6-klass/bukvy-i-formuly/raspredelitelnoe-svoystvo/' },
-    { id: '6-algebra-like-terms', title: 'Коэффициент и подобные слагаемые', href: '/6-klass/bukvy-i-formuly/podobnye-slagaemye/' },
-    { id: '6-algebra-formulas', title: 'Формула — сжатая модель', href: '/6-klass/bukvy-i-formuly/formuly-i-modeli/' },
-    { id: '6-algebra-practice', title: 'Практикум', href: '/6-klass/bukvy-i-formuly/praktikum/' },
-  ]}
-/>
-
-<CourseProgress
-  client:load
-  eyebrow="Глава 6 · Фигуры, меры и пространство"
-  lessons={[
-    { id: '6-geometry-lines', title: 'Прямые и расстояния', href: '/6-klass/geometriya-i-izmereniya/pryamye-i-rasstoyaniya/' },
-    { id: '6-geometry-angles', title: 'Углы и транспортир', href: '/6-klass/geometriya-i-izmereniya/ugly-i-transportir/' },
-    { id: '6-geometry-polygons', title: 'Треугольники и четырёхугольники', href: '/6-klass/geometriya-i-izmereniya/treugolniki-i-chetyrehugolniki/' },
-    { id: '6-geometry-measures', title: 'Периметр и площадь', href: '/6-klass/geometriya-i-izmereniya/perimetr-i-ploschad/' },
-    { id: '6-geometry-circle', title: 'Окружность и круг', href: '/6-klass/geometriya-i-izmereniya/okruzhnost-i-krug/' },
-    { id: '6-geometry-symmetry', title: 'Симметрия', href: '/6-klass/geometriya-i-izmereniya/simmetriya/' },
-    { id: '6-geometry-solids', title: 'Тела, развёртки и объём', href: '/6-klass/geometriya-i-izmereniya/tela-razvertki-i-obem/' },
-    { id: '6-geometry-practice', title: 'Практикум', href: '/6-klass/geometriya-i-izmereniya/praktikum/' },
-  ]}
-/>
-
-> Начни с [устройства чисел](/6-klass/delimost/) или сначала посмотри [как устроена книга](/about/). Если числовые главы уже знакомы, переходи к [буквам и формулам](/6-klass/bukvy-i-formuly/), а затем — к [геометрическому эксперименту](/6-klass/geometriya-i-izmereniya/).
+> Начни с [устройства чисел](/6-klass/delimost/) или сначала посмотри, [как устроена книга](/about/). Если школьные годы уже позади, можно войти с любой стороны: [производная](/11-klass/proizvodnaya/), [тригонометрия](/10-klass/trigonometriya/) и [комбинаторика](/9-klass/kombinatorika/) читаются самостоятельно.
