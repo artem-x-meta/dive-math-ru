@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/basePath';
+
 interface Props {
   grade: string;
   thesis: string;
@@ -14,7 +16,7 @@ const { grade, thesis, modules, bridge } = Astro.props;
 <div class="dm-course-grid not-content" aria-label={`Разделы курса: ${grade}`}>
   {modules.map((module, index) => (
     module.href ? (
-      <a class="dm-course-card" href={module.href}>
+      <a class="dm-course-card" href={withBase(module.href)}>
         <span class="dm-course-card__grade">{String(index + 1).padStart(2, '0')}</span>
         <h3>{module.title}</h3>
         <p>{module.topics}</p>

@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/basePath';
+
 const courses = [
   { grade: '6 класс', title: 'Числа обретают смысл', description: 'Делимость, дроби, отношения, отрицательные числа, формулы, координаты, наглядная геометрия и данные.', href: '/6-klass/', ready: true, status: '7 глав готовы' },
   { grade: '7 класс', title: 'Появляется язык алгебры', description: 'Степени, многочлены, линейные модели, первые доказательства и случайные опыты.', href: '/7-klass/', ready: true, status: '5 глав готовы' },
@@ -11,7 +13,7 @@ const courses = [
 
 <div class="dm-course-grid not-content">
   {courses.map((course) => (
-    <a class="dm-course-card" href={course.href}>
+    <a class="dm-course-card" href={withBase(course.href)}>
       <span class="dm-course-card__grade">{course.grade}</span>
       <h3>{course.title}</h3>
       <p>{course.description}</p>

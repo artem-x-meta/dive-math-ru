@@ -4,11 +4,17 @@ import starlight from '@astrojs/starlight';
 import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { remarkBaseLinks } from './scripts/remark-base-links.mjs';
 
 const site = process.env.SITE_URL;
 
+// GitHub Pages отдаёт проект по подпути. Локально переменная не задана,
+// поэтому разработка и деплой в корень домена работают как раньше.
+const base = process.env.BASE_PATH?.replace(/\/$/, '') || undefined;
+
 export default defineConfig({
   ...(site ? { site } : {}),
+  ...(base ? { base } : {}),
   integrations: [
     react(),
     starlight({
@@ -531,7 +537,7 @@ export default defineConfig({
   ],
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, [remarkBaseLinks, { base }]],
       rehypePlugins: [rehypeKatex],
     }),
   },

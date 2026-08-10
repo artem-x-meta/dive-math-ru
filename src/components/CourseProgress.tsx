@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import { readBooleanRecord } from '../lib/storage';
+import { withBase } from '../lib/basePath';
 
 const defaultLessons = [
   { id: '6-fractions-compare', title: 'Сравнение дробей', href: '/6-klass/drobi/sravnenie/' },
@@ -43,7 +44,7 @@ export default function CourseProgress({ lessons = defaultLessons, eyebrow = 'Т
         <p>{completedCount} из {lessons.length} уроков отмечено</p>
         <progress value={completedCount} max={lessons.length} aria-label={`Пройдено ${completedCount} из ${lessons.length} уроков`} />
       </div>
-      <a className="dm-button" href={nextLesson.href}>
+      <a className="dm-button" href={withBase(nextLesson.href)}>
         {allComplete ? 'Повторить практику' : completedCount === 0 ? 'Начать маршрут' : `Дальше: ${nextLesson.title}`} <span aria-hidden="true">→</span>
       </a>
     </section>

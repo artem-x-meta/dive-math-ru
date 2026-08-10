@@ -39,6 +39,20 @@ npm run preview
 
 Для production-деплоя передайте публичный адрес в `SITE_URL` (например, `https://math.example.org`). Astro использует его для canonical URL и sitemap; локальная сборка без домена намеренно пропускает sitemap.
 
+## Публикация
+
+Книга публикуется на GitHub Pages автоматически при каждом пуше в `main` — workflow `.github/workflows/deploy.yml` сначала гоняет `astro check` и тесты и только потом собирает и выкладывает.
+
+Pages отдаёт проект по подпути, поэтому сборка принимает ещё одну переменную:
+
+```sh
+SITE_URL=https://artem-x-meta.github.io BASE_PATH=/dive-math-ru npm run build
+```
+
+Ссылки в исходниках при этом остаются корневыми (`/6-klass/delimost/`) — так их проверяет `tests/content.test.ts` и так работает `npm run dev`. Префикс подставляется на сборке: разметку обрабатывает `scripts/remark-base-links.mjs`, а компоненты, которые собирают `href` сами, пользуются `withBase()` из `src/lib/basePath.ts`. Без `BASE_PATH` оба механизма ничего не делают, поэтому деплой в корень домена работает без изменений.
+
+Исключение — кнопки в hero на главной: Starlight не подставляет базовый путь во frontmatter, поэтому там ссылки записаны относительными.
+
 ## Архитектура
 
 ```text
