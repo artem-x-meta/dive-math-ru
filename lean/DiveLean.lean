@@ -14,3 +14,6 @@ import DiveLean.Ch03.Quantifiers
 import DiveLean.Ch04.Rewriting
 import DiveLean.Ch05.Numbers
 import DiveLean.Ch06.Induction
+import DiveLean.Ch07.Inequalities
+import DiveLean.Ch08.IffVsImplies
+import DiveLean.Ch09.SqrtTwo

@@ -52,6 +52,9 @@ export default defineConfig({
             { label: '1.4 Переписывание равенств', slug: 'lean/perepisyvanie-ravenstv' },
             { label: '1.5 Числа и решатели', slug: 'lean/chisla-i-reshateli' },
             { label: '1.6 Индукция', slug: 'lean/induktsiya' },
+            { label: '1.7 Неравенства', slug: 'lean/neravenstva' },
+            { label: '1.8 Равносильность и следствие', slug: 'lean/ravnosilnost-i-sledstvie' },
+            { label: '1.9 Иррациональность √2', slug: 'lean/irratsionalnost-kornya' },
           ],
         },
         {

@@ -274,6 +274,9 @@ describe('book content', () => {
       '/lean/perepisyvanie-ravenstv/',
       '/lean/chisla-i-reshateli/',
       '/lean/induktsiya/',
+      '/lean/neravenstva/',
+      '/lean/ravnosilnost-i-sledstvie/',
+      '/lean/irratsionalnost-kornya/',
     ]));
   });
 
