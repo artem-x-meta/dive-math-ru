@@ -270,6 +270,8 @@ describe('book content', () => {
       '/lean/',
       '/lean/dokazatelstvo-kak-obekt/',
       '/lean/svyazki-i-razbor-sluchaev/',
+      '/lean/kvantory/',
+      '/lean/perepisyvanie-ravenstv/',
     ]));
   });
 

@@ -48,6 +48,8 @@ export default defineConfig({
             { label: 'О курсе', slug: 'lean' },
             { label: '1.1 Доказательство как объект', slug: 'lean/dokazatelstvo-kak-obekt' },
             { label: '1.2 Связки и разбор случаев', slug: 'lean/svyazki-i-razbor-sluchaev' },
+            { label: '1.3 Кванторы', slug: 'lean/kvantory' },
+            { label: '1.4 Переписывание равенств', slug: 'lean/perepisyvanie-ravenstv' },
           ],
         },
         {
