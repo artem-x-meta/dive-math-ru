@@ -47,6 +47,7 @@ export default defineConfig({
           items: [
             { label: 'О курсе', slug: 'lean' },
             { label: '1.1 Доказательство как объект', slug: 'lean/dokazatelstvo-kak-obekt' },
+            { label: '1.2 Связки и разбор случаев', slug: 'lean/svyazki-i-razbor-sluchaev' },
           ],
         },
         {

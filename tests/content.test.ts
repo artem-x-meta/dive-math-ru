@@ -269,6 +269,7 @@ describe('book content', () => {
       '/11-klass/statisticheskoe-myshlenie/praktikum/',
       '/lean/',
       '/lean/dokazatelstvo-kak-obekt/',
+      '/lean/svyazki-i-razbor-sluchaev/',
     ]));
   });
 
