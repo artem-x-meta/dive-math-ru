@@ -1,0 +1,36 @@
+---
+/**
+ * Заголовок сайта с переключателем курсов.
+ *
+ * Дефолтный компонент Starlight отрисовывается как есть, рядом
+ * добавляется переключатель. На узких экранах он спрятан — там в шапке
+ * и без него тесно, а копия переключателя живёт вверху бокового меню.
+ */
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import CourseSwitcher from '../CourseSwitcher.astro';
+---
+
+<div class="dm-site-title">
+  <Default><slot /></Default>
+  <CourseSwitcher class="dm-course-switcher--header" />
+</div>
+
+<style>
+  .dm-site-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .dm-site-title :global(.dm-course-switcher--header) {
+    display: none;
+  }
+
+  /* Тот же порог, на котором Starlight показывает боковое меню. */
+  @media (min-width: 50rem) {
+    .dm-site-title :global(.dm-course-switcher--header) {
+      display: flex;
+    }
+  }
+</style>

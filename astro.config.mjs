@@ -33,6 +33,12 @@ export default defineConfig({
         },
       },
       customCss: ['./src/styles/custom.css'],
+      // Книга и курс Lean независимы: в меню видно только текущий курс,
+      // а переключение вынесено в шапку.
+      components: {
+        SiteTitle: './src/components/starlight/SiteTitle.astro',
+        Sidebar: './src/components/starlight/Sidebar.astro',
+      },
       sidebar: [
         {
           label: 'Старт',
