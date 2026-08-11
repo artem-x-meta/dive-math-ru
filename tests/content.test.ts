@@ -272,6 +272,8 @@ describe('book content', () => {
       '/lean/svyazki-i-razbor-sluchaev/',
       '/lean/kvantory/',
       '/lean/perepisyvanie-ravenstv/',
+      '/lean/chisla-i-reshateli/',
+      '/lean/induktsiya/',
     ]));
   });
 
