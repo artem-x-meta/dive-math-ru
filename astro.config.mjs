@@ -42,6 +42,14 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Lean — отдельный курс',
+          collapsed: true,
+          items: [
+            { label: 'О курсе', slug: 'lean' },
+            { label: '1.1 Доказательство как объект', slug: 'lean/dokazatelstvo-kak-obekt' },
+          ],
+        },
+        {
           label: '6 класс',
           collapsed: false,
           items: [

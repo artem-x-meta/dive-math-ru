@@ -267,6 +267,8 @@ describe('book content', () => {
       '/11-klass/statisticheskoe-myshlenie/normalnaya-model/',
       '/11-klass/statisticheskoe-myshlenie/vyborka-i-vyvody/',
       '/11-klass/statisticheskoe-myshlenie/praktikum/',
+      '/lean/',
+      '/lean/dokazatelstvo-kak-obekt/',
     ]));
   });
 

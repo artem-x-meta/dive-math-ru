@@ -6,3 +6,6 @@ dist/
 
 # Локальное состояние окон Obsidian
 vault/.obsidian/workspace*.json
+
+# Сборочные артефакты Lean: сюда Lake кладёт Mathlib и .olean-файлы
+lean/.lake/
