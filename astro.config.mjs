@@ -33,34 +33,12 @@ export default defineConfig({
         },
       },
       customCss: ['./src/styles/custom.css'],
-      // Книга и курс Lean независимы: в меню видно только текущий курс,
-      // а переключение вынесено в шапку.
-      components: {
-        SiteTitle: './src/components/starlight/SiteTitle.astro',
-        Sidebar: './src/components/starlight/Sidebar.astro',
-      },
       sidebar: [
         {
           label: 'Старт',
           items: [
             { label: 'Как устроена книга', slug: 'about' },
             { label: 'Карта курса', slug: 'roadmap' },
-          ],
-        },
-        {
-          label: 'Lean — отдельный курс',
-          collapsed: true,
-          items: [
-            { label: 'О курсе', slug: 'lean' },
-            { label: '1.1 Доказательство как объект', slug: 'lean/dokazatelstvo-kak-obekt' },
-            { label: '1.2 Связки и разбор случаев', slug: 'lean/svyazki-i-razbor-sluchaev' },
-            { label: '1.3 Кванторы', slug: 'lean/kvantory' },
-            { label: '1.4 Переписывание равенств', slug: 'lean/perepisyvanie-ravenstv' },
-            { label: '1.5 Числа и решатели', slug: 'lean/chisla-i-reshateli' },
-            { label: '1.6 Индукция', slug: 'lean/induktsiya' },
-            { label: '1.7 Неравенства', slug: 'lean/neravenstva' },
-            { label: '1.8 Равносильность и следствие', slug: 'lean/ravnosilnost-i-sledstvie' },
-            { label: '1.9 Иррациональность √2', slug: 'lean/irratsionalnost-kornya' },
           ],
         },
         {

@@ -267,16 +267,6 @@ describe('book content', () => {
       '/11-klass/statisticheskoe-myshlenie/normalnaya-model/',
       '/11-klass/statisticheskoe-myshlenie/vyborka-i-vyvody/',
       '/11-klass/statisticheskoe-myshlenie/praktikum/',
-      '/lean/',
-      '/lean/dokazatelstvo-kak-obekt/',
-      '/lean/svyazki-i-razbor-sluchaev/',
-      '/lean/kvantory/',
-      '/lean/perepisyvanie-ravenstv/',
-      '/lean/chisla-i-reshateli/',
-      '/lean/induktsiya/',
-      '/lean/neravenstva/',
-      '/lean/ravnosilnost-i-sledstvie/',
-      '/lean/irratsionalnost-kornya/',
     ]));
   });
 
