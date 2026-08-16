@@ -66,7 +66,7 @@ export default defineConfig({
               items: [
                 { label: 'Вход в тему', slug: '6-klass/drobi' },
                 { label: '2.1 Сравнение дробей', slug: '6-klass/drobi/sravnenie' },
-                { label: '2.2 Сложение дробей', slug: '6-klass/drobi/slozhenie' },
+                { label: '2.2 Сложение и вычитание дробей', slug: '6-klass/drobi/slozhenie' },
                 { label: '2.3 Практикум', slug: '6-klass/drobi/praktikum' },
               ],
             },
